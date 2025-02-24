@@ -1,0 +1,19 @@
+/node_modules
+npm-debug.log
+yarn-error.log
+
+.env
+
+# Системні файли macOS
+.vscode
+.DS_Store
+.idea
+
+.DS_Store
+.AppleDouble
+.LSOverride
+
+*.DS_Store
+._*
+.Spotlight-V100
+.Trashes
