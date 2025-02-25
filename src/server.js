@@ -7,7 +7,9 @@ import { errorHandler } from './middlewares/errorHandler.js';
 import { notFoundHandler } from './middlewares/notFoundHandler.js';
 
 import { getEnvVar } from './utils/getEnvVar.js';
-import { logger } from './middlewares/logger.js';
+// import { logger } from './middlewares/logger.js';
+
+import { getAllTrainers } from './services/trainers.js';
 
 const PORT = Number(getEnvVar("PORT", "3000"));
 
@@ -18,7 +20,15 @@ export const startServer = () => {
     app.use(cors());
     app.use(cookieParser());
 
-    app.use(logger);
+    // app.use(logger);
+
+    app.get('/trainers', async (req, res) => {
+        const trainers = await getAllTrainers();
+
+        res.status(200).json({
+            data: trainers,
+        });
+    });
 
     app.use(notFoundHandler);
     app.use(errorHandler);
