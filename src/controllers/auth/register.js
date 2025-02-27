@@ -1,6 +1,6 @@
 import bcrypt from 'bcryptjs';
-import Auth from '../../db/models/auth';
-import { ErrorsApp } from '../../constants/errors';
+import Auth from '../../db/models/auth.js';
+import { ErrorsApp } from '../../constants/errors.js';
 
 const register = async (req, res) => {
    const { email, password } = req.body;

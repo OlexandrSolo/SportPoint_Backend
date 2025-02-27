@@ -2,9 +2,9 @@ import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
 import dotenv from 'dotenv';
 
-import Auth from '../../db/models/auth';
+import Auth from '../../db/models/auth.js';
 
-import { ErrorsApp } from '../../constants/errors';
+import { ErrorsApp } from '../../constants/errors.js';
 
 dotenv.config();
 

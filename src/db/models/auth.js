@@ -18,7 +18,6 @@ const authSchema = Schema(
       type: String,
       enum: ['customer', 'coach', 'adminClub'],
       default: 'customer',
-      required: [true, 'Role is required'],
     },
 
     token: {
@@ -41,6 +40,6 @@ const authSchema = Schema(
   { versionKey: false, timestamps: true },
 );
 
-  const Auth = model('auth', authSchema);
+const Auth = model('auth', authSchema);
 
-  export default Auth;
+export default Auth;

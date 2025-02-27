@@ -1,6 +1,6 @@
 import Joi from 'joi';
 
-import { patternLines } from '../../constants/patternLines';
+import { patternLines } from '../../constants/patternLines.js';
 
 const userLoginSchema = (req, res, next) => {
   const schema = Joi.object({

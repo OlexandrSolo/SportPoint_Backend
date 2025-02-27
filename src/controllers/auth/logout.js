@@ -1,4 +1,4 @@
-import Auth from "../../db/models/auth";
+import Auth from '../../db/models/auth.js';
 
 const logout = async (req, res) => {
   const { _id } = req.user;

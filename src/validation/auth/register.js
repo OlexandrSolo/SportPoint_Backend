@@ -1,12 +1,11 @@
 import Joi from 'joi';
 
-import { patternLines } from '../../constants/patternLines';
+import { patternLines } from '../../constants/patternLines.js';
 
 const userRegisterSchema = (req, res, next) => {
   const schema = Joi.object({
     email: Joi.string().pattern(patternLines.EMAIL).required(),
     password: Joi.string().pattern(patternLines.PASSWORD).required(),
-    role: Joi.string().required(),
   });
 
   const validationResult = schema.validate(req.body);
