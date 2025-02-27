@@ -10,30 +10,33 @@ import { getEnvVar } from './utils/getEnvVar.js';
 // import { logger } from './middlewares/logger.js';
 
 import { getAllTrainers } from './services/trainers.js';
+import profileRouter from './routers/userProfileRoute.js';
 
-const PORT = Number(getEnvVar("PORT", "3000"));
+const PORT = Number(getEnvVar('PORT', '3000'));
 
 export const startServer = () => {
-    const app = express();
+  const app = express();
 
-    app.use(express.json());
-    app.use(cors());
-    app.use(cookieParser());
+  app.use(express.json());
+  app.use(cors());
+  app.use(cookieParser());
 
-    // app.use(logger);
+  // app.use(logger);
 
-    app.get('/trainers', async (req, res) => {
-        const trainers = await getAllTrainers();
+  app.get('/trainers', async (req, res) => {
+    const trainers = await getAllTrainers();
 
-        res.status(200).json({
-            data: trainers,
-        });
+    res.status(200).json({
+      data: trainers,
     });
+  });
 
-    app.use(notFoundHandler);
-    app.use(errorHandler);
+  app.use(profileRouter);
 
-    app.listen(PORT, () => {
-        console.log(`Server is running on port ${PORT}`);
-    });
+  app.use(notFoundHandler);
+  app.use(errorHandler);
+
+  app.listen(PORT, () => {
+    console.log(`Server is running on port ${PORT}`);
+  });
 };
