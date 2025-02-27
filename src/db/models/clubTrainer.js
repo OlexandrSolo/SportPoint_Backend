@@ -50,7 +50,7 @@ const ClubTrainerSchema = new mongoose.Schema({
         versionKey: false
     });
 
-
+// Валідація перед збереженням
 ClubTrainerSchema.post("save", handleSaveError);
 
 ClubTrainerSchema.pre("findOneAndUpdate", setupUpdateValidator);
