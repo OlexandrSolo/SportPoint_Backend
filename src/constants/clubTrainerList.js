@@ -1,0 +1,1 @@
+export const typeList = ["club", "trainer"];
