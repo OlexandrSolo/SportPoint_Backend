@@ -1,14 +1,13 @@
 import bcrypt from 'bcryptjs';
-import jwt from 'jsonwebtoken';
 import dotenv from 'dotenv';
 
 import Auth from '../../db/models/auth.js';
 
 import { ErrorsApp } from '../../constants/errors.js';
 
-dotenv.config();
+import loginService from '../../services/auth/loginService.js';
 
-const { SECRET_KEY } = process.env;
+dotenv.config();
 
 const login = async (req, res) => {
    const { email, password } = req.body;
@@ -29,21 +28,14 @@ const login = async (req, res) => {
         .status(401)
         .json({ message: ErrorsApp.NOT_CORRECT_PASSWORD });
     }
+  if (!user.verify) { 
+    return res.status(401).json({ message: ErrorsApp.NOT_VERIFICATION(email) });
+    
+  }
    
-    const payload = {
-      id: user._id,
-    };
-   
-    const token = jwt.sign(payload, SECRET_KEY, { expiresIn: '24h' });
-    const refreshToken = jwt.sign(payload, SECRET_KEY, {
-      expiresIn: '7d',
-    });
-   
-   await Auth.findByIdAndUpdate(user._id, { $set: { token, refreshToken } });
-
-    res.status(201).json({
-      token, refreshToken
-    });
+  const tokens = await loginService(user);
+    
+  res.status(201).json(tokens);
 };
 
 export default login;

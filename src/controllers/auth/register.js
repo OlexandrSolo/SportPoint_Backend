@@ -1,6 +1,8 @@
-import bcrypt from 'bcryptjs';
+
 import Auth from '../../db/models/auth.js';
 import { ErrorsApp } from '../../constants/errors.js';
+
+import registerService from '../../services/auth/registerService.js';
 
 const register = async (req, res) => {
    const { email, password } = req.body;
@@ -12,17 +14,10 @@ const register = async (req, res) => {
       return res.status(409).json({ message: ErrorsApp.EXIST_USER });
    }
    
-   const hashPassword = await bcrypt.hash(password, 10);
-
-   const newUser = await Auth.create({
-      ...req.body,
-      email: normalizeEmail,
-      password: hashPassword,
-   });
+   const newUser = await registerService(req, normalizeEmail, password);
 
    res.status(201).json({
       email: newUser.email,
-      name: newUser.name,
    });
 };
 
