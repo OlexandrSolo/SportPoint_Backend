@@ -22,11 +22,11 @@ async function sendMail(to, subject, text, html) {
   });
 
    await transporter.sendMail({
-    from: MAIL_USER, // Ваша електронна адреса відправника
-    to: to, // Одержувач vitaliyfront@gmail.com
-    subject: subject, // Тема
-    text: text, // Текст листа
-    html: html, // HTML-версія листа
+    from: MAIL_USER,
+    to: to,
+    subject: subject,
+    text: text,
+    html: html,
   });
 
 

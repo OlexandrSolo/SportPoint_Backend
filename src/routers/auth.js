@@ -11,11 +11,13 @@ import logout from '../controllers/auth/logout.js';
 import refreshToken from '../controllers/auth/refreshToken.js';
 import verifyEmail from '../controllers/auth/verifyEmail.js';
 import sendCode from '../controllers/auth/sendCode.js';
+import verifyCode from '../controllers/auth/verifyCode.js';
 
 // validation
 import userRegisterSchema from '../validation/auth/register.js';
 import userLoginSchema from '../validation/auth/login.js';
 import sendCodeEmailSchema from '../validation/auth/sendCodeEmail.js';
+import verifyCodeSchema from '../validation/auth/verifyCode.js';
 
 
 
@@ -27,6 +29,6 @@ router.post('/logout', auth, ctrlWrapper(logout));
 router.get('/refresh/current', authRefresh, ctrlWrapper(refreshToken));
 router.get('/verify/:verificationToken', ctrlWrapper(verifyEmail));
 router.post('/send/verify', sendCodeEmailSchema, ctrlWrapper(sendCode));
-router.post('/verify', ctrlWrapper);
+router.post('/verify', verifyCodeSchema, ctrlWrapper(verifyCode));
 
 export default router;

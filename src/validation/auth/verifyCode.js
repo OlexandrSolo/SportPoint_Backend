@@ -3,11 +3,10 @@ import Joi from 'joi';
 import { patternLines } from '../../constants/patternLines.js';
 import { ErrorsApp } from '../../constants/errors.js';
 
-const userLoginSchema = (req, res, next) => {
+const verifyCodeSchema = (req, res, next) => {
   const schema = Joi.object({
-    email: Joi.string().pattern(patternLines.EMAIL).required().messages({
-      'string.pattern.base': ErrorsApp.NOT_VALID_EMAIL,
-      'any.required': 'Email is required.',
+    verifyCode: Joi.number().required().messages({
+      'any.required': 'Code is required.',
     }),
     password: Joi.string().pattern(patternLines.PASSWORD).required().messages({
       'string.pattern.base': ErrorsApp.NOT_VALID_PASSWORD,
@@ -26,4 +25,4 @@ const userLoginSchema = (req, res, next) => {
   next();
 };
 
-export default userLoginSchema;
+export default verifyCodeSchema;
