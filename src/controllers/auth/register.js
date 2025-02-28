@@ -2,6 +2,7 @@ import bcrypt from 'bcryptjs';
 import Auth from '../../db/models/auth.js';
 import { ErrorsApp } from '../../constants/errors.js';
 
+
 const register = async (req, res) => {
    const { email, password } = req.body;
    const normalizeEmail = email.toLowerCase();
@@ -19,10 +20,11 @@ const register = async (req, res) => {
       email: normalizeEmail,
       password: hashPassword,
    });
-
+   
    res.status(201).json({
       email: newUser.email,
       name: newUser.name,
+       
    });
 };
 

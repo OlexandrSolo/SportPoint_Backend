@@ -10,8 +10,11 @@ import { getEnvVar } from './utils/getEnvVar.js';
 // import { logger } from './middlewares/logger.js';
 
 import authRouter from './routers/auth.js';
+import reviewRoutes from './routers/reviews.js';
+
 
 import { getAllTrainers } from './services/trainers.js';
+
 
 const PORT = Number(getEnvVar("PORT", "3000"));
 
@@ -25,6 +28,7 @@ export const startServer = () => {
     // app.use(logger);
 
     app.use('/api/auth', authRouter);
+    app.use('/api/reviews', reviewRoutes);
 
     app.get('/trainers', async (req, res) => {
         const trainers = await getAllTrainers();
@@ -33,6 +37,7 @@ export const startServer = () => {
             data: trainers,
         });
     });
+    
 
     app.use(notFoundHandler);
     app.use(errorHandler);
