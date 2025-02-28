@@ -21,7 +21,7 @@ async function sendMail(to, subject, text, html) {
     host: MAIL_HOST,
   });
 
-  let info = await transporter.sendMail({
+   await transporter.sendMail({
     from: MAIL_USER, // Ваша електронна адреса відправника
     to: to, // Одержувач vitaliyfront@gmail.com
     subject: subject, // Тема
@@ -29,6 +29,6 @@ async function sendMail(to, subject, text, html) {
     html: html, // HTML-версія листа
   });
 
-  console.log('Message sent: %s', info.messageId);
+
 }
 export default sendMail;

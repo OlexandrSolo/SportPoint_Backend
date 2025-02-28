@@ -10,10 +10,12 @@ import login from '../controllers/auth/login.js';
 import logout from '../controllers/auth/logout.js';
 import refreshToken from '../controllers/auth/refreshToken.js';
 import verifyEmail from '../controllers/auth/verifyEmail.js';
+import sendCode from '../controllers/auth/sendCode.js';
 
 // validation
 import userRegisterSchema from '../validation/auth/register.js';
 import userLoginSchema from '../validation/auth/login.js';
+import sendCodeEmailSchema from '../validation/auth/sendCodeEmail.js';
 
 
 
@@ -24,5 +26,7 @@ router.post('/signin', userLoginSchema, ctrlWrapper(login));
 router.post('/logout', auth, ctrlWrapper(logout));
 router.get('/refresh/current', authRefresh, ctrlWrapper(refreshToken));
 router.get('/verify/:verificationToken', ctrlWrapper(verifyEmail));
+router.post('/send/verify', sendCodeEmailSchema, ctrlWrapper(sendCode));
+router.post('/verify', ctrlWrapper);
 
 export default router;

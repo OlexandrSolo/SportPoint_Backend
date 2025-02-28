@@ -9,6 +9,7 @@ dotenv.config();
 const { VERIFY_EMAIL_LINK } = process.env;
 
 const registerService = async (req, email, password) => {
+  
   const hashPassword = await bcrypt.hash(password, 10);
 
   const emailVerificationToken = uuidv4();

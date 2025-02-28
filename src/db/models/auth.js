@@ -36,6 +36,10 @@ const authSchema = Schema(
       type: String,
       required: [true, 'Verify token is required'],
     },
+    verifyCode: {
+      type: Number,
+      default: null,
+    },
   },
   { versionKey: false, timestamps: true },
 );
