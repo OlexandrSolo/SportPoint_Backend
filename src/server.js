@@ -9,6 +9,8 @@ import { notFoundHandler } from './middlewares/notFoundHandler.js';
 import { getEnvVar } from './utils/getEnvVar.js';
 // import { logger } from './middlewares/logger.js';
 
+import authRouter from './routers/auth.js';
+
 import { getAllTrainers } from './services/trainers.js';
 import profileRouter from './routers/userProfileRoute.js';
 
@@ -23,8 +25,12 @@ export const startServer = () => {
 
   // app.use(logger);
 
-  app.get('/trainers', async (req, res) => {
-    const trainers = await getAllTrainers();
+
+    app.use('/api/auth', authRouter);
+
+    app.get('/trainers', async (req, res) => {
+        const trainers = await getAllTrainers();
+
 
     res.status(200).json({
       data: trainers,
