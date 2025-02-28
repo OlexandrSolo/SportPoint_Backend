@@ -33,7 +33,7 @@ const parseDescription = (description) => {
 };
 
 export const createUserProfileController = async (req, res) => {
-  console.log('Received files:', req.files);
+  const { user } = req;
 
   try {
     const avatarUrl = await handleFileUpload(req.files?.avatar?.[0]);
@@ -50,10 +50,14 @@ export const createUserProfileController = async (req, res) => {
 
     const profileData = {
       ...req.body,
-      userId: req.user._id,
+      userId: user._id,
       avatar: avatarUrl,
       images: photoUrls,
-      description,
+      role: user.role,
+      description: {
+        ...description,
+        email: user.email,
+      },
     };
 
     const userProfile = await createUserProfile(profileData);

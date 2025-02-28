@@ -6,13 +6,14 @@ import { ErrorsApp } from '../../constants/errors.js';
 const userRegisterSchema = (req, res, next) => {
   const schema = Joi.object({
     email: Joi.string().pattern(patternLines.EMAIL).required().messages({
-      'string.pattern.base': ErrorsApp.NOT_VALID_EMAIL, 
+      'string.pattern.base': ErrorsApp.NOT_VALID_EMAIL,
       'any.required': 'Email is required.',
     }),
     password: Joi.string().pattern(patternLines.PASSWORD).required().messages({
       'string.pattern.base': ErrorsApp.NOT_VALID_PASSWORD,
       'any.required': 'Password is required.',
     }),
+    role: Joi.string().valid('customer', 'coach', 'adminClub').optional(),
   });
 
   const validationResult = schema.validate(req.body);

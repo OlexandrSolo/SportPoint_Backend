@@ -6,18 +6,26 @@ const descriptionSchema = new mongoose.Schema({
   short_desc: { type: String },
   abilities: { type: String },
   schedule: [{ type: Date }],
-  contacts: [{ type: String }],
   price: { type: String },
   social_links: { type: [String] },
+  phone: { type: String },
+  email: { type: mongoose.Schema.Types.String, ref: 'auth' },
 });
 
-const userProfileSchema = new mongoose.Schema({
-  userId: { type: mongoose.Schema.Types.ObjectId, ref: 'user', required: true },
-  name: { type: String, default: null, required: true },
-  avatar: { type: String, default: null },
-  images: { type: [String] },
-  description: descriptionSchema,
-});
+const userProfileSchema = new mongoose.Schema(
+  {
+    userId: { type: mongoose.Schema.Types.ObjectId, ref: 'auth' },
+    name: { type: String, default: null, required: true },
+    avatar: { type: String, default: null },
+    images: { type: [String] },
+    description: descriptionSchema,
+    role: { type: mongoose.Schema.Types.String, ref: 'auth' },
+  },
+  {
+    timestamps: true,
+    versionKey: false,
+  },
+);
 
 userProfileSchema.post('save', handleSaveError);
 
