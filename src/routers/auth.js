@@ -1,6 +1,6 @@
 import express from 'express';
 
-import ctrlWrapper from '../utils/ctrlWrapper.js';
+import { ctrlWrapper } from '../utils/ctrlWrapper.js';
 import auth from '../middlewares/auth.js';
 import authRefresh from '../middlewares/authRefresh.js';
 
