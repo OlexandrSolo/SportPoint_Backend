@@ -1,7 +1,7 @@
 import fs from 'node:fs/promises';
 import path from 'node:path';
 import { getEnvVar } from './getEnvVar.js';
-import { TEMP_UPLOAD_DIR, UPLOAD_DIR } from '../constants/user.js';
+import { TEMP_UPLOAD_DIR, UPLOAD_DIR } from '../constants/userProfile.js';
 
 const saveFileToUploadDir = async (file) => {
   const tempPath = path.join(TEMP_UPLOAD_DIR, file.filename);

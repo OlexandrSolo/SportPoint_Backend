@@ -2,24 +2,44 @@ import createHttpError from 'http-errors';
 import {
   createUserProfile,
   getUserProfile,
-} from '../services/userProfileService.js';
+} from '../../services/userProfileService.js';
 import {
   handleFileUpload,
   handleMultipleFileUploads,
-} from '../helpers/uploadImageHelper.js';
+} from '../../helpers/uploadImageHelper.js';
+import { ReviewsCollection } from '../../db/models/Review.js';
 
 export const getUserProfileController = async (req, res) => {
-  const { userId } = req.params;
-  const userProfile = await getUserProfile(userId);
-  console.log('UserId', userId);
+  const { _id } = req.user;
+  const userProfile = await getUserProfile(_id);
+  const userComments = await ReviewsCollection.find({ club: _id });
+  const commentsCounts = userComments.length;
+
+  let averageRating = null;
+
+  if (commentsCounts > 0) {
+    const totalRating = userComments.reduce(
+      (acc, comment) => acc + comment.rating,
+      0,
+    );
+    averageRating = totalRating / commentsCounts;
+  } else {
+    averageRating = 0;
+  }
+
   if (!userProfile) {
     throw createHttpError(404, 'Contact not found');
   }
 
   res.status(200).json({
     status: 200,
-    message: `Successfully found user profile with id ${userId}!`,
-    userProfile,
+    message: `Successfully found user profile with id ${_id}!`,
+    userProfile: {
+      ...userProfile,
+      userComments: userComments,
+      commentsCounts: commentsCounts,
+      averageRating: averageRating,
+    },
   });
 };
 

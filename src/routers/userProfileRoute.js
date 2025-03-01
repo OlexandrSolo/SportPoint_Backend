@@ -3,17 +3,22 @@ import ctrlWrapper from '../utils/ctrlWrapper.js';
 import {
   createUserProfileController,
   getUserProfileController,
-} from '../controllers/UserProfileControllers.js';
+} from '../controllers/userProfile/UserProfileControllers.js';
 import { uploadFields } from '../middlewares/multer.js';
-import authRefresh from '../middlewares/authRefresh.js';
+import auth from '../middlewares/auth.js';
+import { userProfileSchemaJoi } from '../validation/users-profile/usersProfileValidation.js';
+import { validateBody } from '../middlewares/validateBody.js';
 
 const profileRouter = Router();
 
-profileRouter.get('/profile/:userId', ctrlWrapper(getUserProfileController));
-profileRouter.use(authRefresh);
+profileRouter.use(auth);
+profileRouter.get('/', ctrlWrapper(getUserProfileController));
+
 profileRouter.post(
-  '/profile',
+  '/',
   uploadFields,
+  validateBody(userProfileSchemaJoi),
   ctrlWrapper(createUserProfileController),
 );
+
 export default profileRouter;

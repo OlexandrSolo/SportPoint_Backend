@@ -1,5 +1,5 @@
 import multer from 'multer';
-import { TEMP_UPLOAD_DIR } from '../constants/user.js';
+import { TEMP_UPLOAD_DIR } from '../constants/userProfile.js';
 
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {

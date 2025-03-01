@@ -35,13 +35,9 @@ export const startServer = () => {
     res.status(200).json({
       data: trainers,
     });
-
-    res.status(200).json({
-      data: trainers,
-    });
   });
 
-  app.use(profileRouter);
+  app.use('/profile', profileRouter);
 
   app.use(notFoundHandler);
   app.use(errorHandler);
