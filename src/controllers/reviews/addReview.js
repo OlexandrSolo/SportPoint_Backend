@@ -1,97 +1,100 @@
 import { ReviewsCollection } from '../../db/models/Review.js';
+import createHttpError from 'http-errors';
 
 export const addReview = async (req, res) => {
-    try {
-        const { club, trainer, rating, comment, images } = req.body;
-        const userId = req.user.id;
+    const { club, trainer, rating, comment, images } = req.body;
+    const userId = req.user.id;
 
-        if (!club && !trainer) {
-            return res.status(400).json({ message: 'The review must be linked to a club or trainer' });
-        }
-
-        const review = await ReviewsCollection.create({
-            user: userId,
-            club,
-            trainer,
-            rating,
-            comment,
-            images,
-        });
-
-        res.status(201).json(review);
-    } catch (error) {
-        res.status(500).json({ message: 'Server error', error });
+    if (!club && !trainer) {
+        throw createHttpError(400, 'The review must be linked to a club or trainer');
     }
+
+    const review = await ReviewsCollection.create({
+        user: userId,
+        club,
+        trainer,
+        rating,
+        comment,
+        images,
+    });
+
+    if (!review) {
+        throw createHttpError(500, 'Server error');
+    }
+
+    res.status(201).json({
+        status: 201,
+        message: 'Successfully created review!',
+        data: review,
+    });
 };
 
 export const getReviews = async (req, res) => {
-    try {
-        const { clubId, trainerId } = req.query;
-        const filter = {};
+    const { clubId, trainerId } = req.query;
+    const filter = {};
 
-        if (clubId) filter.club = clubId;
-        if (trainerId) filter.trainer = trainerId;
+    if (clubId) filter.club = clubId;
+    if (trainerId) filter.trainer = trainerId;
 
-        const reviews = await ReviewsCollection.find(filter).populate('user', 'email').exec();
+    const reviews = await ReviewsCollection.find(filter).populate('user', 'email').exec();
 
-        res.status(200).json(reviews);
-    } catch (error) {
-        
-        res.status(500).json({ message: 'Server error', error });
-    }
+    res.status(200).json({
+        status: 200,
+        message: 'Successfully retrieved reviews!',
+        data: reviews,
+    });
 };
 
 export const deleteReview = async (req, res) => {
-    try {
-        const review = await ReviewsCollection.findById(req.params.id);
+    const review = await ReviewsCollection.findById(req.params.id);
 
-        if (!review) {
-            return res.status(404).json({ message: 'Review not found' });
-        }
-
-        if (review.user.toString() !== req.user.id) {
-            return res.status(403).json({ message: 'You do not have permission to delete this review' });
-        }
-
-        await review.deleteOne();
-        res.status(200).json({ message: 'Review deleted successfully' });
-    } catch (error) {
-        res.status(500).json({ message: 'Server error', error });
+    if (!review) {
+        throw createHttpError(404, 'Review not found');
     }
-};
 
+    if (review.user.toString() !== req.user.id) {
+        throw createHttpError(403, 'You do not have permission to delete this review');
+    }
+
+    await review.deleteOne();
+
+    res.status(200).json({
+        status: 200,
+        message: 'Review deleted successfully!',
+    });
+};
 
 export const replyToReview = async (req, res) => {
-    try {
-        const { reply } = req.body;
-        const review = await ReviewsCollection.findById(req.params.id);
+    const { reply } = req.body;
+    const review = await ReviewsCollection.findById(req.params.id);
 
-        if (!review) {
-            return res.status(404).json({ message: 'Review not found' });
-        }
-
-        review.adminReply = reply;
-        await review.save();
-
-        res.status(200).json(review);
-    } catch (error) {
-        res.status(500).json({ message: 'Server error', error });
+    if (!review) {
+        throw createHttpError(404, 'Review not found');
     }
+
+    review.adminReply = reply;
+    await review.save();
+
+    res.status(200).json({
+        status: 200,
+        message: 'Reply added successfully!',
+        data: review,
+    });
 };
+
 export const reportReview = async (req, res) => {
-    try {
-        const { reason } = req.body;
-        const review = await ReviewsCollection.findById(req.params.id);
+    const { reason } = req.body;
+    const review = await ReviewsCollection.findById(req.params.id);
 
-        if (!review) {
-            return res.status(404).json({ message: 'Review not found' });
-        }
-
-        review.reports.push({ user: req.user.id, reason });
-        await review.save();
-
-        res.status(200).json({ message: 'Report submitted successfully' });
-    } catch (error) {
-        res.status(500).json({ message: 'Server error', error });
+    if (!review) {
+        throw createHttpError(404, 'Review not found');
     }
+
+    review.reports.push({ user: req.user.id, reason });
+    await review.save();
+
+    res.status(200).json({
+        status: 200,
+        message: 'Report submitted successfully!',
+    });
 };
