@@ -2,18 +2,26 @@ import Joi from 'joi';
 import { patternLines } from '../../constants/patternLines.js';
 
 export const descriptionSchemaJoi = Joi.object({
-  address: Joi.string().allow(null, ''),
-  short_desc: Joi.string().allow(null, ''),
-  abilities: Joi.string().allow(null, ''),
+  address: Joi.string(),
+  short_desc: Joi.string(),
+  abilities: Joi.string(),
   schedule: Joi.array().items(Joi.date().iso()),
-  price: Joi.string().allow(null, ''),
-  social_links: Joi.array().items(Joi.string().uri()),
-  phone: Joi.string().pattern(patternLines.PHONE).allow(null, ''),
+  price: Joi.string(),
+  social_links: Joi.array().items(
+    Joi.object({
+      name: Joi.string().required(),
+      url: Joi.string().uri().required(),
+    }),
+  ),
+  phone: Joi.string().pattern(patternLines.PHONE),
+  email: Joi.string().pattern(patternLines.EMAIL),
+  //TODO change if you need
+  favorite: Joi.array().items(Joi.object({ type: Joi.string() })),
 });
 
 export const userProfileSchemaJoi = Joi.object({
   name: Joi.string().min(2).max(50).required(),
   avatar: Joi.string().uri().allow(null, ''),
-  images: Joi.array().items(Joi.string().uri()).allow(null, ''),
-  description: descriptionSchemaJoi.allow(null),
+  images: Joi.array().items(Joi.string().uri()),
+  description: descriptionSchemaJoi,
 });

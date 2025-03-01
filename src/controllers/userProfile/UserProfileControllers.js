@@ -2,30 +2,17 @@ import createHttpError from 'http-errors';
 import {
   createUserProfile,
   getUserProfile,
+  updateUserProfile,
 } from '../../services/userProfileService.js';
 import {
   handleFileUpload,
   handleMultipleFileUploads,
 } from '../../helpers/uploadImageHelper.js';
-import { ReviewsCollection } from '../../db/models/Review.js';
 
 export const getUserProfileController = async (req, res) => {
   const { _id } = req.user;
+
   const userProfile = await getUserProfile(_id);
-  const userComments = await ReviewsCollection.find({ club: _id });
-  const commentsCounts = userComments.length;
-
-  let averageRating = null;
-
-  if (commentsCounts > 0) {
-    const totalRating = userComments.reduce(
-      (acc, comment) => acc + comment.rating,
-      0,
-    );
-    averageRating = totalRating / commentsCounts;
-  } else {
-    averageRating = 0;
-  }
 
   if (!userProfile) {
     throw createHttpError(404, 'Contact not found');
@@ -34,12 +21,7 @@ export const getUserProfileController = async (req, res) => {
   res.status(200).json({
     status: 200,
     message: `Successfully found user profile with id ${_id}!`,
-    userProfile: {
-      ...userProfile,
-      userComments: userComments,
-      commentsCounts: commentsCounts,
-      averageRating: averageRating,
-    },
+    userProfile,
   });
 };
 
@@ -91,6 +73,61 @@ export const createUserProfileController = async (req, res) => {
     res.status(500).json({
       status: 500,
       message: 'Error creating user profile',
+      error: error.message,
+    });
+  }
+};
+
+export const updatedUserProfileController = async (req, res) => {
+  const { _id } = req.user;
+  const { avatar, images } = req.files;
+  const { description } = req.body;
+
+  try {
+    const userProfile = await getUserProfile(_id);
+    if (!userProfile) {
+      return res.status(404).json({
+        status: 404,
+        message: 'User profile not found',
+      });
+    }
+
+    const updatedData = {};
+
+    if (avatar) updatedData.avatar = await handleFileUpload(avatar[0]);
+    if (images && images.length > 0)
+      updatedData.images = await handleMultipleFileUploads(images);
+
+    if (description) {
+      const parsedDescription = parseDescription(description);
+      if (parsedDescription instanceof Error) {
+        return res.status(400).json({
+          status: 400,
+          message: 'Invalid JSON format in description',
+          error: parsedDescription.message,
+        });
+      }
+      updatedData.description = parsedDescription;
+    }
+
+    const updatedProfile = await updateUserProfile(
+      { ...req.body, ...updatedData },
+      _id,
+      {
+        new: true,
+      },
+    );
+
+    res.status(200).json({
+      status: 200,
+      message: 'User profile updated successfully!',
+      updatedProfile,
+    });
+  } catch (error) {
+    console.error('Error updating profile:', error);
+    res.status(500).json({
+      status: 500,
+      message: 'Error updating user profile',
       error: error.message,
     });
   }

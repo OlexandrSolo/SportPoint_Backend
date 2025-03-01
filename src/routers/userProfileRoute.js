@@ -3,6 +3,7 @@ import ctrlWrapper from '../utils/ctrlWrapper.js';
 import {
   createUserProfileController,
   getUserProfileController,
+  updatedUserProfileController,
 } from '../controllers/userProfile/UserProfileControllers.js';
 import { uploadFields } from '../middlewares/multer.js';
 import auth from '../middlewares/auth.js';
@@ -19,6 +20,12 @@ profileRouter.post(
   uploadFields,
   validateBody(userProfileSchemaJoi),
   ctrlWrapper(createUserProfileController),
+);
+
+profileRouter.patch(
+  '/',
+  uploadFields,
+  ctrlWrapper(updatedUserProfileController),
 );
 
 export default profileRouter;
