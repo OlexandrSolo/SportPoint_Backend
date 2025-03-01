@@ -1,6 +1,6 @@
 import Joi from "joi";
-import { patternLines } from "../../../constants/patternLines";
-import { typeList } from "../../../constants/clubTrainerList";
+import { patternLines } from "../../constants/patternLines.js";
+import { typeList } from "../../constants/clubTrainerList.js";
 
 export const clubTrainerSchema = Joi.object({
     name: Joi.string().required().messages({
