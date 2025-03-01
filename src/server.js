@@ -10,6 +10,7 @@ import { getEnvVar } from './utils/getEnvVar.js';
 // import { logger } from './middlewares/logger.js';
 
 import authRouter from './routers/auth.js';
+import reviewRoutes from './routers/reviews.js';
 
 import { getAllTrainers } from './services/trainers.js';
 import profileRouter from './routers/userProfileRoute.js';
@@ -25,12 +26,15 @@ export const startServer = () => {
 
   // app.use(logger);
 
+  app.use('/api/auth', authRouter);
+  app.use('/api/reviews', reviewRoutes);
 
-    app.use('/api/auth', authRouter);
+  app.get('/trainers', async (req, res) => {
+    const trainers = await getAllTrainers();
 
-    app.get('/trainers', async (req, res) => {
-        const trainers = await getAllTrainers();
-
+    res.status(200).json({
+      data: trainers,
+    });
 
     res.status(200).json({
       data: trainers,
