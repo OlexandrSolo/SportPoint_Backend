@@ -1,6 +1,7 @@
 import { mongoose, model } from "mongoose";
 
 import { typeList } from '../../constants/clubTrainerList.js';
+
 import { handleSaveError, setupUpdateValidator } from './hooks.js';
 
 const ClubTrainerSchema = new mongoose.Schema({
@@ -57,6 +58,6 @@ ClubTrainerSchema.pre("findOneAndUpdate", setupUpdateValidator);
 
 ClubTrainerSchema.post("findOneAndUpdate", handleSaveError);
 
-const ClubsTrainersCollection = model("clubsTrainers", ClubTrainerSchema);
+const CardCollection = model("cards", ClubTrainerSchema);
 
-export default ClubsTrainersCollection;
+export default CardCollection;
