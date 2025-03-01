@@ -28,14 +28,18 @@ const authSchema = Schema(
       type: String,
       default: null,
     },
-    // verify: {
-    //   type: Boolean,
-    //   default: false,
-    // },
-    // verificationToken: {
-    //   type: String,
-    //   required: [true, 'Verify token is required'],
-    // },
+    verify: {
+      type: Boolean,
+      default: false,
+    },
+    verificationToken: {
+      type: String,
+      required: [true, 'Verify token is required'],
+    },
+    verifyCode: {
+      type: Number,
+      default: null,
+    },
   },
   { versionKey: false, timestamps: true },
 );
