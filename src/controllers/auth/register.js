@@ -1,7 +1,6 @@
 
 import Auth from '../../db/models/auth.js';
 import { ErrorsApp } from '../../constants/errors.js';
-
 import registerService from '../../services/auth/registerService.js';
 
 const register = async (req, res) => {
