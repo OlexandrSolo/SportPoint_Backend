@@ -11,9 +11,11 @@ const verifyCode = async (req, res) => {
      return res.status(401).json({ message: ErrorsApp.BAD_CODE });
    }
 
-   await verifyCodeService(password, user);
+  const tokens = await verifyCodeService(password, user);
    
-   res.status(201).json({
+  res.status(201).json({
+    token: tokens.token,
+    refreshToken: tokens.refreshToken,
      message: 'Ваш пароль успішно оновлено!',
    });
    
