@@ -5,24 +5,19 @@ import { UserProfileModel } from '../db/models/UserProfileModel.js';
 export const getUserProfile = async (userId) => {
   const userProfile = await UserProfileModel.findOne({ userId: userId }).lean();
   const viewingOwnProfile = userId.equals(userProfile.userId);
-  console.log('userId', userId);
-  console.log('userProfile', userProfile.userId);
-  console.log('viewingOwnProfile', viewingOwnProfile);
 
   let userComments = [];
   if (userProfile.role === 'customer') {
     if (viewingOwnProfile) {
       console.log(1);
       userComments = await ReviewsCollection.find({ user: userId });
-    } else {
-      console.log(2);
-
-      userComments = await ReviewsCollection.find({ club: userProfile.userId });
     }
-  } else if (userProfile.role === 'coach' || userProfile.role === 'adminClub') {
+  } else if (userProfile.role === 'coach') {
     console.log(3);
-
-    userComments = await ReviewsCollection.find({ user: userId });
+    userComments = await ReviewsCollection.find({ trainer: userId });
+  } else if (userProfile.role === 'adminClub') {
+    console.log(4);
+    userComments = await ReviewsCollection.find({ club: userId });
   }
 
   const commentsCounts = userComments.length;
@@ -40,6 +35,7 @@ export const getUserProfile = async (userId) => {
   };
 };
 
+//create user profile for logged users
 export const createUserProfile = async (payload) => {
   const existingProfile = await UserProfileModel.findOne({
     userId: payload.userId,
@@ -57,6 +53,7 @@ export const createUserProfile = async (payload) => {
   return newUserProfile;
 };
 
+//update user profile for logged users
 export const updateUserProfile = async (payload, userId, options = {}) => {
   const updatedUserProfile = await UserProfileModel.findOneAndUpdate(
     { userId: new mongoose.Types.ObjectId(userId) },
@@ -73,4 +70,10 @@ export const updateUserProfile = async (payload, userId, options = {}) => {
     profile: updatedUserProfile,
     isNew: Boolean(updatedUserProfile?.lastErrorObject?.upserted),
   };
+};
+
+//delete user profile for logged users
+export const deleteUserProfile = async (userId) => {
+  const profile = await UserProfileModel.findOneAndDelete({ userId: userId });
+  return profile;
 };

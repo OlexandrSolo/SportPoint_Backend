@@ -13,7 +13,7 @@ import authRouter from './routers/auth.js';
 import reviewRoutes from './routers/reviews.js';
 
 import { getAllTrainers } from './services/trainers.js';
-import profileRouter from './routers/userProfileRoute.js';
+import router from './routers/index.js';
 
 const PORT = Number(getEnvVar('PORT', '3000'));
 
@@ -37,7 +37,7 @@ export const startServer = () => {
     });
   });
 
-  app.use('/profile', profileRouter);
+  app.use(router);
 
   app.use(notFoundHandler);
   app.use(errorHandler);

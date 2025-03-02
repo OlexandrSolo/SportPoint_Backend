@@ -25,3 +25,10 @@ export const userProfileSchemaJoi = Joi.object({
   images: Joi.array().items(Joi.string().uri()),
   description: descriptionSchemaJoi,
 });
+
+export const userProfileUpdateSchemaJoi = Joi.object({
+  name: Joi.string().min(2).max(50),
+  avatar: Joi.string().uri().allow(null, ''),
+  images: Joi.array().items(Joi.string().uri()),
+  description: descriptionSchemaJoi.optional(),
+});

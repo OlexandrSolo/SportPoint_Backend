@@ -1,14 +1,17 @@
 import createHttpError from 'http-errors';
 import {
   createUserProfile,
+  deleteUserProfile,
   getUserProfile,
   updateUserProfile,
 } from '../../services/userProfileService.js';
 import {
   handleFileUpload,
   handleMultipleFileUploads,
+  parseDescription,
 } from '../../helpers/uploadImageHelper.js';
 
+//get user profile for logged users
 export const getUserProfileController = async (req, res) => {
   const { _id } = req.user;
 
@@ -25,15 +28,7 @@ export const getUserProfileController = async (req, res) => {
   });
 };
 
-const parseDescription = (description) => {
-  if (!description) return null;
-  try {
-    return JSON.parse(description);
-  } catch (error) {
-    return error;
-  }
-};
-
+//create user profile for logged users
 export const createUserProfileController = async (req, res) => {
   const { user } = req;
 
@@ -78,9 +73,11 @@ export const createUserProfileController = async (req, res) => {
   }
 };
 
+//update user profile for logged users
 export const updatedUserProfileController = async (req, res) => {
   const { _id } = req.user;
-  const { avatar, images } = req.files;
+  const files = req.files || {};
+  const { avatar, images } = files;
   const { description } = req.body;
 
   try {
@@ -109,7 +106,6 @@ export const updatedUserProfileController = async (req, res) => {
       }
       updatedData.description = parsedDescription;
     }
-
     const updatedProfile = await updateUserProfile(
       { ...req.body, ...updatedData },
       _id,
@@ -131,4 +127,18 @@ export const updatedUserProfileController = async (req, res) => {
       error: error.message,
     });
   }
+};
+
+
+//delete user profile for logged users
+export const delateUserProfileController = async (req, res) => {
+  const { _id } = req.user;
+  console.log(_id);
+  const profile = await deleteUserProfile(_id);
+
+  if (!profile) {
+    throw createHttpError(404, 'Profile not found');
+  }
+
+  res.status(204).send('Deleted');
 };

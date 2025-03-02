@@ -12,3 +12,16 @@ export const handleFileUpload = async (file) => {
 export const handleMultipleFileUploads = async (files) => {
   return Promise.all(files.map((file) => handleFileUpload(file)));
 };
+
+//description parse helper
+export const parseDescription = (description) => {
+  if (!description) return null;
+
+  if (typeof description === 'object') return description;
+
+  try {
+    return JSON.parse(description);
+  } catch (error) {
+    return error;
+  }
+};
