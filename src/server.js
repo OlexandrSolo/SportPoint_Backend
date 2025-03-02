@@ -12,7 +12,6 @@ import { getEnvVar } from './utils/getEnvVar.js';
 import authRouter from './routers/auth.js';
 import reviewRoutes from './routers/reviews.js';
 
-import { getAllTrainers } from './services/trainers.js';
 import router from './routers/index.js';
 
 const PORT = Number(getEnvVar('PORT', '3000'));
@@ -26,18 +25,13 @@ export const startServer = () => {
 
   // app.use(logger);
 
+  app.use(router);
+
   app.use('/api/auth', authRouter);
   app.use('/api/reviews', reviewRoutes);
 
-  app.get('/trainers', async (req, res) => {
-    const trainers = await getAllTrainers();
-
-    res.status(200).json({
-      data: trainers,
-    });
-  });
-
-  app.use(router);
+  app.use(notFoundHandler);
+  app.use(errorHandler);
 
   app.use(notFoundHandler);
   app.use(errorHandler);
