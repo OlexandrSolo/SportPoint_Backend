@@ -28,7 +28,8 @@ router.post('/signin', userLoginSchema, ctrlWrapper(login));
 router.post('/logout', auth, ctrlWrapper(logout));
 router.get('/refresh/current', authRefresh, ctrlWrapper(refreshToken));
 router.get('/verify/:verificationToken', ctrlWrapper(verifyEmail));
-router.post('/send/verify', sendCodeEmailSchema, ctrlWrapper(sendCode));
+router.post('/send/verify', sendCodeEmailSchema, ctrlWrapper(sendCode),
+);
 router.post('/verify', verifyCodeSchema, ctrlWrapper(verifyCode));
 
 export default router;
