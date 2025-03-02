@@ -18,7 +18,7 @@ export const getUserProfileController = async (req, res) => {
   const userProfile = await getUserProfile(_id);
 
   if (!userProfile) {
-    throw createHttpError(404, 'Contact not found');
+    throw createHttpError(404, 'Profile not found');
   }
 
   res.status(200).json({
@@ -35,6 +35,9 @@ export const createUserProfileController = async (req, res) => {
   try {
     const avatarUrl = await handleFileUpload(req.files?.avatar?.[0]);
     const photoUrls = await handleMultipleFileUploads(req.files?.images || []);
+    const certificates = await handleMultipleFileUploads(
+      req.files?.certificates || [],
+    );
     const description = parseDescription(req.body.description);
 
     if (description instanceof Error) {
@@ -50,6 +53,7 @@ export const createUserProfileController = async (req, res) => {
       userId: user._id,
       avatar: avatarUrl,
       images: photoUrls,
+      certificates: certificates,
       role: user.role,
       description: {
         ...description,
@@ -78,7 +82,7 @@ export const updatedUserProfileController = async (req, res) => {
   const { _id } = req.user;
   const files = req.files || {};
   const { avatar, images } = files;
-  const { description } = req.body;
+  const { description, club, couch } = req.body;
 
   try {
     const userProfile = await getUserProfile(_id);
@@ -106,6 +110,13 @@ export const updatedUserProfileController = async (req, res) => {
       }
       updatedData.description = parsedDescription;
     }
+    if (club) {
+      updatedData.club = [...new Set([...userProfile.club, ...club])];
+    }
+    if (couch) {
+      updatedData.couch = [...new Set([...userProfile.couch, ...couch])];
+    }
+
     const updatedProfile = await updateUserProfile(
       { ...req.body, ...updatedData },
       _id,
@@ -128,7 +139,6 @@ export const updatedUserProfileController = async (req, res) => {
     });
   }
 };
-
 
 //delete user profile for logged users
 export const delateUserProfileController = async (req, res) => {

@@ -5,6 +5,20 @@ const socialLinkSchema = new mongoose.Schema({
   name: { type: String, required: true },
   url: { type: String, required: true },
 });
+
+const pricesSchema = new mongoose.Schema({
+  name: { type: String },
+  amount: { type: String, required: true },
+});
+
+const schedulesSchema = new mongoose.Schema({
+  days: { type: String },
+  hours: {
+    type: String,
+  },
+  date: { type: Date },
+});
+
 //TODO change if you need
 const favoriteSchema = new mongoose.Schema({
   type: { type: String, required: true },
@@ -14,9 +28,11 @@ const descriptionSchema = new mongoose.Schema({
   address: { type: String },
   short_desc: { type: String },
   abilities: { type: String },
-  schedule: [{ type: Date }],
-  price: { type: String },
-  social_links: { type: [socialLinkSchema], default: [] },
+  schedule: { type: [schedulesSchema] },
+  equipment: { type: [String] },
+  experience: { type: [Date] },
+  price: { type: [pricesSchema] },
+  social_links: { type: [socialLinkSchema] },
   phone: { type: String },
   email: { type: mongoose.Schema.Types.String, ref: 'auth' },
 });
@@ -24,12 +40,15 @@ const descriptionSchema = new mongoose.Schema({
 const userProfileSchema = new mongoose.Schema(
   {
     userId: { type: mongoose.Schema.Types.ObjectId, ref: 'auth' },
-    name: { type: String, default: null, required: true },
-    avatar: { type: String, default: null },
+    firstLastName: { type: String, default: null },
+    avatar: { type: String },
     images: { type: [String] },
+    certificates: { type: [String] },
     description: descriptionSchema,
     role: { type: mongoose.Schema.Types.String, ref: 'auth' },
-    favorite: { type: [favoriteSchema], default: [] },
+    favorite: { type: [favoriteSchema] },
+    club: { type: [String] },
+    couch: { type: [String], default: [] },
   },
   {
     timestamps: true,

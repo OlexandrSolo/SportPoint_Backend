@@ -15,5 +15,6 @@ const upload = multer({ storage });
 const uploadFields = upload.fields([
   { name: 'avatar', maxCount: 1 },
   { name: 'images', maxCount: 10 },
+  { name: 'certificates', maxCount: 6 },
 ]);
 export { uploadFields };

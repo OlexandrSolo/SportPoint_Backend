@@ -1,22 +1,42 @@
 import mongoose from 'mongoose';
 import { ReviewsCollection } from '../db/models/Review.js';
 import { UserProfileModel } from '../db/models/UserProfileModel.js';
+import createHttpError from 'http-errors';
 
 export const getUserProfile = async (userId) => {
   const userProfile = await UserProfileModel.findOne({ userId: userId }).lean();
+  if (!userProfile) {
+    throw createHttpError(404, 'Profile not found');
+  }
+
+  const { couch: couches, club: clubs } = userProfile;
+
+  const [couchesList, clubsList] = await Promise.all([
+    Promise.all(
+      couches.map(async (couchId) => {
+        const couch = await UserProfileModel.findOne({
+          userId: couchId,
+        }).lean();
+        return couch;
+      }),
+    ),
+    Promise.all(
+      clubs.map(async (clubId) => {
+        const club = await UserProfileModel.findOne({ userId: clubId }).lean();
+        return club;
+      }),
+    ),
+  ]);
+  console.log(couchesList);
+
   const viewingOwnProfile = userId.equals(userProfile.userId);
 
   let userComments = [];
-  if (userProfile.role === 'customer') {
-    if (viewingOwnProfile) {
-      console.log(1);
-      userComments = await ReviewsCollection.find({ user: userId });
-    }
+  if (userProfile.role === 'customer' && viewingOwnProfile) {
+    userComments = await ReviewsCollection.find({ user: userId });
   } else if (userProfile.role === 'coach') {
-    console.log(3);
     userComments = await ReviewsCollection.find({ trainer: userId });
   } else if (userProfile.role === 'adminClub') {
-    console.log(4);
     userComments = await ReviewsCollection.find({ club: userId });
   }
 
@@ -29,9 +49,11 @@ export const getUserProfile = async (userId) => {
 
   return {
     ...userProfile,
-    userComments: userComments,
-    commentsCounts: commentsCounts,
-    averageRating: averageRating,
+    couches_list: couchesList,
+    work_list: clubsList,
+    user_comments: userComments,
+    comments_counts: commentsCounts,
+    average_rating: averageRating,
   };
 };
 
