@@ -10,6 +10,7 @@ import { getEnvVar } from './utils/getEnvVar.js';
 // import { logger } from './middlewares/logger.js';
 
 import authRouter from './routers/auth.js';
+import CardsRouter from './routers/cardsRoutes.js';
 
 const PORT = Number(getEnvVar("PORT", "3000"));
 
@@ -23,6 +24,7 @@ export const startServer = () => {
     // app.use(logger);
 
     app.use('/api/auth', authRouter);
+    app.use('/cards', CardsRouter);
 
     app.use(notFoundHandler);
     app.use(errorHandler);

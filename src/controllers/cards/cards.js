@@ -1,11 +1,21 @@
 import * as clubTrainerService from "../../services/cards/Cards.js";
+import { parsePaginationParams } from "../../utils/parsePaginationParams.js";
+import { parseSortParams } from '../../utils/parseSortParams.js';
 
 // 📌 Отримати всі картки 
 export const getCardsController = async (req, res) => {
-    const clubsTrainers = await clubTrainerService.getAllCards();
-    console.log("Fetched from DB:", clubsTrainers);
+    const { page, perPage } = parsePaginationParams(req.query);
+    const { sortBy, sortOrder } = parseSortParams(req.query);
+    const clubsTrainers = await clubTrainerService.getAllCards({
+        page,
+        perPage,
+        sortBy,
+        sortOrder
+    });
+
     res.json({
         status: 200,
+        message: 'Successfully!',
         data: clubsTrainers
     });
 };

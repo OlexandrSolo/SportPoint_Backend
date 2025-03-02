@@ -2,7 +2,7 @@ import { Router } from "express";
 
 import { ctrlWrapper } from "../utils/ctrlWrapper.js";
 import { isValidId } from "../middlewares/isValidId.js";
-import { validateBody } from '../utils/validateBody.js';
+import { validateBody } from "../middlewares/validateBody.js";
 import * as clubTrainer from "../controllers/cards/cards.js";
 
 import { clubTrainerSchema, createTrainerClubSchema, updateClubTrainerSchema, deleteClubTrainerSchema } from "../validation/cards/trainerClub.js";
