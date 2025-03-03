@@ -10,6 +10,9 @@ import { getEnvVar } from './utils/getEnvVar.js';
 // import { logger } from './middlewares/logger.js';
 
 import authRouter from './routers/auth.js';
+
+import CardsRouter from './routers/cardsRoutes.js';
+
 import reviewRoutes from './routers/reviews.js';
 
 import router from './routers/index.js';
@@ -27,11 +30,9 @@ export const startServer = () => {
 
   app.use(router);
 
-  app.use('/api/auth', authRouter);
+  app.use('/auth', authRouter);
   app.use('/api/reviews', reviewRoutes);
-
-  app.use(notFoundHandler);
-  app.use(errorHandler);
+  app.use('/cards', CardsRouter);
 
   app.use(notFoundHandler);
   app.use(errorHandler);

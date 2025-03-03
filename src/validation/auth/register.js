@@ -13,7 +13,10 @@ const userRegisterSchema = (req, res, next) => {
       'string.pattern.base': ErrorsApp.NOT_VALID_PASSWORD,
       'any.required': 'Password is required.',
     }),
-    role: Joi.string().valid('customer', 'coach', 'adminClub').optional(),
+    role: Joi.string()
+      .valid('customer', 'coach', 'adminClub')
+      .default('customer')
+      .optional(),
   });
 
   const validationResult = schema.validate(req.body);
