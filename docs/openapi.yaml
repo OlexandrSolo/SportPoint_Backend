@@ -1,0 +1,43 @@
+openapi: 3.1.0
+info:
+  version: 1.0.0
+  title: <Contacts App>
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  description: <Service for working with contacts documentation. >
+tags:
+  # - name: UserProfile
+  # description: Operations about contacts.
+  - name: Auth
+    description: Auth operations.
+servers:
+  - url: http://localhost:3000
+paths:
+  /auth/signup:
+    post:
+      $ref: '../swagger/paths/signup/post.yaml'
+  /auth/signin:
+    post:
+      $ref: '../swagger/paths/signin/post.yaml'
+  /auth/logout:
+    post:
+      $ref: '../swagger/paths/logout/post.yaml'
+  /auth/refresh/current:
+    post:
+      $ref: '../swagger/paths/refreshCurrent/get.yaml'
+  /profile:
+    get:
+      $ref: '../swagger/paths/userProfile/get.yaml'
+    delete:
+      $ref: '../swagger/paths/userProfile/delete.yaml'
+      # patch:
+      # $ref: '../swagger/paths/{id}/patch.yaml'
+      # /contacts:
+      # post:
+      # $ref: '../swagger/paths/post.yaml'
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer

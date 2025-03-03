@@ -1,0 +1,36 @@
+tags:
+  - Auth
+summary: Refresh current
+operationId: refreshCurrent
+description: 'Refresh'
+security:
+  - bearerAuth: []
+requestBody:
+  content:
+    multipart/form-data:
+      schema:
+        type: object
+        required:
+          - refreshToken
+        properties:
+          refreshToken:
+            description: 'Refresh token'
+            type: string
+responses:
+  '200':
+    description: Refresh current
+    content:
+      application/json:
+        schema:
+          type: object
+          required:
+            - status
+          properties:
+            status:
+              type: integer
+              example: 200
+            message:
+              type: string
+              example: Successfully refreshed!
+  '401':
+    $ref: '../../components/responses/401.yaml'
