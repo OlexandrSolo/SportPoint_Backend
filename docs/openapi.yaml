@@ -6,9 +6,11 @@ info:
     name: Apache 2.0
     url: http://www.apache.org/licenses/LICENSE-2.0.html
   description: <Service for working with contacts documentation. >
+  contact:
+    email: oksana.tanashuk@gmail.com
 tags:
-  # - name: UserProfile
-  # description: Operations about contacts.
+  - name: UserProfile
+    description: Operations about users profiles.
   - name: Auth
     description: Auth operations.
 servers:
@@ -24,18 +26,20 @@ paths:
     post:
       $ref: '../swagger/paths/logout/post.yaml'
   /auth/refresh/current:
-    post:
+    get:
       $ref: '../swagger/paths/refreshCurrent/get.yaml'
+  /auth/verify/:verificationToken:
+    get:
+      $ref: '../swagger/paths/verify/get.yaml'
   /profile:
     get:
       $ref: '../swagger/paths/userProfile/get.yaml'
     delete:
       $ref: '../swagger/paths/userProfile/delete.yaml'
-      # patch:
-      # $ref: '../swagger/paths/{id}/patch.yaml'
-      # /contacts:
-      # post:
-      # $ref: '../swagger/paths/post.yaml'
+    patch:
+      $ref: '../swagger/paths/userProfile/patch.yaml'
+    post:
+      $ref: '../swagger/paths/userProfile/post.yaml'
 components:
   securitySchemes:
     bearerAuth:
