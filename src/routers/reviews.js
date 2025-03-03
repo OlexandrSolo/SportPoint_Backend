@@ -7,7 +7,7 @@ import {
     reportReview
 } from '../controllers/reviews/addReview.js';
 import auth from '../middlewares/auth.js';
-import ctrlWrapper from '../utils/ctrlWrapper.js'; 
+import { ctrlWrapper } from '../utils/ctrlWrapper.js';
 
 const router = express.Router();
 
