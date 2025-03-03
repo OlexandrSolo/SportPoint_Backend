@@ -12,6 +12,7 @@ import refreshToken from '../controllers/auth/refreshToken.js';
 import verifyEmail from '../controllers/auth/verifyEmail.js';
 import sendCode from '../controllers/auth/sendCode.js';
 import verifyCode from '../controllers/auth/verifyCode.js';
+import deleteAccountUser from '../controllers/auth/deleteAccountUser.js';
 
 // validation
 import userRegisterSchema from '../validation/auth/register.js';
@@ -31,5 +32,6 @@ router.get('/verify/:verificationToken', ctrlWrapper(verifyEmail));
 router.post('/send/verify', sendCodeEmailSchema, ctrlWrapper(sendCode),
 );
 router.post('/verify', verifyCodeSchema, ctrlWrapper(verifyCode));
+router.delete('/delete/account', auth, ctrlWrapper(deleteAccountUser));
 
 export default router;
