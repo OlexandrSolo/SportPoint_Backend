@@ -21,7 +21,7 @@ const schedulesSchema = new mongoose.Schema({
 
 //TODO change if you need
 const favoriteSchema = new mongoose.Schema({
-  type: { type: String, required: true },
+  type: { type: String },
 });
 
 const descriptionSchema = new mongoose.Schema({

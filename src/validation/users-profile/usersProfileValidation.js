@@ -67,6 +67,7 @@ export const userProfileUpdateSchemaJoi = Joi.object({
       }
       return value;
     }),
+  //TODO change if you need
   favorite: Joi.array().items(Joi.object({ type: Joi.string() })),
   description: descriptionSchemaJoi.optional(),
 });

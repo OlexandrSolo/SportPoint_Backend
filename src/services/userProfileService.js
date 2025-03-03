@@ -3,6 +3,7 @@ import { ReviewsCollection } from '../db/models/Review.js';
 import { UserProfileModel } from '../db/models/UserProfileModel.js';
 import createHttpError from 'http-errors';
 
+//get user profile for logged in user
 export const getUserProfile = async (userId) => {
   const userProfile = await UserProfileModel.findOne({ userId: userId }).lean();
   if (!userProfile) {
@@ -27,7 +28,6 @@ export const getUserProfile = async (userId) => {
       }),
     ),
   ]);
-  console.log(couchesList);
 
   const viewingOwnProfile = userId.equals(userProfile.userId);
 
@@ -57,12 +57,11 @@ export const getUserProfile = async (userId) => {
   };
 };
 
-//create user profile for logged users
+//create user profile for logged in users
 export const createUserProfile = async (payload) => {
   const existingProfile = await UserProfileModel.findOne({
     userId: payload.userId,
   });
-  console.log('existingProfile', existingProfile);
   if (existingProfile) {
     throw new Error('User profile already exists');
   }
@@ -75,7 +74,7 @@ export const createUserProfile = async (payload) => {
   return newUserProfile;
 };
 
-//update user profile for logged users
+//update user profile for logged in users
 export const updateUserProfile = async (payload, userId, options = {}) => {
   const updatedUserProfile = await UserProfileModel.findOneAndUpdate(
     { userId: new mongoose.Types.ObjectId(userId) },
@@ -94,7 +93,7 @@ export const updateUserProfile = async (payload, userId, options = {}) => {
   };
 };
 
-//delete user profile for logged users
+//delete user profile for logged in users
 export const deleteUserProfile = async (userId) => {
   const profile = await UserProfileModel.findOneAndDelete({ userId: userId });
   return profile;

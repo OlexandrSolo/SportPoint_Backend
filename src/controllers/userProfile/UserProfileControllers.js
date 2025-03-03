@@ -11,7 +11,7 @@ import {
   parseDescription,
 } from '../../helpers/uploadImageHelper.js';
 
-//get user profile for logged users
+//get user profile for logged in users
 export const getUserProfileController = async (req, res) => {
   const { _id } = req.user;
 
@@ -143,7 +143,6 @@ export const updatedUserProfileController = async (req, res) => {
 //delete user profile for logged users
 export const delateUserProfileController = async (req, res) => {
   const { _id } = req.user;
-  console.log(_id);
   const profile = await deleteUserProfile(_id);
 
   if (!profile) {
