@@ -31,7 +31,7 @@ export const startServer = () => {
   app.use(router);
 
   app.use('/auth', authRouter);
-  app.use('/api/reviews', reviewRoutes);
+  app.use('/reviews', reviewRoutes);
   app.use('/cards', CardsRouter);
 
   app.use(notFoundHandler);
