@@ -65,20 +65,20 @@ properties:
         type: array
         items:
           type: object
-        properties:
-          days:
-            type: string
-            description: 'Days of the week.'
-            example: 'Monday, Wednesday'
-          hours:
-            type: string
-            description: 'Working hours.'
-            example: '9:00 AM - 5:00 PM'
-          date:
-            type: string
-            format: date
-            description: 'Date of the schedule.'
-            example: '2023-12-01'
+          properties:
+            days:
+              type: string
+              description: 'Days of the week.'
+              example: 'Monday, Wednesday'
+            hours:
+              type: string
+              description: 'Working hours.'
+              example: '9:00 AM - 5:00 PM'
+            date:
+              type: string
+              format: date
+              description: 'Date of the schedule.'
+              example: '2023-12-01'
       social_links:
         type: array
         items:

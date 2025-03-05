@@ -1,0 +1,21 @@
+tags:
+  - Auth
+summary: Send message for update user password
+operationId: sendUpdatePasswordMessage
+description: 'Update user password message send by email.'
+security:
+  - bearerAuth: []
+responses:
+  '201':
+    description: 'Password update message sent to email. Returns status and message.'
+    content:
+      application/json:
+        schema:
+          type: object
+          properties:
+            message:
+              type: string
+              description: 'Human-readable message.'
+              example: 'The password update code has been successfully sent to your email! Please go there to continue updating your password!'
+  '401':
+    $ref: ../../../components/responses/401.yaml

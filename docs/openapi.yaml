@@ -30,7 +30,13 @@ paths:
       $ref: '../swagger/paths/refreshCurrent/get.yaml'
   /auth/verify/:verificationToken:
     get:
-      $ref: '../swagger/paths/verify/get.yaml'
+      $ref: '../swagger/paths/verify/{id}/get.yaml'
+  /auth/verify:
+    post:
+      $ref: '../swagger/paths/verify/post.yaml'
+  /auth/send/verify:
+    post:
+      $ref: '../swagger/paths/send/verify/post.yaml'
   /profile:
     get:
       $ref: '../swagger/paths/userProfile/get.yaml'

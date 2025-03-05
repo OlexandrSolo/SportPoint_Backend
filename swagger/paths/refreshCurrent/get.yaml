@@ -29,8 +29,13 @@ responses:
             status:
               type: integer
               example: 200
-            message:
+            token:
               type: string
-              example: Successfully refreshed!
+              description: 'JWT access token.'
+              example: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...'
+            refreshToken:
+              type: string
+              description: 'JWT refresh token.'
+              example: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...'
   '401':
     $ref: '../../components/responses/401.yaml'
