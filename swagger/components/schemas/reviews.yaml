@@ -1,0 +1,84 @@
+type: object
+required:
+  - email
+  - password
+properties:
+  _id:
+    type: string
+    example: "65f2dcd8e3b5a3a1b8a7e8e3"
+  user:
+    type: string
+    format: ObjectId
+    example: "65f2dc3b8a7e8e3e3b5a3a1b"
+  club:
+    type: string
+    format: ObjectId
+    example: "65f2dcd8e3b5a3a1b8a7e8e4"
+  trainer:
+    type: string
+    format: ObjectId
+    example: "65f2dcd8e3b5a3a1b8a7e8e5"
+  ratings:
+    type: object
+    properties:
+      clientService:
+        type: integer
+        minimum: 1
+        maximum: 5
+        example: 5
+      serviceQuality:
+        type: integer
+        minimum: 1
+        maximum: 5
+        example: 4
+      priceQuality:
+        type: integer
+        minimum: 1
+        maximum: 5
+        example: 3
+      location:
+        type: integer
+        minimum: 1
+        maximum: 5
+        example: 4
+      cleanliness:
+        type: integer
+        minimum: 1
+        maximum: 5
+        example: 5
+  comment:
+    type: string
+    minLength: 20
+    maxLength: 500
+    example: "Дуже гарний клуб, але трохи завищена ціна."
+  images:
+    type: array
+    items:
+      type: string
+      format: uri
+    example:
+      - "https://example.com/image1.jpg"
+      - "https://example.com/image2.jpg"
+  adminReply:
+    type: string
+    example: "Дякуємо за ваш відгук!"
+  reports:
+    type: array
+    items:
+      type: object
+      properties:
+        user:
+          type: string
+          format: ObjectId
+          example: "65f2dc3b8a7e8e3e3b5a3a1c"
+        reason:
+          type: string
+          example: "Невідповідний зміст"
+  createdAt:
+    type: string
+    format: date-time
+    example: "2025-03-03T12:34:56.789Z"
+  updatedAt:
+    type: string
+    format: date-time
+    example: "2025-03-04T14:56:23.456Z"

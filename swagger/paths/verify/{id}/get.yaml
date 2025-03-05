@@ -1,0 +1,25 @@
+tags:
+  - Auth
+summary: Verify user email
+operationId: verifyEmail
+description: 'Verifies user email using a verification token.'
+security:
+  - bearerAuth: []
+responses:
+  '200':
+    description: 'Email verified successfully. Returns new authentication tokens.'
+    content:
+      application/json:
+        schema:
+          type: object
+          properties:
+            token:
+              type: string
+              description: 'JWT access token.'
+              example: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...'
+            refreshToken:
+              type: string
+              description: 'JWT refresh token.'
+              example: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...'
+  '401':
+    $ref: ../../../components/responses/401.yaml
