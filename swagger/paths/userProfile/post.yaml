@@ -20,14 +20,14 @@ requestBody:
             example: 'John Doe || Beast Gim'
           avatar:
             type: string
-            format: uri
+            format: binary
             description: 'Avatar URL of the user.'
             example: 'https://example.com/avatar.jpg'
           images:
             type: array
             items:
               type: string
-              format: uri
+              format: binary
             description: 'Array of image URLs for the sport club.'
             example:
               - 'https://example.com/image1.jpg'
@@ -36,7 +36,7 @@ requestBody:
             type: array
             items:
               type: string
-              format: uri
+              format: binary
             description: 'Array of URLs for the coach certificates.'
             example:
               - 'https://example.com/certificate1.pdf'

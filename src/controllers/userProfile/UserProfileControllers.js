@@ -8,7 +8,6 @@ import {
 import {
   handleFileUpload,
   handleMultipleFileUploads,
-  parseDescription,
 } from '../../helpers/uploadImageHelper.js';
 
 //get user profile for logged in users
@@ -33,18 +32,29 @@ export const createUserProfileController = async (req, res) => {
   const { user } = req;
 
   try {
-    const avatarUrl = await handleFileUpload(req.files?.avatar?.[0]);
+    const descriptionObject = req.body.description
+      ? JSON.parse(req.body.description)
+      : {};
+    const clubArray = req.body.club ? req.body.club.split(',') : [];
+    const couchArray = req.body.couch ? req.body.couch.split(',') : [];
+
+    const favoriteArray = req.body.favorite
+      ? JSON.parse(req.body.favorite)
+      : [];
+
+    const avatarUrl = req.files?.avatar?.[0]
+      ? await handleFileUpload(req.files.avatar[0])
+      : null;
     const photoUrls = await handleMultipleFileUploads(req.files?.images || []);
     const certificates = await handleMultipleFileUploads(
       req.files?.certificates || [],
     );
-    const description = parseDescription(req.body.description);
 
-    if (description instanceof Error) {
+    if (descriptionObject instanceof Error) {
       return res.status(400).json({
         status: 400,
         message: 'Invalid JSON format in description',
-        error: description.message,
+        error: descriptionObject.message,
       });
     }
 
@@ -56,9 +66,12 @@ export const createUserProfileController = async (req, res) => {
       certificates: certificates,
       role: user.role,
       description: {
-        ...description,
+        ...descriptionObject,
         email: user.email,
       },
+      club: clubArray,
+      couch: couchArray,
+      favorite: favoriteArray,
     };
 
     const userProfile = await createUserProfile(profileData);
@@ -79,51 +92,71 @@ export const createUserProfileController = async (req, res) => {
 
 //update user profile for logged users
 export const updatedUserProfileController = async (req, res) => {
-  const { _id } = req.user;
-  const files = req.files || {};
-  const { avatar, images } = files;
-  const { description, club, couch } = req.body;
+  const { user } = req;
+  console.log('FILES:', req.files);
 
   try {
-    const userProfile = await getUserProfile(_id);
+    const userProfile = await getUserProfile(user._id);
     if (!userProfile) {
       return res.status(404).json({
         status: 404,
         message: 'User profile not found',
       });
     }
+    console.log('FILES:', req.files);
+    console.log('BODY:', req.body);
 
-    const updatedData = {};
+    const descriptionObject = req.body.description
+      ? JSON.parse(req.body.description)
+      : {};
+    const clubArray = req.body.club
+      ? req.body.club.split(',')
+      : userProfile.club;
+    const couchArray = req.body.couch
+      ? req.body.couch.split(',')
+      : userProfile.couch;
 
-    if (avatar) updatedData.avatar = await handleFileUpload(avatar[0]);
-    if (images && images.length > 0)
-      updatedData.images = await handleMultipleFileUploads(images);
+    const favoriteArray = req.body.favorite
+      ? JSON.parse(req.body.favorite)
+      : userProfile.favorite;
 
-    if (description) {
-      const parsedDescription = parseDescription(description);
-      if (parsedDescription instanceof Error) {
-        return res.status(400).json({
-          status: 400,
-          message: 'Invalid JSON format in description',
-          error: parsedDescription.message,
-        });
-      }
-      updatedData.description = parsedDescription;
+    if (descriptionObject instanceof Error) {
+      return res.status(400).json({
+        status: 400,
+        message: 'Invalid JSON format in description',
+        error: descriptionObject.message,
+      });
     }
-    if (club) {
-      updatedData.club = [...new Set([...userProfile.club, ...club])];
-    }
-    if (couch) {
-      updatedData.couch = [...new Set([...userProfile.couch, ...couch])];
-    }
 
-    const updatedProfile = await updateUserProfile(
-      { ...req.body, ...updatedData },
-      _id,
-      {
-        new: true,
+    const avatarUrl = req.files?.avatar?.[0]
+      ? await handleFileUpload(req.files.avatar[0])
+      : userProfile.avatar;
+    const photoUrls = req.files?.images
+      ? await handleMultipleFileUploads(req.files.images)
+      : userProfile.images;
+    const certificates = req.files?.certificates
+      ? await handleMultipleFileUploads(req.files.certificates)
+      : userProfile.certificates;
+
+    const updatedData = {
+      ...req.body,
+      userId: user._id,
+      avatar: avatarUrl,
+      images: photoUrls,
+      certificates: certificates,
+      role: user.role,
+      description: {
+        ...descriptionObject,
+        email: user.email,
       },
-    );
+      club: clubArray,
+      couch: couchArray,
+      favorite: favoriteArray,
+    };
+
+    const updatedProfile = await updateUserProfile(updatedData, user._id, {
+      new: true,
+    });
 
     res.status(200).json({
       status: 200,

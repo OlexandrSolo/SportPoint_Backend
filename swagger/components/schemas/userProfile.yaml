@@ -1,5 +1,12 @@
 type: object
 properties:
+  _id:
+    type: string
+    example: "65f2dcd8e3b5a3a1b8a7e8e3"
+  userId:
+    type: string
+    format: string
+    example: "65f2dc3b8a7e8e3e3b5a3a1b"
   firstLastName:
     type: string
     minLength: 2
@@ -8,27 +15,27 @@ properties:
     example: 'John Doe'
   avatar:
     type: string
-    format: uri
+    format: binary
     description: 'Avatar URL of the user.'
     example: 'https://example.com/avatar.jpg'
   images:
     type: array
     items:
       type: string
-      format: uri
-    description: 'Array of image URLs for the user.'
+      format: binary
+    description: 'Array of image  for the user.'
     example:
-      - 'https://example.com/image1.jpg'
-      - 'https://example.com/image2.jpg'
+      - 'image1.jpg'
+      - 'image2.jpg'
   certificates:
     type: array
     items:
       type: string
-      format: uri
-    description: 'Array of URLs for the user’s certificates.'
+      format: binary
+    description: 'Array of  for the user’s certificates.'
     example:
-      - 'https://example.com/certificate1.pdf'
-      - 'https://example.com/certificate2.pdf'
+      - 'certificate1.pdf'
+      - 'certificate2.pdf'
   description:
     type: object
     properties:

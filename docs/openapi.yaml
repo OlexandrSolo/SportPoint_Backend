@@ -1,7 +1,7 @@
 openapi: 3.1.0
 info:
   version: 1.0.0
-  title: <Contacts App>
+  title: <SportPoint App>
   license:
     name: Apache 2.0
     url: http://www.apache.org/licenses/LICENSE-2.0.html
@@ -9,10 +9,10 @@ info:
   contact:
     email: oksana.tanashuk@gmail.com
 tags:
-  - name: UserProfile
-    description: Operations about users profiles.
   - name: Auth
     description: Auth operations.
+  - name: UserProfile
+    description: Operations about users profiles.
 servers:
   - url: http://localhost:3000
 paths:

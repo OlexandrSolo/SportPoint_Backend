@@ -23,9 +23,5 @@ responses:
             status:
               type: integer
               example: 204
-            message:
-              type: string
-            data:
-              type: object
   '404':
     $ref: '../../components/responses/404.yaml'

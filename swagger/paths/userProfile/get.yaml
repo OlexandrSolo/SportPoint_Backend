@@ -26,12 +26,16 @@ responses:
             data:
               type: object
               properties:
+                userId:
+                  type: string
+                  format: ObjectId
+                  example: "65f2dc3b8a7e8e3e3b5a3a1b"
                 firstLastName:
                   type: string
                   minLength: 2
                   maxLength: 50
-                  description: 'First and Last name of the user.'
-                  example: 'John Doe'
+                  description: 'First and Last name of the user. or name of sport club'
+                  example: 'John Doe || The Best Gym '
                 avatar:
                   type: string
                   format: uri
@@ -42,7 +46,7 @@ responses:
                   items:
                     type: string
                     format: uri
-                  description: 'Array of image URLs for the user.'
+                  description: 'Array of image URLs for the sport gym.'
                   example:
                     - 'https://example.com/image1.jpg'
                     - 'https://example.com/image2.jpg'
@@ -51,7 +55,7 @@ responses:
                   items:
                     type: string
                     format: uri
-                  description: 'Array of URLs for the coach certificates.'
+                  description: 'Array of URLs for the coach certificates or gym.'
                   example:
                     - 'https://example.com/certificate1.pdf'
                     - 'https://example.com/certificate2.pdf'
@@ -60,8 +64,8 @@ responses:
                   properties:
                     address:
                       type: string
-                      description: 'Address of the  sport club.'
-                      example: '123 Main St'
+                      description: 'Address of the  sport club or coach.'
+                      example: 'Odesa, 123 Main St'
                     short_desc:
                       type: string
                       description: 'Short description of the couch or sport club.'
@@ -74,7 +78,7 @@ responses:
                       type: array
                       items:
                         type: string
-                      description: 'List of user’s equipment.'
+                      description: 'List of gym equipment.'
                       example:
                         - 'Pool'
                         - 'Sauna'
@@ -83,7 +87,7 @@ responses:
                       items:
                         type: string
                         format: date
-                      description: 'Experience dates of the user.'
+                      description: 'Experience dates of the coach.'
                       example:
                         - '2020-01-01'
                         - '2021-01-01'
@@ -103,7 +107,7 @@ responses:
                           date:
                             type: string
                             format: date
-                            description: 'Date of the schedule.'
+                            description: 'Date of the schedule. For example, special days such as holidays'
                             example: '2023-12-01'
                     social_links:
                       type: array
@@ -135,7 +139,7 @@ responses:
                     phone:
                       type: string
                       pattern: '^\+?[0-9]{10,15}$'
-                      description: 'Phone number of the user.'
+                      description: 'Phone number of the gym or coach .'
                       example: '+1234567890'
                     email:
                       type: string
@@ -146,7 +150,7 @@ responses:
                   type: array
                   items:
                     type: string
-                  description: 'List of clubs where the coach works.'
+                  description: 'List of clubs id where the coach works.'
                   example:
                     - '65ca67e7ae7f10c88b598384'
                     - '65ca67e7ae7f10c88b59ke84'
@@ -154,7 +158,7 @@ responses:
                   type: array
                   items:
                     type: string
-                  description: 'List of current coach jobs at this sports club.'
+                  description: 'List of current coach id jobs at this sports club.'
                   example:
                     - '65ca63kj7ae7f10c88b598384'
                     - '65coo7e7ae7f10c88b598384'
@@ -167,6 +171,22 @@ responses:
                         type: string
                         description: 'Type of favorite item.'
                         example: '65ca63kj7ae7f10c88b598384'
+                role:
+                  type: string
+                  description: 'User role'
+                  example: 'coach || customer || adminClub'
+                couches_list:
+                  type: array
+                  items:
+                    $ref: '../../components/schemas/userProfile.yaml'
+                work_list:
+                  type: array
+                  items:
+                    $ref: '../../components/schemas/userProfile.yaml'
+                user_comments:
+                  type: array
+                  items:
+                    $ref: '../../components/schemas/reviews.yaml'
   '401':
     $ref: '../../components/responses/401.yaml'
   '404':
