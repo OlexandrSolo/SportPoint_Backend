@@ -15,6 +15,7 @@ import CardsRouter from './routers/cardsRoutes.js';
 
 import reviewRoutes from './routers/reviews.js';
 
+import router from './routers/index.js';
 
 const PORT = Number(getEnvVar('PORT', '3000'));
 
@@ -27,9 +28,10 @@ export const startServer = () => {
 
   // app.use(logger);
 
+  app.use(router);
 
   app.use('/auth', authRouter);
-  app.use('/api/reviews', reviewRoutes);
+  app.use('/reviews', reviewRoutes);
   app.use('/cards', CardsRouter);
 
   app.use(notFoundHandler);

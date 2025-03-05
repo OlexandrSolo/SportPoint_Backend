@@ -1,5 +1,6 @@
 export const ErrorsApp = {
   EXIST_USER: 'Email вже використовується іншим користувачем',
+  DELETE_ACCOUNT: 'Ваш акаунт було успішно видалено з сервісу SportPoint!',
   NOT_CORRECT_PASSWORD: 'Невірний пароль! Спробуйте ще!',
   NOT_AUTHORIZED: 'Ви не авторизовані. Будь ласка авторизуйтеся!',
   NOT_VALID_PASSWORD:
