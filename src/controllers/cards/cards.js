@@ -1,4 +1,5 @@
 import * as clubTrainerService from "../../services/cards/Cards.js";
+import { parseFilterParams } from "../../utils/parseFilterParams.js";
 import { parsePaginationParams } from "../../utils/parsePaginationParams.js";
 import { parseSortParams } from '../../utils/parseSortParams.js';
 
@@ -6,11 +7,14 @@ import { parseSortParams } from '../../utils/parseSortParams.js';
 export const getCardsController = async (req, res) => {
     const { page, perPage } = parsePaginationParams(req.query);
     const { sortBy, sortOrder } = parseSortParams(req.query);
+    const filter = parseFilterParams(req.query);
+
     const clubsTrainers = await clubTrainerService.getAllCards({
         page,
         perPage,
         sortBy,
-        sortOrder
+        sortOrder,
+        filter
     });
 
     res.json({
