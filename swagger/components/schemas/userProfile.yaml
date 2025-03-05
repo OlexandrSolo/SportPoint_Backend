@@ -148,3 +148,7 @@ properties:
           type: string
           description: 'Type of favorite item.'
           example: 'coach'
+  role:
+    type: string
+    description: 'User role'
+    example: 'coach || customer || adminClub'

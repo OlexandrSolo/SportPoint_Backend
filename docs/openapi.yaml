@@ -13,6 +13,8 @@ tags:
     description: Auth operations.
   - name: UserProfile
     description: Operations about users profiles.
+  - name: SearchUserProfile
+    description: Search operations
 servers:
   - url: http://localhost:3000
 paths:
@@ -46,6 +48,9 @@ paths:
       $ref: '../swagger/paths/userProfile/patch.yaml'
     post:
       $ref: '../swagger/paths/userProfile/post.yaml'
+  /search/by-name:
+    get:
+      $ref: '../swagger/paths/search/get.yaml'
 components:
   securitySchemes:
     bearerAuth:
