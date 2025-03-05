@@ -1425,10 +1425,10 @@
               "type": "string",
               "format": "binary"
             },
-            "description": "Array of image URLs for the user.",
+            "description": "Array of image  for the user.",
             "example": [
-              "https://example.com/image1.jpg",
-              "https://example.com/image2.jpg"
+              "image1.jpg",
+              "image2.jpg"
             ]
           },
           "certificates": {
@@ -1437,10 +1437,10 @@
               "type": "string",
               "format": "binary"
             },
-            "description": "Array of URLs for the user’s certificates.",
+            "description": "Array of  for the user’s certificates.",
             "example": [
-              "https://example.com/certificate1.pdf",
-              "https://example.com/certificate2.pdf"
+              "certificate1.pdf",
+              "certificate2.pdf"
             ]
           },
           "description": {
