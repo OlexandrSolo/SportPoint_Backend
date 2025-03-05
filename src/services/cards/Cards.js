@@ -24,7 +24,7 @@ export const getAllCards = async ({
 
     // Фільтр за ціновим діапазоном
     if (filter.minPrice) cardsQuery.where('price').gte(filter.minPrice);
-    if (filter.maxPrice) cardsQuery.where('price').lte(filter.minPrice);
+    if (filter.maxPrice) cardsQuery.where('price').lte(filter.maxPrice);
 
     // Фільтр за послугами (класифікацією)
     if (filter.services && filter.services.length > 0) cardsQuery.where("services").in(filter.services);
@@ -69,3 +69,11 @@ export const getAllCards = async ({
         ...paginationData
     };
 };
+
+export const getCardById = async () => { };
+
+export const createCard = async () => { };
+
+export const updateCard = async () => { };
+
+export const deleteCard = async () => { };
