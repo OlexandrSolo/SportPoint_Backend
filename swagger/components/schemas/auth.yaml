@@ -1,0 +1,36 @@
+type: object
+required:
+  - email
+  - password
+properties:
+  email:
+    description: 'Email for registration and login'
+    type: string
+    example: 'example@gmail.com'
+  password:
+    description: 'Password for registration and login'
+    type: string
+    example: '13234gssu'
+  role:
+    description: 'Role for registration'
+    type: string
+    example: 'customer'
+  token:
+    type: string
+    default: null
+    description: 'JWT token for user authentication'
+    example: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoxMjM0NTY3ODkwLCJpYXQiOjE2Mzg5NzM5NzZ9.A0RtZ6r7u-oJX0iKL-WiXXSTZ_GUqvphgByLN0Awfn8'
+  refreshToken:
+    type: string
+    default: null
+    description: 'Refresh token for user authentication'
+    example: 'dGVzdC1yZWZyZXNoLXRva2Vu'
+  verify:
+    type: boolean
+    default: false
+  verificationToken:
+    type: string
+    description: 'Token used for email verification'
+  verifyCode:
+    type: number
+    default: null

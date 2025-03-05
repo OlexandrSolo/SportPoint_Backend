@@ -40,20 +40,11 @@ export const getUserProfile = async (userId) => {
     userComments = await ReviewsCollection.find({ club: userId });
   }
 
-  const commentsCounts = userComments.length;
-  const totalRating = userComments.reduce(
-    (acc, comment) => acc + comment.rating,
-    0,
-  );
-  const averageRating = commentsCounts > 0 ? totalRating / commentsCounts : 0;
-
   return {
     ...userProfile,
     couches_list: couchesList,
     work_list: clubsList,
     user_comments: userComments,
-    comments_counts: commentsCounts,
-    average_rating: averageRating,
   };
 };
 

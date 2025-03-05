@@ -1,0 +1,1712 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "version": "1.0.0",
+    "title": "<SportPoint App>",
+    "license": {
+      "name": "Apache 2.0",
+      "url": "http://www.apache.org/licenses/LICENSE-2.0.html"
+    },
+    "description": "<Service for working with contacts documentation. >",
+    "contact": {
+      "email": "oksana.tanashuk@gmail.com"
+    }
+  },
+  "servers": [
+    {
+      "url": "http://localhost:3000"
+    }
+  ],
+  "tags": [
+    {
+      "name": "Auth",
+      "description": "Auth operations."
+    },
+    {
+      "name": "UserProfile",
+      "description": "Operations about users profiles."
+    }
+  ],
+  "paths": {
+    "/auth/signup": {
+      "post": {
+        "tags": [
+          "Auth"
+        ],
+        "summary": "Register user",
+        "operationId": "createUser",
+        "description": "Register user",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": [
+                  "email",
+                  "password",
+                  "role"
+                ],
+                "properties": {
+                  "email": {
+                    "description": "User email",
+                    "type": "string",
+                    "example": "example@gmail.com"
+                  },
+                  "password": {
+                    "description": "Create a password",
+                    "type": "string",
+                    "example": "rwe2135"
+                  },
+                  "role": {
+                    "description": "User role",
+                    "type": "string",
+                    "example": "customer"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Register a user",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "status",
+                    "data"
+                  ],
+                  "properties": {
+                    "status": {
+                      "type": "integer",
+                      "example": 201
+                    },
+                    "data": {
+                      "type": "object",
+                      "required": [
+                        "email"
+                      ],
+                      "properties": {
+                        "email": {
+                          "type": "string",
+                          "description": "Registered user email",
+                          "example": "example@gmail.com"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "409": {
+            "$ref": "#/components/responses/409"
+          }
+        }
+      }
+    },
+    "/auth/signin": {
+      "post": {
+        "tags": [
+          "Auth"
+        ],
+        "summary": "Login user",
+        "operationId": "loginUser",
+        "description": "Login user",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": [
+                  "email",
+                  "password"
+                ],
+                "properties": {
+                  "email": {
+                    "description": "User email",
+                    "type": "string",
+                    "example": "example@gmail.com"
+                  },
+                  "password": {
+                    "description": "Enter your password",
+                    "type": "string",
+                    "example": "rwe2135"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Login a user",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "status",
+                    "message",
+                    "data"
+                  ],
+                  "properties": {
+                    "status": {
+                      "type": "integer",
+                      "example": 200
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Successfully login a user!"
+                    },
+                    "data": {
+                      "type": "object",
+                      "$ref": "#/components/schemas/auth"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "$ref": "#/components/responses/404"
+          }
+        }
+      }
+    },
+    "/auth/logout": {
+      "post": {
+        "tags": [
+          "Auth"
+        ],
+        "summary": "Logout user",
+        "operationId": "logoutUser",
+        "description": "Logout user",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "type": "object"
+              }
+            }
+          }
+        },
+        "responses": {
+          "204": {
+            "description": "Logout",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "status"
+                  ],
+                  "properties": {
+                    "status": {
+                      "type": "integer",
+                      "example": 204
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "$ref": "#/components/responses/404"
+          }
+        }
+      }
+    },
+    "/auth/refresh/current": {
+      "get": {
+        "tags": [
+          "Auth"
+        ],
+        "summary": "Refresh current",
+        "operationId": "refreshCurrent",
+        "description": "Refresh",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "type": "object",
+                "required": [
+                  "refreshToken"
+                ],
+                "properties": {
+                  "refreshToken": {
+                    "description": "Refresh token",
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Refresh current",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "status"
+                  ],
+                  "properties": {
+                    "status": {
+                      "type": "integer",
+                      "example": 200
+                    },
+                    "token": {
+                      "type": "string",
+                      "description": "JWT access token.",
+                      "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
+                    },
+                    "refreshToken": {
+                      "type": "string",
+                      "description": "JWT refresh token.",
+                      "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/401"
+          }
+        }
+      }
+    },
+    "/auth/verify/:verificationToken": {
+      "get": {
+        "tags": [
+          "Auth"
+        ],
+        "summary": "Verify user email",
+        "operationId": "verifyEmail",
+        "description": "Verifies user email using a verification token.",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Email verified successfully. Returns new authentication tokens.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "token": {
+                      "type": "string",
+                      "description": "JWT access token.",
+                      "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
+                    },
+                    "refreshToken": {
+                      "type": "string",
+                      "description": "JWT refresh token.",
+                      "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/401"
+          }
+        }
+      }
+    },
+    "/auth/verify": {
+      "post": {
+        "tags": [
+          "Auth"
+        ],
+        "summary": "Update user password",
+        "operationId": "updatePassword",
+        "description": "Update user password using a  tokens.",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Password updated successfully. Returns new authentication tokens.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "token": {
+                      "type": "string",
+                      "description": "JWT access token.",
+                      "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
+                    },
+                    "refreshToken": {
+                      "type": "string",
+                      "description": "JWT refresh token.",
+                      "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
+                    },
+                    "message": {
+                      "type": "string",
+                      "description": "Human-readable message.",
+                      "example": "Your password has been successfully updated!"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/401"
+          }
+        }
+      }
+    },
+    "/auth/send/verify": {
+      "post": {
+        "tags": [
+          "Auth"
+        ],
+        "summary": "Send message for update user password",
+        "operationId": "sendUpdatePasswordMessage",
+        "description": "Update user password message send by email.",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Password update message sent to email. Returns status and message.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "description": "Human-readable message.",
+                      "example": "The password update code has been successfully sent to your email! Please go there to continue updating your password!"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/401"
+          }
+        }
+      }
+    },
+    "/profile": {
+      "get": {
+        "tags": [
+          "UserProfile"
+        ],
+        "summary": "Get user profile",
+        "operationId": "getUserProfile",
+        "description": "Get user profile with this endpoint",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "User profile retrieved successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "status",
+                    "message",
+                    "data"
+                  ],
+                  "properties": {
+                    "status": {
+                      "type": "integer",
+                      "example": 200
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Successfully found user profile with id 65ca67e7ae7f10c88b598384!"
+                    },
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "userId": {
+                          "type": "string",
+                          "format": "ObjectId",
+                          "example": "65f2dc3b8a7e8e3e3b5a3a1b"
+                        },
+                        "firstLastName": {
+                          "type": "string",
+                          "minLength": 2,
+                          "maxLength": 50,
+                          "description": "First and Last name of the user. or name of sport club",
+                          "example": "John Doe || The Best Gym "
+                        },
+                        "avatar": {
+                          "type": "string",
+                          "format": "uri",
+                          "description": "Avatar URL of the user.",
+                          "example": "https://example.com/avatar.jpg"
+                        },
+                        "images": {
+                          "type": "array",
+                          "items": {
+                            "type": "string",
+                            "format": "uri"
+                          },
+                          "description": "Array of image URLs for the sport gym.",
+                          "example": [
+                            "https://example.com/image1.jpg",
+                            "https://example.com/image2.jpg"
+                          ]
+                        },
+                        "certificates": {
+                          "type": "array",
+                          "items": {
+                            "type": "string",
+                            "format": "uri"
+                          },
+                          "description": "Array of URLs for the coach certificates or gym.",
+                          "example": [
+                            "https://example.com/certificate1.pdf",
+                            "https://example.com/certificate2.pdf"
+                          ]
+                        },
+                        "description": {
+                          "type": "object",
+                          "properties": {
+                            "address": {
+                              "type": "string",
+                              "description": "Address of the  sport club or coach.",
+                              "example": "Odesa, 123 Main St"
+                            },
+                            "short_desc": {
+                              "type": "string",
+                              "description": "Short description of the couch or sport club.",
+                              "example": "Experienced coach in football."
+                            },
+                            "abilities": {
+                              "type": "string",
+                              "description": "User’s abilities.",
+                              "example": "Coaching, mentoring"
+                            },
+                            "equipment": {
+                              "type": "array",
+                              "items": {
+                                "type": "string"
+                              },
+                              "description": "List of gym equipment.",
+                              "example": [
+                                "Pool",
+                                "Sauna"
+                              ]
+                            },
+                            "experience": {
+                              "type": "array",
+                              "items": {
+                                "type": "string",
+                                "format": "date"
+                              },
+                              "description": "Experience dates of the coach.",
+                              "example": [
+                                "2020-01-01",
+                                "2021-01-01"
+                              ]
+                            },
+                            "schedule": {
+                              "type": "array",
+                              "items": {
+                                "type": "object",
+                                "properties": {
+                                  "days": {
+                                    "type": "string",
+                                    "description": "Days of the week.",
+                                    "example": "Monday, Wednesday"
+                                  },
+                                  "hours": {
+                                    "type": "string",
+                                    "description": "Working hours.",
+                                    "example": "9:00 AM - 5:00 PM"
+                                  },
+                                  "date": {
+                                    "type": "string",
+                                    "format": "date",
+                                    "description": "Date of the schedule. For example, special days such as holidays",
+                                    "example": "2023-12-01"
+                                  }
+                                }
+                              }
+                            },
+                            "social_links": {
+                              "type": "array",
+                              "items": {
+                                "type": "object",
+                                "properties": {
+                                  "name": {
+                                    "type": "string",
+                                    "description": "Name of the social platform.",
+                                    "example": "Facebook"
+                                  },
+                                  "url": {
+                                    "type": "string",
+                                    "format": "uri",
+                                    "description": "URL to the social media profile.",
+                                    "example": "https://facebook.com/example"
+                                  }
+                                }
+                              }
+                            },
+                            "price": {
+                              "type": "array",
+                              "items": {
+                                "type": "object",
+                                "properties": {
+                                  "name": {
+                                    "type": "string",
+                                    "description": "Price name or description.",
+                                    "example": "Monthly Subscription"
+                                  },
+                                  "amount": {
+                                    "type": "string",
+                                    "description": "Price amount.",
+                                    "example": "99.99"
+                                  }
+                                }
+                              }
+                            },
+                            "phone": {
+                              "type": "string",
+                              "pattern": "^\\+?[0-9]{10,15}$",
+                              "description": "Phone number of the gym or coach .",
+                              "example": "+1234567890"
+                            },
+                            "email": {
+                              "type": "string",
+                              "format": "email",
+                              "description": "Email address of the user.",
+                              "example": "example@gmail.com"
+                            }
+                          }
+                        },
+                        "club": {
+                          "type": "array",
+                          "items": {
+                            "type": "string"
+                          },
+                          "description": "List of clubs id where the coach works.",
+                          "example": [
+                            "65ca67e7ae7f10c88b598384",
+                            "65ca67e7ae7f10c88b59ke84"
+                          ]
+                        },
+                        "couch": {
+                          "type": "array",
+                          "items": {
+                            "type": "string"
+                          },
+                          "description": "List of current coach id jobs at this sports club.",
+                          "example": [
+                            "65ca63kj7ae7f10c88b598384",
+                            "65coo7e7ae7f10c88b598384"
+                          ]
+                        },
+                        "favorite": {
+                          "type": "array",
+                          "items": {
+                            "type": "object",
+                            "properties": {
+                              "type": {
+                                "type": "string",
+                                "description": "Type of favorite item.",
+                                "example": "65ca63kj7ae7f10c88b598384"
+                              }
+                            }
+                          }
+                        },
+                        "role": {
+                          "type": "string",
+                          "description": "User role",
+                          "example": "coach || customer || adminClub"
+                        },
+                        "couches_list": {
+                          "type": "array",
+                          "items": {
+                            "$ref": "#/components/schemas/userProfile"
+                          }
+                        },
+                        "work_list": {
+                          "type": "array",
+                          "items": {
+                            "$ref": "#/components/schemas/userProfile"
+                          }
+                        },
+                        "user_comments": {
+                          "type": "array",
+                          "items": {
+                            "$ref": "#/components/schemas/reviews"
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/401"
+          },
+          "404": {
+            "$ref": "#/components/responses/404"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "UserProfile"
+        ],
+        "summary": "Delete user profile",
+        "operationId": "deleteUserProfile",
+        "description": "Delete  user profile",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Delete  user profile",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "integer",
+                      "example": 204
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/401"
+          }
+        }
+      },
+      "patch": {
+        "tags": [
+          "UserProfile"
+        ],
+        "summary": "Patch user profile",
+        "operationId": "patchUserProfile",
+        "description": "Patch user profile",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "type": "object",
+                "required": [],
+                "properties": {
+                  "firstLastName": {
+                    "type": "string",
+                    "minLength": 2,
+                    "maxLength": 50,
+                    "description": "First and Last name of the user or sport club name .",
+                    "example": "John Doe || Beast Gim"
+                  },
+                  "avatar": {
+                    "type": "string",
+                    "format": "binary",
+                    "description": "Avatar URL of the user.",
+                    "example": "https://example.com/avatar.jpg"
+                  },
+                  "images": {
+                    "type": "array",
+                    "items": {
+                      "type": "string",
+                      "format": "binary"
+                    },
+                    "description": "Array of image URLs for the sport club.",
+                    "example": [
+                      "https://example.com/image1.jpg",
+                      "https://example.com/image2.jpg"
+                    ]
+                  },
+                  "certificates": {
+                    "type": "array",
+                    "items": {
+                      "type": "string",
+                      "format": "binary"
+                    },
+                    "description": "Array of URLs for the coach certificates.",
+                    "example": [
+                      "https://example.com/certificate1.pdf",
+                      "https://example.com/certificate2.pdf"
+                    ]
+                  },
+                  "description": {
+                    "type": "object",
+                    "properties": {
+                      "address": {
+                        "type": "string",
+                        "description": "Address of the sport club.",
+                        "example": "123 Main St"
+                      },
+                      "short_desc": {
+                        "type": "string",
+                        "description": "Short description of the coach or sport club.",
+                        "example": "Experienced coach in football."
+                      },
+                      "abilities": {
+                        "type": "string",
+                        "description": "Coach abilities.",
+                        "example": "Coaching, mentoring"
+                      },
+                      "equipment": {
+                        "type": "array",
+                        "items": {
+                          "type": "string"
+                        },
+                        "description": "List of sport club equipment.",
+                        "example": [
+                          "Pool",
+                          "Sauna"
+                        ]
+                      },
+                      "experience": {
+                        "type": "array",
+                        "items": {
+                          "type": "string",
+                          "format": "date"
+                        },
+                        "description": "Experience dates of the user.",
+                        "example": [
+                          "2020-01-01",
+                          "2021-01-01"
+                        ]
+                      },
+                      "schedule": {
+                        "type": "array",
+                        "items": {
+                          "type": "object",
+                          "properties": {
+                            "days": {
+                              "type": "string",
+                              "description": "Days of the week.",
+                              "example": "Monday, Wednesday"
+                            },
+                            "hours": {
+                              "type": "string",
+                              "description": "Working hours.",
+                              "example": "9:00 AM - 5:00 PM"
+                            },
+                            "date": {
+                              "type": "string",
+                              "format": "date",
+                              "description": "Date of the schedule.",
+                              "example": "2023-12-01"
+                            }
+                          }
+                        }
+                      },
+                      "social_links": {
+                        "type": "array",
+                        "items": {
+                          "type": "object",
+                          "properties": {
+                            "name": {
+                              "type": "string",
+                              "description": "Name of the social platform.",
+                              "example": "Facebook"
+                            },
+                            "url": {
+                              "type": "string",
+                              "format": "uri",
+                              "description": "URL to the social media profile.",
+                              "example": "https://facebook.com/example"
+                            }
+                          }
+                        }
+                      },
+                      "price": {
+                        "type": "array",
+                        "items": {
+                          "type": "object",
+                          "properties": {
+                            "name": {
+                              "type": "string",
+                              "description": "Price name or description.",
+                              "example": "Monthly Subscription"
+                            },
+                            "amount": {
+                              "type": "string",
+                              "description": "Price amount.",
+                              "example": "99.99"
+                            }
+                          }
+                        }
+                      },
+                      "phone": {
+                        "type": "string",
+                        "pattern": "^\\+?[0-9]{10,15}$",
+                        "description": "Phone number of the user.",
+                        "example": "+1234567890"
+                      },
+                      "email": {
+                        "type": "string",
+                        "format": "email",
+                        "description": "Email address of the user.",
+                        "example": "example@gmail.com"
+                      }
+                    }
+                  },
+                  "club": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    },
+                    "description": "List of clubs where the coach works.",
+                    "example": [
+                      "65ca67e7ae7f10c88b598384",
+                      "65ca67e7ae7f10c88b59ke84"
+                    ]
+                  },
+                  "couch": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    },
+                    "description": "List of current coach jobs at this sports club.",
+                    "example": [
+                      "65ca63kj7ae7f10c88b598384",
+                      "65coo7e7ae7f10c88b598384"
+                    ]
+                  },
+                  "favorite": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "type": {
+                          "type": "string",
+                          "description": "Type of favorite item.",
+                          "example": "65ca63kj7ae7f10c88b598384"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "User profile updated successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "status",
+                    "message",
+                    "data"
+                  ],
+                  "properties": {
+                    "status": {
+                      "type": "integer",
+                      "example": 200
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Successfully patched user profile!"
+                    },
+                    "data": {
+                      "type": "object",
+                      "$ref": "#/components/schemas/userProfile"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/401"
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "UserProfile"
+        ],
+        "summary": "Post user profile",
+        "operationId": "postUserProfile",
+        "description": "Post user profile",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "type": "object",
+                "required": [],
+                "properties": {
+                  "firstLastName": {
+                    "type": "string",
+                    "minLength": 2,
+                    "maxLength": 50,
+                    "description": "First and Last name of the user or sport club name .",
+                    "example": "John Doe || Beast Gim"
+                  },
+                  "avatar": {
+                    "type": "string",
+                    "format": "binary",
+                    "description": "Avatar URL of the user.",
+                    "example": "https://example.com/avatar.jpg"
+                  },
+                  "images": {
+                    "type": "array",
+                    "items": {
+                      "type": "string",
+                      "format": "binary"
+                    },
+                    "description": "Array of image URLs for the sport club.",
+                    "example": [
+                      "https://example.com/image1.jpg",
+                      "https://example.com/image2.jpg"
+                    ]
+                  },
+                  "certificates": {
+                    "type": "array",
+                    "items": {
+                      "type": "string",
+                      "format": "binary"
+                    },
+                    "description": "Array of URLs for the coach certificates.",
+                    "example": [
+                      "https://example.com/certificate1.pdf",
+                      "https://example.com/certificate2.pdf"
+                    ]
+                  },
+                  "description": {
+                    "type": "object",
+                    "properties": {
+                      "address": {
+                        "type": "string",
+                        "description": "Address of the sport club.",
+                        "example": "123 Main St"
+                      },
+                      "short_desc": {
+                        "type": "string",
+                        "description": "Short description of the coach or sport club.",
+                        "example": "Experienced coach in football."
+                      },
+                      "abilities": {
+                        "type": "string",
+                        "description": "Coach abilities.",
+                        "example": "Coaching, mentoring"
+                      },
+                      "equipment": {
+                        "type": "array",
+                        "items": {
+                          "type": "string"
+                        },
+                        "description": "List of sport club equipment.",
+                        "example": [
+                          "Pool",
+                          "Sauna"
+                        ]
+                      },
+                      "experience": {
+                        "type": "array",
+                        "items": {
+                          "type": "string",
+                          "format": "date"
+                        },
+                        "description": "Experience dates of the user.",
+                        "example": [
+                          "2020-01-01",
+                          "2021-01-01"
+                        ]
+                      },
+                      "schedule": {
+                        "type": "array",
+                        "items": {
+                          "type": "object",
+                          "properties": {
+                            "days": {
+                              "type": "string",
+                              "description": "Days of the week.",
+                              "example": "Monday, Wednesday"
+                            },
+                            "hours": {
+                              "type": "string",
+                              "description": "Working hours.",
+                              "example": "9:00 AM - 5:00 PM"
+                            },
+                            "date": {
+                              "type": "string",
+                              "format": "date",
+                              "description": "Date of the schedule.",
+                              "example": "2023-12-01"
+                            }
+                          }
+                        }
+                      },
+                      "social_links": {
+                        "type": "array",
+                        "items": {
+                          "type": "object",
+                          "properties": {
+                            "name": {
+                              "type": "string",
+                              "description": "Name of the social platform.",
+                              "example": "Facebook"
+                            },
+                            "url": {
+                              "type": "string",
+                              "format": "uri",
+                              "description": "URL to the social media profile.",
+                              "example": "https://facebook.com/example"
+                            }
+                          }
+                        }
+                      },
+                      "price": {
+                        "type": "array",
+                        "items": {
+                          "type": "object",
+                          "properties": {
+                            "name": {
+                              "type": "string",
+                              "description": "Price name or description.",
+                              "example": "Monthly Subscription"
+                            },
+                            "amount": {
+                              "type": "string",
+                              "description": "Price amount.",
+                              "example": "99.99"
+                            }
+                          }
+                        }
+                      },
+                      "phone": {
+                        "type": "string",
+                        "pattern": "^\\+?[0-9]{10,15}$",
+                        "description": "Phone number of the user.",
+                        "example": "+1234567890"
+                      },
+                      "email": {
+                        "type": "string",
+                        "format": "email",
+                        "description": "Email address of the user.",
+                        "example": "example@gmail.com"
+                      }
+                    }
+                  },
+                  "club": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    },
+                    "description": "List of clubs where the coach works.",
+                    "example": [
+                      "65ca67e7ae7f10c88b598384",
+                      "65ca67e7ae7f10c88b59ke84"
+                    ]
+                  },
+                  "couch": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    },
+                    "description": "List of current coach jobs at this sports club.",
+                    "example": [
+                      "65ca63kj7ae7f10c88b598384",
+                      "65coo7e7ae7f10c88b598384"
+                    ]
+                  },
+                  "favorite": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "type": {
+                          "type": "string",
+                          "description": "Type of favorite item.",
+                          "example": "65ca63kj7ae7f10c88b598384"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "User profile create successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "status",
+                    "message",
+                    "data"
+                  ],
+                  "properties": {
+                    "status": {
+                      "type": "integer",
+                      "example": 201
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Successfully posted user profile!"
+                    },
+                    "data": {
+                      "type": "object",
+                      "$ref": "#/components/schemas/userProfile"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/401"
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "securitySchemes": {
+      "bearerAuth": {
+        "type": "http",
+        "scheme": "bearer"
+      }
+    },
+    "responses": {
+      "401": {
+        "description": "Unauthorized error",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "required": [
+                "status",
+                "message",
+                "data"
+              ],
+              "properties": {
+                "status": {
+                  "type": "integer",
+                  "example": 401
+                },
+                "message": {
+                  "type": "string",
+                  "example": "UnauthorizedError"
+                },
+                "data": {
+                  "type": "object",
+                  "required": [
+                    "message"
+                  ],
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "example": "Access token expired"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "404": {
+        "description": "Not found  error",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "required": [
+                "status",
+                "message",
+                "data"
+              ],
+              "properties": {
+                "status": {
+                  "type": "integer",
+                  "example": 404
+                },
+                "message": {
+                  "type": "string",
+                  "example": "Not found"
+                },
+                "data": {
+                  "type": "object",
+                  "required": [
+                    "message"
+                  ],
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "example": "Not found "
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "409": {
+        "description": "Email in use",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "required": [
+                "status",
+                "message",
+                "data"
+              ],
+              "properties": {
+                "status": {
+                  "type": "integer",
+                  "example": 409
+                },
+                "message": {
+                  "type": "string",
+                  "example": "Email in use"
+                },
+                "data": {
+                  "type": "object",
+                  "required": [
+                    "message"
+                  ],
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "example": "Email in use"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "schemas": {
+      "auth": {
+        "type": "object",
+        "required": [
+          "email",
+          "password"
+        ],
+        "properties": {
+          "email": {
+            "description": "Email for registration and login",
+            "type": "string",
+            "example": "example@gmail.com"
+          },
+          "password": {
+            "description": "Password for registration and login",
+            "type": "string",
+            "example": "13234gssu"
+          },
+          "role": {
+            "description": "Role for registration",
+            "type": "string",
+            "example": "customer"
+          },
+          "token": {
+            "type": "string",
+            "default": null,
+            "description": "JWT token for user authentication",
+            "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoxMjM0NTY3ODkwLCJpYXQiOjE2Mzg5NzM5NzZ9.A0RtZ6r7u-oJX0iKL-WiXXSTZ_GUqvphgByLN0Awfn8"
+          },
+          "refreshToken": {
+            "type": "string",
+            "default": null,
+            "description": "Refresh token for user authentication",
+            "example": "dGVzdC1yZWZyZXNoLXRva2Vu"
+          },
+          "verify": {
+            "type": "boolean",
+            "default": false
+          },
+          "verificationToken": {
+            "type": "string",
+            "description": "Token used for email verification"
+          },
+          "verifyCode": {
+            "type": "number",
+            "default": null
+          }
+        }
+      },
+      "userProfile": {
+        "type": "object",
+        "properties": {
+          "_id": {
+            "type": "string",
+            "example": "65f2dcd8e3b5a3a1b8a7e8e3"
+          },
+          "userId": {
+            "type": "string",
+            "format": "string",
+            "example": "65f2dc3b8a7e8e3e3b5a3a1b"
+          },
+          "firstLastName": {
+            "type": "string",
+            "minLength": 2,
+            "maxLength": 50,
+            "description": "First and Last name of the user.",
+            "example": "John Doe"
+          },
+          "avatar": {
+            "type": "string",
+            "format": "binary",
+            "description": "Avatar URL of the user.",
+            "example": "https://example.com/avatar.jpg"
+          },
+          "images": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "format": "binary"
+            },
+            "description": "Array of image  for the user.",
+            "example": [
+              "image1.jpg",
+              "image2.jpg"
+            ]
+          },
+          "certificates": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "format": "binary"
+            },
+            "description": "Array of  for the user’s certificates.",
+            "example": [
+              "certificate1.pdf",
+              "certificate2.pdf"
+            ]
+          },
+          "description": {
+            "type": "object",
+            "properties": {
+              "address": {
+                "type": "string",
+                "description": "Address of the sport club.",
+                "example": "123 Main St"
+              },
+              "short_desc": {
+                "type": "string",
+                "description": "Short description of the coach or sport club.",
+                "example": "Experienced coach in football."
+              },
+              "abilities": {
+                "type": "string",
+                "description": "Coach abilities.",
+                "example": "Coaching, mentoring"
+              },
+              "equipment": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                },
+                "description": "List of sport club equipment.",
+                "example": [
+                  "Pool",
+                  "Sauna"
+                ]
+              },
+              "experience": {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "format": "date"
+                },
+                "description": "Experience dates of the user.",
+                "example": [
+                  "2020-01-01",
+                  "2021-01-01"
+                ]
+              },
+              "schedule": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "days": {
+                      "type": "string",
+                      "description": "Days of the week.",
+                      "example": "Monday, Wednesday"
+                    },
+                    "hours": {
+                      "type": "string",
+                      "description": "Working hours.",
+                      "example": "9:00 AM - 5:00 PM"
+                    },
+                    "date": {
+                      "type": "string",
+                      "format": "date",
+                      "description": "Date of the schedule.",
+                      "example": "2023-12-01"
+                    }
+                  }
+                }
+              },
+              "social_links": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "name": {
+                      "type": "string",
+                      "description": "Name of the social platform.",
+                      "example": "Facebook"
+                    },
+                    "url": {
+                      "type": "string",
+                      "format": "uri",
+                      "description": "URL to the social media profile.",
+                      "example": "https://facebook.com/example"
+                    }
+                  }
+                }
+              },
+              "price": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "name": {
+                      "type": "string",
+                      "description": "Price name or description.",
+                      "example": "Monthly Subscription"
+                    },
+                    "amount": {
+                      "type": "string",
+                      "description": "Price amount.",
+                      "example": "99.99"
+                    }
+                  }
+                }
+              },
+              "phone": {
+                "type": "string",
+                "pattern": "^\\+?[0-9]{10,15}$",
+                "description": "Phone number of the user.",
+                "example": "+1234567890"
+              },
+              "email": {
+                "type": "string",
+                "format": "email",
+                "description": "Email address of the user.",
+                "example": "example@gmail.com"
+              }
+            }
+          },
+          "club": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "List of clubs where the coach works.",
+            "example": [
+              "65ca63kj7ae7f10c88b598384",
+              "65coo7e7ae7f10c88b598384"
+            ]
+          },
+          "couch": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "List of current coach jobs at this sports club.",
+            "example": [
+              "65ca63kj7ae7f10c88b598384",
+              "65coo7e7ae7f10c88b598384"
+            ]
+          },
+          "favorite": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "type": {
+                  "type": "string",
+                  "description": "Type of favorite item.",
+                  "example": "coach"
+                }
+              }
+            }
+          }
+        }
+      },
+      "reviews": {
+        "type": "object",
+        "required": [
+          "email",
+          "password"
+        ],
+        "properties": {
+          "_id": {
+            "type": "string",
+            "example": "65f2dcd8e3b5a3a1b8a7e8e3"
+          },
+          "user": {
+            "type": "string",
+            "format": "ObjectId",
+            "example": "65f2dc3b8a7e8e3e3b5a3a1b"
+          },
+          "club": {
+            "type": "string",
+            "format": "ObjectId",
+            "example": "65f2dcd8e3b5a3a1b8a7e8e4"
+          },
+          "trainer": {
+            "type": "string",
+            "format": "ObjectId",
+            "example": "65f2dcd8e3b5a3a1b8a7e8e5"
+          },
+          "ratings": {
+            "type": "object",
+            "properties": {
+              "clientService": {
+                "type": "integer",
+                "minimum": 1,
+                "maximum": 5,
+                "example": 5
+              },
+              "serviceQuality": {
+                "type": "integer",
+                "minimum": 1,
+                "maximum": 5,
+                "example": 4
+              },
+              "priceQuality": {
+                "type": "integer",
+                "minimum": 1,
+                "maximum": 5,
+                "example": 3
+              },
+              "location": {
+                "type": "integer",
+                "minimum": 1,
+                "maximum": 5,
+                "example": 4
+              },
+              "cleanliness": {
+                "type": "integer",
+                "minimum": 1,
+                "maximum": 5,
+                "example": 5
+              }
+            }
+          },
+          "comment": {
+            "type": "string",
+            "minLength": 20,
+            "maxLength": 500,
+            "example": "Дуже гарний клуб, але трохи завищена ціна."
+          },
+          "images": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "format": "uri"
+            },
+            "example": [
+              "https://example.com/image1.jpg",
+              "https://example.com/image2.jpg"
+            ]
+          },
+          "adminReply": {
+            "type": "string",
+            "example": "Дякуємо за ваш відгук!"
+          },
+          "reports": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "user": {
+                  "type": "string",
+                  "format": "ObjectId",
+                  "example": "65f2dc3b8a7e8e3e3b5a3a1c"
+                },
+                "reason": {
+                  "type": "string",
+                  "example": "Невідповідний зміст"
+                }
+              }
+            }
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time",
+            "example": "2025-03-03T12:34:56.789Z"
+          },
+          "updatedAt": {
+            "type": "string",
+            "format": "date-time",
+            "example": "2025-03-04T14:56:23.456Z"
+          }
+        }
+      }
+    }
+  }
+}

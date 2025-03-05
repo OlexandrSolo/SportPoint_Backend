@@ -1,0 +1,41 @@
+tags:
+  - Auth
+summary: Refresh current
+operationId: refreshCurrent
+description: 'Refresh'
+security:
+  - bearerAuth: []
+requestBody:
+  content:
+    multipart/form-data:
+      schema:
+        type: object
+        required:
+          - refreshToken
+        properties:
+          refreshToken:
+            description: 'Refresh token'
+            type: string
+responses:
+  '200':
+    description: Refresh current
+    content:
+      application/json:
+        schema:
+          type: object
+          required:
+            - status
+          properties:
+            status:
+              type: integer
+              example: 200
+            token:
+              type: string
+              description: 'JWT access token.'
+              example: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...'
+            refreshToken:
+              type: string
+              description: 'JWT refresh token.'
+              example: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...'
+  '401':
+    $ref: '../../components/responses/401.yaml'

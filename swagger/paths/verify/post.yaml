@@ -1,0 +1,29 @@
+tags:
+  - Auth
+summary: Update user password
+operationId: updatePassword
+description: 'Update user password using a  tokens.'
+security:
+  - bearerAuth: []
+responses:
+  '201':
+    description: 'Password updated successfully. Returns new authentication tokens.'
+    content:
+      application/json:
+        schema:
+          type: object
+          properties:
+            token:
+              type: string
+              description: 'JWT access token.'
+              example: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...'
+            refreshToken:
+              type: string
+              description: 'JWT refresh token.'
+              example: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...'
+            message:
+              type: string
+              description: 'Human-readable message.'
+              example: 'Your password has been successfully updated!'
+  '401':
+    $ref: ../../components/responses/401.yaml

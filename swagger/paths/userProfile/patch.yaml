@@ -1,0 +1,178 @@
+tags:
+  - UserProfile
+summary: Patch user profile
+operationId: patchUserProfile
+description: 'Patch user profile'
+security:
+  - bearerAuth: []
+requestBody:
+  content:
+    multipart/form-data:
+      schema:
+        type: object
+        required: []
+        properties:
+          firstLastName:
+            type: string
+            minLength: 2
+            maxLength: 50
+            description: 'First and Last name of the user or sport club name .'
+            example: 'John Doe || Beast Gim'
+          avatar:
+            type: string
+            format: binary
+            description: 'Avatar URL of the user.'
+            example: 'https://example.com/avatar.jpg'
+          images:
+            type: array
+            items:
+              type: string
+              format: binary
+            description: 'Array of image URLs for the sport club.'
+            example:
+              - 'https://example.com/image1.jpg'
+              - 'https://example.com/image2.jpg'
+          certificates:
+            type: array
+            items:
+              type: string
+              format: binary
+            description: 'Array of URLs for the coach certificates.'
+            example:
+              - 'https://example.com/certificate1.pdf'
+              - 'https://example.com/certificate2.pdf'
+          description:
+            type: object
+            properties:
+              address:
+                type: string
+                description: 'Address of the sport club.'
+                example: '123 Main St'
+              short_desc:
+                type: string
+                description: 'Short description of the coach or sport club.'
+                example: 'Experienced coach in football.'
+              abilities:
+                type: string
+                description: 'Coach abilities.'
+                example: 'Coaching, mentoring'
+              equipment:
+                type: array
+                items:
+                  type: string
+                description: 'List of sport club equipment.'
+                example:
+                  - 'Pool'
+                  - 'Sauna'
+              experience:
+                type: array
+                items:
+                  type: string
+                  format: date
+                description: 'Experience dates of the user.'
+                example:
+                  - '2020-01-01'
+                  - '2021-01-01'
+              schedule:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    days:
+                      type: string
+                      description: 'Days of the week.'
+                      example: 'Monday, Wednesday'
+                    hours:
+                      type: string
+                      description: 'Working hours.'
+                      example: '9:00 AM - 5:00 PM'
+                    date:
+                      type: string
+                      format: date
+                      description: 'Date of the schedule.'
+                      example: '2023-12-01'
+              social_links:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    name:
+                      type: string
+                      description: 'Name of the social platform.'
+                      example: 'Facebook'
+                    url:
+                      type: string
+                      format: uri
+                      description: 'URL to the social media profile.'
+                      example: 'https://facebook.com/example'
+              price:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    name:
+                      type: string
+                      description: 'Price name or description.'
+                      example: 'Monthly Subscription'
+                    amount:
+                      type: string
+                      description: 'Price amount.'
+                      example: '99.99'
+              phone:
+                type: string
+                pattern: '^\+?[0-9]{10,15}$'
+                description: 'Phone number of the user.'
+                example: '+1234567890'
+              email:
+                type: string
+                format: email
+                description: 'Email address of the user.'
+                example: 'example@gmail.com'
+          club:
+            type: array
+            items:
+              type: string
+            description: 'List of clubs where the coach works.'
+            example:
+              - '65ca67e7ae7f10c88b598384'
+              - '65ca67e7ae7f10c88b59ke84'
+          couch:
+            type: array
+            items:
+              type: string
+            description: 'List of current coach jobs at this sports club.'
+            example:
+              - '65ca63kj7ae7f10c88b598384'
+              - '65coo7e7ae7f10c88b598384'
+          favorite:
+            type: array
+            items:
+              type: object
+              properties:
+                type:
+                  type: string
+                  description: 'Type of favorite item.'
+                  example: '65ca63kj7ae7f10c88b598384'
+responses:
+  '200':
+    description: 'User profile updated successfully'
+    content:
+      application/json:
+        schema:
+          type: object
+          required:
+            - status
+            - message
+            - data
+          properties:
+            status:
+              type: integer
+              example: 200
+            message:
+              type: string
+              example: 'Successfully patched user profile!'
+            data:
+              type: object
+              $ref: '../../components/schemas/userProfile.yaml'
+  '401':
+    $ref: '../../components/responses/401.yaml'
