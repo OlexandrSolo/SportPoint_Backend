@@ -11,10 +11,10 @@ import auth from '../middlewares/auth.js';
 const FavoritesCardsRouter = Router();
 
 // Додати в обране
-FavoritesCardsRouter.post("/favorites/:id", auth, isValidId, ctrlWrapper(favoritesCardController.addToFavoritesCardController));
+FavoritesCardsRouter.post("/favorites/:cardId", auth, isValidId, ctrlWrapper(favoritesCardController.addToFavoritesCardController));
 
 // Видалити з обраного
-FavoritesCardsRouter.delete("/favorites/:id", auth, isValidId, ctrlWrapper(favoritesCardController.deleteFavoritesCardController));
+FavoritesCardsRouter.delete("/favorites/:cardId", auth, isValidId, ctrlWrapper(favoritesCardController.deleteFavoritesCardController));
 
 // Отримати список обраного
 FavoritesCardsRouter.get("/favorites", auth, ctrlWrapper(favoritesCardController.getFavoritesCardController));
