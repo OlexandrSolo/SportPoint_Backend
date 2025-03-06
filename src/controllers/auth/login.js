@@ -33,6 +33,7 @@ const login = async (req, res) => {
   const tokens = await loginService(user);
 
   res.status(200).json(tokens);
+  // messages: "Successfully login user",
 };
 
 export default login;

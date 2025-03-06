@@ -12,12 +12,13 @@ const register = async (req, res) => {
    if (user) {
       return res.status(409).json({ message: ErrorsApp.EXIST_USER });
    }
-   
+
    const newUser = await registerService(req, normalizeEmail, password);
 
    res.status(201).json({
+      message: "Successfully register user",
       email: newUser.email,
    });
 };
 
-  export default register;
+export default register;
