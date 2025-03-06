@@ -14,6 +14,9 @@
   },
   "servers": [
     {
+      "url": "https://sportpoint-backend.onrender.com/"
+    },
+    {
       "url": "http://localhost:3000"
     }
   ],
@@ -34,9 +37,7 @@
   "paths": {
     "/auth/signup": {
       "post": {
-        "tags": [
-          "Auth"
-        ],
+        "tags": ["Auth"],
         "summary": "Register user",
         "operationId": "createUser",
         "description": "Register user",
@@ -50,11 +51,7 @@
             "application/json": {
               "schema": {
                 "type": "object",
-                "required": [
-                  "email",
-                  "password",
-                  "role"
-                ],
+                "required": ["email", "password", "role"],
                 "properties": {
                   "email": {
                     "description": "User email",
@@ -83,10 +80,7 @@
               "application/json": {
                 "schema": {
                   "type": "object",
-                  "required": [
-                    "status",
-                    "data"
-                  ],
+                  "required": ["status", "data"],
                   "properties": {
                     "status": {
                       "type": "integer",
@@ -94,9 +88,7 @@
                     },
                     "data": {
                       "type": "object",
-                      "required": [
-                        "email"
-                      ],
+                      "required": ["email"],
                       "properties": {
                         "email": {
                           "type": "string",
@@ -118,9 +110,7 @@
     },
     "/auth/signin": {
       "post": {
-        "tags": [
-          "Auth"
-        ],
+        "tags": ["Auth"],
         "summary": "Login user",
         "operationId": "loginUser",
         "description": "Login user",
@@ -134,10 +124,7 @@
             "application/json": {
               "schema": {
                 "type": "object",
-                "required": [
-                  "email",
-                  "password"
-                ],
+                "required": ["email", "password"],
                 "properties": {
                   "email": {
                     "description": "User email",
@@ -161,11 +148,7 @@
               "application/json": {
                 "schema": {
                   "type": "object",
-                  "required": [
-                    "status",
-                    "message",
-                    "data"
-                  ],
+                  "required": ["status", "message", "data"],
                   "properties": {
                     "status": {
                       "type": "integer",
@@ -192,9 +175,7 @@
     },
     "/auth/logout": {
       "post": {
-        "tags": [
-          "Auth"
-        ],
+        "tags": ["Auth"],
         "summary": "Logout user",
         "operationId": "logoutUser",
         "description": "Logout user",
@@ -219,9 +200,7 @@
               "application/json": {
                 "schema": {
                   "type": "object",
-                  "required": [
-                    "status"
-                  ],
+                  "required": ["status"],
                   "properties": {
                     "status": {
                       "type": "integer",
@@ -240,9 +219,7 @@
     },
     "/auth/refresh/current": {
       "get": {
-        "tags": [
-          "Auth"
-        ],
+        "tags": ["Auth"],
         "summary": "Refresh current",
         "operationId": "refreshCurrent",
         "description": "Refresh",
@@ -256,9 +233,7 @@
             "multipart/form-data": {
               "schema": {
                 "type": "object",
-                "required": [
-                  "refreshToken"
-                ],
+                "required": ["refreshToken"],
                 "properties": {
                   "refreshToken": {
                     "description": "Refresh token",
@@ -276,9 +251,7 @@
               "application/json": {
                 "schema": {
                   "type": "object",
-                  "required": [
-                    "status"
-                  ],
+                  "required": ["status"],
                   "properties": {
                     "status": {
                       "type": "integer",
@@ -307,9 +280,7 @@
     },
     "/auth/verify/:verificationToken": {
       "get": {
-        "tags": [
-          "Auth"
-        ],
+        "tags": ["Auth"],
         "summary": "Verify user email",
         "operationId": "verifyEmail",
         "description": "Verifies user email using a verification token.",
@@ -349,9 +320,7 @@
     },
     "/auth/verify": {
       "post": {
-        "tags": [
-          "Auth"
-        ],
+        "tags": ["Auth"],
         "summary": "Update user password",
         "operationId": "updatePassword",
         "description": "Update user password using a  tokens.",
@@ -396,9 +365,7 @@
     },
     "/auth/send/verify": {
       "post": {
-        "tags": [
-          "Auth"
-        ],
+        "tags": ["Auth"],
         "summary": "Send message for update user password",
         "operationId": "sendUpdatePasswordMessage",
         "description": "Update user password message send by email.",
@@ -433,9 +400,7 @@
     },
     "/profile": {
       "get": {
-        "tags": [
-          "UserProfile"
-        ],
+        "tags": ["UserProfile"],
         "summary": "Get user profile",
         "operationId": "getUserProfile",
         "description": "Get user profile with this endpoint",
@@ -451,11 +416,7 @@
               "application/json": {
                 "schema": {
                   "type": "object",
-                  "required": [
-                    "status",
-                    "message",
-                    "data"
-                  ],
+                  "required": ["status", "message", "data"],
                   "properties": {
                     "status": {
                       "type": "integer",
@@ -534,10 +495,7 @@
                                 "type": "string"
                               },
                               "description": "List of gym equipment.",
-                              "example": [
-                                "Pool",
-                                "Sauna"
-                              ]
+                              "example": ["Pool", "Sauna"]
                             },
                             "experience": {
                               "type": "array",
@@ -546,10 +504,7 @@
                                 "format": "date"
                               },
                               "description": "Experience dates of the coach.",
-                              "example": [
-                                "2020-01-01",
-                                "2021-01-01"
-                              ]
+                              "example": ["2020-01-01", "2021-01-01"]
                             },
                             "schedule": {
                               "type": "array",
@@ -700,9 +655,7 @@
         }
       },
       "delete": {
-        "tags": [
-          "UserProfile"
-        ],
+        "tags": ["UserProfile"],
         "summary": "Delete user profile",
         "operationId": "deleteUserProfile",
         "description": "Delete  user profile",
@@ -734,9 +687,7 @@
         }
       },
       "patch": {
-        "tags": [
-          "UserProfile"
-        ],
+        "tags": ["UserProfile"],
         "summary": "Patch user profile",
         "operationId": "patchUserProfile",
         "description": "Patch user profile",
@@ -813,10 +764,7 @@
                           "type": "string"
                         },
                         "description": "List of sport club equipment.",
-                        "example": [
-                          "Pool",
-                          "Sauna"
-                        ]
+                        "example": ["Pool", "Sauna"]
                       },
                       "experience": {
                         "type": "array",
@@ -825,10 +773,7 @@
                           "format": "date"
                         },
                         "description": "Experience dates of the user.",
-                        "example": [
-                          "2020-01-01",
-                          "2021-01-01"
-                        ]
+                        "example": ["2020-01-01", "2021-01-01"]
                       },
                       "schedule": {
                         "type": "array",
@@ -952,11 +897,7 @@
               "application/json": {
                 "schema": {
                   "type": "object",
-                  "required": [
-                    "status",
-                    "message",
-                    "data"
-                  ],
+                  "required": ["status", "message", "data"],
                   "properties": {
                     "status": {
                       "type": "integer",
@@ -981,9 +922,7 @@
         }
       },
       "post": {
-        "tags": [
-          "UserProfile"
-        ],
+        "tags": ["UserProfile"],
         "summary": "Post user profile",
         "operationId": "postUserProfile",
         "description": "Post user profile",
@@ -1060,10 +999,7 @@
                           "type": "string"
                         },
                         "description": "List of sport club equipment.",
-                        "example": [
-                          "Pool",
-                          "Sauna"
-                        ]
+                        "example": ["Pool", "Sauna"]
                       },
                       "experience": {
                         "type": "array",
@@ -1072,10 +1008,7 @@
                           "format": "date"
                         },
                         "description": "Experience dates of the user.",
-                        "example": [
-                          "2020-01-01",
-                          "2021-01-01"
-                        ]
+                        "example": ["2020-01-01", "2021-01-01"]
                       },
                       "schedule": {
                         "type": "array",
@@ -1199,11 +1132,7 @@
               "application/json": {
                 "schema": {
                   "type": "object",
-                  "required": [
-                    "status",
-                    "message",
-                    "data"
-                  ],
+                  "required": ["status", "message", "data"],
                   "properties": {
                     "status": {
                       "type": "integer",
@@ -1230,9 +1159,7 @@
     },
     "/search/by-name": {
       "get": {
-        "tags": [
-          "SearchUserProfile"
-        ],
+        "tags": ["SearchUserProfile"],
         "summary": "Get user profile by name",
         "operationId": "getSearchedProfile",
         "description": "Get user profile with this endpoint by name",
@@ -1260,12 +1187,7 @@
               "application/json": {
                 "schema": {
                   "type": "object",
-                  "required": [
-                    "name",
-                    "status",
-                    "message",
-                    "data"
-                  ],
+                  "required": ["name", "status", "message", "data"],
                   "properties": {
                     "status": {
                       "type": "integer",
@@ -1304,11 +1226,7 @@
           "application/json": {
             "schema": {
               "type": "object",
-              "required": [
-                "status",
-                "message",
-                "data"
-              ],
+              "required": ["status", "message", "data"],
               "properties": {
                 "status": {
                   "type": "integer",
@@ -1320,9 +1238,7 @@
                 },
                 "data": {
                   "type": "object",
-                  "required": [
-                    "message"
-                  ],
+                  "required": ["message"],
                   "properties": {
                     "message": {
                       "type": "string",
@@ -1341,11 +1257,7 @@
           "application/json": {
             "schema": {
               "type": "object",
-              "required": [
-                "status",
-                "message",
-                "data"
-              ],
+              "required": ["status", "message", "data"],
               "properties": {
                 "status": {
                   "type": "integer",
@@ -1357,9 +1269,7 @@
                 },
                 "data": {
                   "type": "object",
-                  "required": [
-                    "message"
-                  ],
+                  "required": ["message"],
                   "properties": {
                     "message": {
                       "type": "string",
@@ -1378,11 +1288,7 @@
           "application/json": {
             "schema": {
               "type": "object",
-              "required": [
-                "status",
-                "message",
-                "data"
-              ],
+              "required": ["status", "message", "data"],
               "properties": {
                 "status": {
                   "type": "integer",
@@ -1394,9 +1300,7 @@
                 },
                 "data": {
                   "type": "object",
-                  "required": [
-                    "message"
-                  ],
+                  "required": ["message"],
                   "properties": {
                     "message": {
                       "type": "string",
@@ -1413,10 +1317,7 @@
     "schemas": {
       "auth": {
         "type": "object",
-        "required": [
-          "email",
-          "password"
-        ],
+        "required": ["email", "password"],
         "properties": {
           "email": {
             "description": "Email for registration and login",
@@ -1491,10 +1392,7 @@
               "format": "binary"
             },
             "description": "Array of image  for the user.",
-            "example": [
-              "image1.jpg",
-              "image2.jpg"
-            ]
+            "example": ["image1.jpg", "image2.jpg"]
           },
           "certificates": {
             "type": "array",
@@ -1503,10 +1401,7 @@
               "format": "binary"
             },
             "description": "Array of  for the user’s certificates.",
-            "example": [
-              "certificate1.pdf",
-              "certificate2.pdf"
-            ]
+            "example": ["certificate1.pdf", "certificate2.pdf"]
           },
           "description": {
             "type": "object",
@@ -1532,10 +1427,7 @@
                   "type": "string"
                 },
                 "description": "List of sport club equipment.",
-                "example": [
-                  "Pool",
-                  "Sauna"
-                ]
+                "example": ["Pool", "Sauna"]
               },
               "experience": {
                 "type": "array",
@@ -1544,10 +1436,7 @@
                   "format": "date"
                 },
                 "description": "Experience dates of the user.",
-                "example": [
-                  "2020-01-01",
-                  "2021-01-01"
-                ]
+                "example": ["2020-01-01", "2021-01-01"]
               },
               "schedule": {
                 "type": "array",
@@ -1630,10 +1519,7 @@
               "type": "string"
             },
             "description": "List of clubs where the coach works.",
-            "example": [
-              "65ca63kj7ae7f10c88b598384",
-              "65coo7e7ae7f10c88b598384"
-            ]
+            "example": ["65ca63kj7ae7f10c88b598384", "65coo7e7ae7f10c88b598384"]
           },
           "couch": {
             "type": "array",
@@ -1641,10 +1527,7 @@
               "type": "string"
             },
             "description": "List of current coach jobs at this sports club.",
-            "example": [
-              "65ca63kj7ae7f10c88b598384",
-              "65coo7e7ae7f10c88b598384"
-            ]
+            "example": ["65ca63kj7ae7f10c88b598384", "65coo7e7ae7f10c88b598384"]
           },
           "favorite": {
             "type": "array",
@@ -1668,10 +1551,7 @@
       },
       "reviews": {
         "type": "object",
-        "required": [
-          "email",
-          "password"
-        ],
+        "required": ["email", "password"],
         "properties": {
           "_id": {
             "type": "string",
