@@ -1,0 +1,38 @@
+tags:
+  - SearchUserProfile
+summary: Get user profile by name
+operationId: getSearchedProfile
+description: 'Get user profile with this endpoint by name'
+security:
+  - bearerAuth: []
+parameters:
+  - name: name
+    in: query
+    required: true
+    description: 'The name (or part of it) to search for'
+    schema:
+      type: string
+      example: 'John Doe'
+responses:
+  '200':
+    description: 'User profile retrieved successfully'
+    content:
+      application/json:
+        schema:
+          type: object
+          required:
+            - name
+            - status
+            - message
+            - data
+          properties:
+            status:
+              type: integer
+              example: 200
+            message:
+              type: string
+              example: Found profiles with name "John Doe"!
+            data:
+              $ref: ../../components/schemas/userProfile.yaml
+  '404':
+    $ref: '../../components/responses/404.yaml'
