@@ -31,6 +31,8 @@ const authSchema = Schema(
     verify: {
       type: Boolean,
       default: false,
+      //щоб в базі не світлось як null
+      required: true
     },
     verificationToken: {
       type: String,
