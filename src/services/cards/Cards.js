@@ -69,11 +69,3 @@ export const getAllCards = async ({
         ...paginationData
     };
 };
-
-export const getCardById = async () => { };
-
-export const createCard = async () => { };
-
-export const updateCard = async () => { };
-
-export const deleteCard = async () => { };
