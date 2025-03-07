@@ -5,6 +5,18 @@ operationId: sendUpdatePasswordMessage
 description: 'Update user password message send by email.'
 security:
   - bearerAuth: []
+requestBody:
+  content:
+    application/json:
+      schema:
+        type: object
+        required:
+          - email
+        properties:
+          email:
+            description: 'User email'
+            type: string
+            example: 'example@gmail.com'
 responses:
   '201':
     description: 'Password update message sent to email. Returns status and message.'

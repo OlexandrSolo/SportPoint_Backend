@@ -5,6 +5,23 @@ operationId: updatePassword
 description: 'Update user password using a  tokens.'
 security:
   - bearerAuth: []
+requestBody:
+  content:
+    application/json:
+      schema:
+        type: object
+        required:
+          - password
+          - verifyCode
+        properties:
+          verifyCode:
+            description: 'Enter verify code'
+            type: number
+            example: '92736458292'
+          password:
+            description: 'Enter your password'
+            type: string
+            example: 'rwe2135'
 responses:
   '201':
     description: 'Password updated successfully. Returns new authentication tokens.'

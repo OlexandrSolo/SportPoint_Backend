@@ -363,6 +363,31 @@
             "bearerAuth": []
           }
         ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": [
+                  "password",
+                  "verifyCode"
+                ],
+                "properties": {
+                  "verifyCode": {
+                    "description": "Enter verify code",
+                    "type": "number",
+                    "example": "92736458292"
+                  },
+                  "password": {
+                    "description": "Enter your password",
+                    "type": "string",
+                    "example": "rwe2135"
+                  }
+                }
+              }
+            }
+          }
+        },
         "responses": {
           "201": {
             "description": "Password updated successfully. Returns new authentication tokens.",
@@ -410,6 +435,25 @@
             "bearerAuth": []
           }
         ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": [
+                  "email"
+                ],
+                "properties": {
+                  "email": {
+                    "description": "User email",
+                    "type": "string",
+                    "example": "example@gmail.com"
+                  }
+                }
+              }
+            }
+          }
+        },
         "responses": {
           "201": {
             "description": "Password update message sent to email. Returns status and message.",
@@ -422,6 +466,42 @@
                       "type": "string",
                       "description": "Human-readable message.",
                       "example": "The password update code has been successfully sent to your email! Please go there to continue updating your password!"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/401"
+          }
+        }
+      }
+    },
+    "/auth/delete": {
+      "delete": {
+        "tags": [
+          "Auth"
+        ],
+        "summary": "Delete user account",
+        "operationId": "deleteUserAccount",
+        "description": "Delete  user account",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Delete  user account",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "integer",
+                      "example": 204
                     }
                   }
                 }

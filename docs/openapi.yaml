@@ -16,7 +16,7 @@ tags:
   - name: SearchUserProfile
     description: Search operations
 servers:
-  - url: https://sportpoint-backend.onrender.com/
+  - url: https://sportpoint-backend.onrender.com
   - url: http://localhost:3000
 paths:
   /auth/signup:
@@ -40,6 +40,9 @@ paths:
   /auth/send/verify:
     post:
       $ref: '../swagger/paths/send/verify/post.yaml'
+  /auth/delete:
+    delete:
+      $ref: '../swagger/paths/deleteAccount/delete.yaml'
   /profile:
     get:
       $ref: '../swagger/paths/userProfile/get.yaml'

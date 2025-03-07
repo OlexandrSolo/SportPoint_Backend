@@ -4,7 +4,7 @@ import { ErrorsApp } from "../../constants/errors.js";
 const deleteAccountUser = async (req, res) => {
    const { _id } = req.user;
    await deleteAccountUserService(_id); 
-   res.status(202).json({
+   res.status(204).json({
      message: ErrorsApp.DELETE_ACCOUNT,
    }); 
 };
