@@ -40,7 +40,7 @@ paths:
   /auth/send/verify:
     post:
       $ref: '../swagger/paths/send/verify/post.yaml'
-  /auth/delete:
+  /auth/delete/account:
     delete:
       $ref: '../swagger/paths/deleteAccount/delete.yaml'
   /profile:
