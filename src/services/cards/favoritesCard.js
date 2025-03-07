@@ -1,7 +1,8 @@
 import createHttpError from 'http-errors';
-import { UserProfileModel } from '../../db/models/UserProfileModel';
+import { UserProfileModel } from '../../db/models/UserProfileModel.js';
 
-export const addToFavorites = async (userId, cardId) => {
+export const addToFavorites = async (cardId, userId) => {
+    console.log("services");
     const user = UserProfileModel.findById(userId);
     if (!user) throw new createHttpError(404, `User ${userId} not found`);
 
@@ -26,7 +27,8 @@ export const deleteFavoriteCard = async (userId, cardId) => {
 };
 
 export const getFavoriteCards = async (userId) => {
-    const user = UserProfileModel.findById(userId).population("favorites");
+
+    const user = UserProfileModel.findById(userId);
     if (!user) throw new createHttpError(404, `User ${userId} not found`);
 
     return user.favorites;

@@ -1,6 +1,6 @@
 import { Router } from "express";
 
-import ctrlWrapper from "../utils/ctrlWrapper.js";
+import { ctrlWrapper } from "../utils/ctrlWrapper.js";
 
 import { isValidId } from "../middlewares/isValidId.js";
 
@@ -11,12 +11,12 @@ import auth from '../middlewares/auth.js';
 const FavoritesCardsRouter = Router();
 
 // Додати в обране
-FavoritesCardsRouter.post("/favorites/:cardId", auth, isValidId, ctrlWrapper(favoritesCardController.addToFavoritesCardController));
+FavoritesCardsRouter.post("/:cardId", auth, isValidId, ctrlWrapper(favoritesCardController.addToFavoritesCardController));
 
 // Видалити з обраного
-FavoritesCardsRouter.delete("/favorites/:cardId", auth, isValidId, ctrlWrapper(favoritesCardController.deleteFavoritesCardController));
+FavoritesCardsRouter.delete("/:cardId", auth, isValidId, ctrlWrapper(favoritesCardController.deleteFavoritesCardController));
 
 // Отримати список обраного
-FavoritesCardsRouter.get("/favorites", auth, ctrlWrapper(favoritesCardController.getFavoritesCardController));
+FavoritesCardsRouter.get("/", auth, ctrlWrapper(favoritesCardController.getFavoritesCardController));
 
 export default FavoritesCardsRouter;
