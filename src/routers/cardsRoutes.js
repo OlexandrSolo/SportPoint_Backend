@@ -15,15 +15,15 @@ const CardsRouter = Router();
 CardsRouter.get("/", ctrlWrapper(clubTrainer.getCardsController));
 
 // Отримати одну картку за ID
-CardsRouter.get("/:id", isValidId, validateBody(clubTrainerSchema), ctrlWrapper(clubTrainer.getCardByIdController));
+// CardsRouter.get("/:id", isValidId, validateBody(clubTrainerSchema), ctrlWrapper(clubTrainer.getCardByIdController));
 
-// Додати нову картку (авторизація потрібна)
-CardsRouter.post("/", auth, validateBody(createTrainerClubSchema), ctrlWrapper(clubTrainer.createCardController));
+// // Додати нову картку (авторизація потрібна)
+// CardsRouter.post("/", auth, validateBody(createTrainerClubSchema), ctrlWrapper(clubTrainer.createCardController));
 
-// Оновити картку за ID (авторизація потрібна)
-CardsRouter.patch("/:id", auth, isValidId, validateBody(updateClubTrainerSchema), ctrlWrapper(clubTrainer.updateCardController));
+// // Оновити картку за ID (авторизація потрібна)
+// CardsRouter.patch("/:id", auth, isValidId, validateBody(updateClubTrainerSchema), ctrlWrapper(clubTrainer.updateCardController));
 
-// Видалити картку за ID (авторизація потрібна)
-CardsRouter.delete("/:id", auth, isValidId, validateBody(deleteClubTrainerSchema), ctrlWrapper(clubTrainer.deleteCardController));
+// // Видалити картку за ID (авторизація потрібна)
+// CardsRouter.delete("/:id", auth, isValidId, validateBody(deleteClubTrainerSchema), ctrlWrapper(clubTrainer.deleteCardController));
 
 export default CardsRouter;

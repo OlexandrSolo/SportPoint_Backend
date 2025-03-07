@@ -1,11 +1,13 @@
-import { addToFavorites, deleteFavoriteCard, getFavoriteCards } from "../../services/cards/favoritesCard";
+import { addToFavorites, deleteFavoriteCard, getFavoriteCards } from "../../services/cards/favoritesCard.js";
 
 // Додати в обране
 export const addToFavoritesCardController = async (req, res) => {
-    const { userId } = req.user;
+    // console.log("req.params:", req.params);
+
+    const { _id: userId } = req.user;
     const { cardId } = req.params;
 
-    const updateFavorites = await addToFavorites(userId, cardId);
+    const updateFavorites = await addToFavorites(cardId, userId);
 
     res.status(200).json({
         status: 200,
@@ -16,10 +18,10 @@ export const addToFavoritesCardController = async (req, res) => {
 
 // Видалити з обраного
 export const deleteFavoritesCardController = async (req, res) => {
-    const { userId } = req.user;
+    const { _id: userId } = req.user;
     const { cardId } = req.params;
 
-    const updateFavorites = await deleteFavoriteCard(userId, cardId);
+    const updateFavorites = await deleteFavoriteCard(cardId, userId);
 
     res.status(200).json({
         status: 200,
@@ -29,7 +31,7 @@ export const deleteFavoritesCardController = async (req, res) => {
 
 // Отримати список обраного
 export const getFavoritesCardController = async (req, res) => {
-    const { userId } = req.user;
+    const { _id: userId } = req.user;
 
     const favorites = await getFavoriteCards(userId);
 

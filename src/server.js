@@ -12,11 +12,13 @@ import { getEnvVar } from './utils/getEnvVar.js';
 import authRouter from './routers/auth.js';
 
 import CardsRouter from './routers/cardsRoutes.js';
+// import FavoritesRouter from './routers/favoriteRoutes.js';
 
 import reviewRoutes from './routers/reviews.js';
 
 import router from './routers/index.js';
 import { swaggerDocs } from './middlewares/swaggerDocs.js';
+import FavoritesCardsRouter from './routers/favoriteRoutes.js';
 
 const PORT = Number(getEnvVar('PORT', '3000'));
 
@@ -35,6 +37,7 @@ export const startServer = () => {
   app.use('/auth', authRouter);
   app.use('/reviews', reviewRoutes);
   app.use('/cards', CardsRouter);
+  app.use("/favorites", FavoritesCardsRouter);
 
   app.use(notFoundHandler);
   app.use(errorHandler);
