@@ -2,8 +2,6 @@ import { addToFavorites, deleteFavoriteCard, getFavoriteCards } from "../../serv
 
 // Додати в обране
 export const addToFavoritesCardController = async (req, res) => {
-    // console.log("req.params:", req.params);
-
     const { _id: userId } = req.user;
     const { cardId } = req.params;
 
@@ -21,7 +19,7 @@ export const deleteFavoritesCardController = async (req, res) => {
     const { _id: userId } = req.user;
     const { cardId } = req.params;
 
-    const updateFavorites = await deleteFavoriteCard(cardId, userId);
+    await deleteFavoriteCard(cardId, userId);
 
     res.status(200).json({
         status: 200,
