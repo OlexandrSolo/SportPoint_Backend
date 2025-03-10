@@ -41,6 +41,7 @@ export const userProfileSchemaJoi = Joi.object({
 
   //TODO change if you need
   favorite: Joi.array().items(Joi.object({ type: Joi.string() })),
+  sport: Joi.string(),
 });
 
 export const userProfileUpdateSchemaJoi = Joi.object({
