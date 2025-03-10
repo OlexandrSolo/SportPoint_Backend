@@ -2,10 +2,10 @@ import { addToFavorites, deleteFavoriteCard, getFavoriteCards } from "../../serv
 
 // Додати в обране
 export const addToFavoritesCardController = async (req, res) => {
-    const { _id: userId } = req.user;
-    const { cardId } = req.params;
+    const { _id } = req.user;
+    const { cardId } = req.query;
 
-    const updateFavorites = await addToFavorites(cardId, userId);
+    const updateFavorites = await addToFavorites(_id, cardId);
 
     res.status(200).json({
         status: 200,
@@ -16,10 +16,10 @@ export const addToFavoritesCardController = async (req, res) => {
 
 // Видалити з обраного
 export const deleteFavoritesCardController = async (req, res) => {
-    const { _id: userId } = req.user;
-    const { cardId } = req.params;
+    const { _id } = req.user;
+    const { cardId } = req.query;
 
-    await deleteFavoriteCard(cardId, userId);
+    await deleteFavoriteCard(_id, cardId);
 
     res.status(200).json({
         status: 200,
