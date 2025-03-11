@@ -2,7 +2,7 @@ import { Router } from "express";
 
 import { ctrlWrapper } from "../utils/ctrlWrapper.js";
 
-import { isValidId } from "../middlewares/isValidId.js";
+// import { isValidId } from "../middlewares/isValidId.js";
 
 import * as favoritesCardController from "../controllers/cards/favoritesCard.js";
 

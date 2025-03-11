@@ -16,8 +16,8 @@ export const getAllCards = async ({
     // Фільтр за містом
     if (filter.address) cardsQuery.where("address").regex(new RegExp(filter.address, 'i'));
 
-    // Фільтр за типом (тренер або клуб)
-    // if (filter.type) cardsQuery.where("type").equals(filter.type);
+    // Фільтр за типом(тренер або клуб)
+    if (filter.type) cardsQuery.where("type").equals(filter.type);
 
     // Мінімальна кількість відгуків === популярності
     if (filter.reviewCount) cardsQuery.where("reviewCount").gte(filter.reviewCount);
