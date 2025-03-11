@@ -3,6 +3,7 @@ import express from 'express';
 import { ctrlWrapper } from '../utils/ctrlWrapper.js';
 import auth from '../middlewares/auth.js';
 import authRefresh from '../middlewares/authRefresh.js';
+import { uploadFields } from '../middlewares/multer.js';
 
 //controllers
 import register from '../controllers/auth/register.js';
@@ -24,7 +25,7 @@ import changePasswordSchema from '../validation/auth/changePassword.js';
 
 const router = express.Router();
 
-router.post('/signup', userRegisterSchema, ctrlWrapper(register));
+router.post('/signup', uploadFields, userRegisterSchema, ctrlWrapper(register));
 router.post('/signin', userLoginSchema, ctrlWrapper(login));
 router.post('/logout', auth, ctrlWrapper(logout));
 router.get('/refresh/current', authRefresh, ctrlWrapper(refreshToken));

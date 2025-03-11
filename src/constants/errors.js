@@ -5,6 +5,7 @@ export const ErrorsApp = {
   NOT_AUTHORIZED: 'Ви не авторизовані. Будь ласка авторизуйтеся!',
   NOT_VALID_PASSWORD:
     'Пароль має містити принаймні 6 символів!',
+  NOT_VALID_PHONE: 'Номер телефону має бути у форматі +380ХХХХХХХХХ',
   NOT_VALID_EMAIL:
     'Ви ввели не валідний формат email адреси. Ввведіть email адресу в форматі user@example.com!',
   BAD_CODE: 'Ви ввели невірни код підтвердження!',
