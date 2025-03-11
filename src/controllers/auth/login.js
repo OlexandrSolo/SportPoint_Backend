@@ -26,9 +26,9 @@ const login = async (req, res) => {
   if (!passwordCompare) {
     return res.status(401).json({ message: ErrorsApp.NOT_CORRECT_PASSWORD });
   }
-  if (!user.verify) {
-    return res.status(401).json({ message: ErrorsApp.NOT_VERIFICATION(email) });
-  }
+  // if (!user.verify) {
+  //   return res.status(401).json({ message: ErrorsApp.NOT_VERIFICATION(email) });
+  // }
 
   const tokens = await loginService(user);
 
