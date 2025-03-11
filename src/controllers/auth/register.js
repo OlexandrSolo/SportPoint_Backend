@@ -7,6 +7,7 @@ import {
   handleMultipleFileUploads,
 } from '../../helpers/uploadImageHelper.js';
 import { createUserProfile } from '../../services/userProfileService.js';
+import loginService from '../../services/auth/loginService.js';
 
 const register = async (req, res) => {
    const { email, password } = req.body;
@@ -75,11 +76,15 @@ const register = async (req, res) => {
    
    await createUserProfile(profileData);
 
+   const tokens = await loginService(findNewUser);
+
 
 
    res.status(201).json({
       message: "Successfully register user",
       email: newUser.email,
+      token: tokens.token,
+      refreshToken: tokens.refreshToken,
    });
 };
 
