@@ -3,8 +3,8 @@ import { handleSaveError, setupUpdateValidator } from './hooks.js';
 
 const reviewSchema = new Schema({
     user: { type: Schema.Types.ObjectId, ref: 'users', required: true },
-    club: { type: Schema.Types.ObjectId, ref: 'clubs' }, 
-    trainer: { type: Schema.Types.ObjectId, ref: 'trainers' }, 
+    club: { type: Schema.Types.ObjectId, ref: 'clubs' },
+    trainer: { type: Schema.Types.ObjectId, ref: 'trainers' },
     ratings: {
         clientService: { type: Number, required: true, min: 1, max: 5 },
         serviceQuality: { type: Number, required: true, min: 1, max: 5 },
@@ -13,8 +13,8 @@ const reviewSchema = new Schema({
         cleanliness: { type: Number, required: true, min: 1, max: 5 }
     },
     comment: { type: String, required: true, minlength: 20, maxlength: 500 },
-    images: [{ type: String }], 
-    adminReply: { type: String }, 
+    images: [{ type: String }],
+    adminReply: { type: String },
     reports: [{ user: { type: Schema.Types.ObjectId, ref: 'users' }, reason: String }]
 }, { timestamps: true });
 
