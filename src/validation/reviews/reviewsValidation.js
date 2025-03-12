@@ -1,8 +1,10 @@
 import Joi from 'joi';
 
-export const reviewSchema = Joi.object({
-    club: Joi.string().optional(),
-    trainer: Joi.string().optional(),
+const reviewsSchema = (req, res, next) => {
+  const schema = Joi.object({
+    userCommentId: Joi.string().optional(),
+    // club: Joi.string().optional(),
+    // trainer: Joi.string().optional(),
     ratings: Joi.object({
         clientService: Joi.number().min(1).max(5).required(),
         serviceQuality: Joi.number().min(1).max(5).required(),
@@ -11,5 +13,18 @@ export const reviewSchema = Joi.object({
         cleanliness: Joi.number().min(1).max(5).required(),
     }).required(),
     comment: Joi.string().min(20).max(500).required(),
-    images: Joi.array().items(Joi.string().uri()).optional(),
-}).or('club', 'trainer'); 
+    images: Joi.string().uri().allow(null, '').optional(),
+  });
+
+  const validationResult = schema.validate(req.body);
+
+  if (validationResult.error) {
+    return res.status(400).json({
+      message: validationResult.error.details[0].message,
+    });
+  }
+
+  next();
+};
+
+export default reviewsSchema;

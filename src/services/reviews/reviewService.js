@@ -1,22 +1,52 @@
 import { ReviewsCollection } from '../../db/models/Review.js';
+import { UserProfileModel } from '../../db/models/UserProfileModel.js';
 import createHttpError from 'http-errors';
 
 // Розрахунок середнього рейтинга до відгука
-const calculateOverallRatingForReview = (ratings) => {
+const calculateOverallRatingForReview = (ratings, id) => {
+    const allRatings = [];
     const ratingValues = Object.values(ratings);
-    return parseFloat((ratingValues.reduce((acc, val) => acc + val, 0) / ratingValues.length).toFixed(2));
+   
+    const rating = parseFloat((ratingValues.reduce((acc, val) => acc + val, 0) / ratingValues.length).toFixed(2));
+    allRatings.push(rating);
+
+    const allReviews = ReviewsCollection.findById({  id },)
+    //  console.log(allRatings, allReviews);
+    return 4.5;
 };
 
 // Додати відгук
-export const addReview = async (userId, club, trainer, ratings, comment, images) => {
-    if (!club && !trainer) {
+// export const addReview = async (userId, club, trainer, ratings, comment, images) => {
+//     if (!club && !trainer) {
+//         throw createHttpError(400, 'The review must be linked to a club or trainer');
+//     }
+    
+//     const review = await ReviewsCollection.create({ user: userId, club, trainer, ratings, comment, images });
+//     if (!review) throw createHttpError(500, 'Server error');
+
+//     return { review, overallRating: calculateOverallRatingForReview(review.ratings) };
+// };
+
+export const addReview = async (userId, userCommentId, ratings, comment, images) => {
+    if (!userCommentId) {
         throw createHttpError(400, 'The review must be linked to a club or trainer');
     }
     
-    const review = await ReviewsCollection.create({ user: userId, club, trainer, ratings, comment, images });
+    const review = await ReviewsCollection.create({ user: userId, userCommentId, ratings, comment, images });
+
+    const reviews = await ReviewsCollection.find({ userCommentId }).countDocuments();
+    
+
+    const user = await UserProfileModel.findOne({ userId: userCommentId })
+
+    await UserProfileModel.findByIdAndUpdate(user._id, { $set: { countReview: reviews } }, { new: true });
+    
+
+    console.log(reviews);
+
     if (!review) throw createHttpError(500, 'Server error');
 
-    return { review, overallRating: calculateOverallRatingForReview(review.ratings) };
+    return { review, overallRating: calculateOverallRatingForReview(review.ratings, userCommentId) };
 };
 
 // Видалити відгук
