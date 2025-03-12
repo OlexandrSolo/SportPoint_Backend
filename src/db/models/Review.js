@@ -13,6 +13,7 @@ const reviewSchema = new Schema({
         cleanliness: { type: Number, required: true, min: 1, max: 5 }
     },
     comment: { type: String, required: true, minlength: 20, maxlength: 500 },
+
     images: { type: String }, 
     adminReply: { type: String }, 
     reports: [{ user: { type: Schema.Types.ObjectId, ref: 'users' }, reason: String }]
