@@ -2,6 +2,7 @@ import { model, Schema } from 'mongoose';
 import { handleSaveError, setupUpdateValidator } from './hooks.js';
 
 const reviewSchema = new Schema({
+
     // user: { type: Schema.Types.ObjectId, ref: 'auth', require: true },
     owner: { type: Schema.Types.ObjectId, ref: 'auth', require: true },
     userCommentId: { type: Schema.Types.ObjectId, ref: 'auth' }, 
@@ -18,7 +19,10 @@ const reviewSchema = new Schema({
     images: { type: String }, 
     adminReply: { type: String }, 
     reports: [{ user: { type: Schema.Types.ObjectId, ref: 'users' }, reason: String }]
-}, { timestamps: true });
+}, { 
+    timestamps: true,
+    versionKey: false 
+});
 
 reviewSchema.post('save', handleSaveError);
 reviewSchema.pre('findOneAndUpdate', setupUpdateValidator);

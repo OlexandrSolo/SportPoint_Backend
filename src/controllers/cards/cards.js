@@ -41,22 +41,22 @@ export const getCardByIdController = async (req, res) => {
 };
 
 // Додати нову картку (авторизація потрібна)
-export const createCardController = async (req, res) => {
-    const ownerId = req.user._id;
-    const newCard = await clubTrainerService.createCard({ ...req.body, owner: ownerId });
+// export const createCardController = async (req, res) => {
+//     const ownerId = req.user._id;
+//     const newCard = await clubTrainerService.createCard({ ...req.body, owner: ownerId });
 
-    //додати логіку додавання фото
+//     //додати логіку додавання фото
 
-    res.status(201).json({
-        status: 201,
-        message: "Successfully created a card",
-        data: newCard,
-    });
-};
+//     res.status(201).json({
+//         status: 201,
+//         message: "Successfully created a card",
+//         data: newCard,
+//     });
+// };
 
 // Оновити картку за ID (авторизація потрібна)
-export const updateCardController = async (req, res) => { };
+// export const updateCardController = async (req, res) => { };
 
 // Видалити картку за ID (авторизація потрібна)
-export const deleteCardController = async (req, res) => { };
+// export const deleteCardController = async (req, res) => { };
 

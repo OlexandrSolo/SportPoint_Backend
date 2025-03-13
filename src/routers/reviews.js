@@ -11,7 +11,7 @@ import auth from '../middlewares/auth.js';
 
 
 import { ctrlWrapper } from '../utils/ctrlWrapper.js';
-// import { validateBody } from '../middlewares/validateBody.js';
+import { validateBody } from '../middlewares/validateBody.js';
 // import { reviewSchema } from '../validation/reviews/reviewsValidation.js';
 import reviewsSchema from '../validation/reviews/reviewsValidation.js';
 

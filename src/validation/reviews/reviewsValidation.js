@@ -5,6 +5,7 @@ const reviewsSchema = (req, res, next) => {
     userCommentId: Joi.string().optional(),
     // club: Joi.string().optional(),
     // trainer: Joi.string().optional(),
+
     ratings: Joi.object({
         clientService: Joi.number().min(1).max(5).required(),
         serviceQuality: Joi.number().min(1).max(5).required(),

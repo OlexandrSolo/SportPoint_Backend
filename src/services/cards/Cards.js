@@ -1,5 +1,7 @@
 import { SORT_ORDER } from "../../constants/sortOrder.js";
 import CardCollection from "../../db/models/Cards.js";
+import { ReviewsCollection } from "../../db/models/Review.js";
+import { UserProfileModel } from "../../db/models/UserProfileModel.js";
 import { calculatePaginationData } from "../../utils/calculatePaginationData.js";
 
 export const getAllCards = async ({
@@ -11,8 +13,9 @@ export const getAllCards = async ({
     const limit = perPage;
     const skip = (page - 1) * perPage;
 
-    const cardsQuery = CardCollection.find();
+    const cardsQuery = UserProfileModel.find();
 
+    // Переписати під switch
     // Фільтр за містом
     if (filter.address) cardsQuery.where("address").regex(new RegExp(filter.address, 'i'));
 
@@ -20,14 +23,17 @@ export const getAllCards = async ({
     if (filter.type) cardsQuery.where("type").equals(filter.type);
 
     // Мінімальна кількість відгуків === популярності
-    if (filter.reviewCount) cardsQuery.where("reviewCount").gte(filter.reviewCount);
+    // if (filter.reviewCount) {
+
+    //     cardsQuery.where("reviewCount").gte(filter.reviewCount);
+    // }
 
     // Фільтр за ціновим діапазоном
     if (filter.minPrice) cardsQuery.where('price').gte(filter.minPrice);
     if (filter.maxPrice) cardsQuery.where('price').lte(filter.maxPrice);
 
     // Фільтр за послугами (класифікацією)
-    if (filter.services && filter.services.length > 0) cardsQuery.where("services").in(filter.services);
+    if (filter.description && filter.description.abilities.length > 0) cardsQuery.where("abilities").in(filter.description.abilities);
 
     // Сортування
     if (filter.sort) {
@@ -51,7 +57,20 @@ export const getAllCards = async ({
         }
     };
 
-    const cardsCount = await CardCollection
+    const cardIds = await UserProfileModel.find().select("_id").exec();
+    console.log(cardIds);
+    const cardIdList = cardIds.map(card => card._id);
+    console.log(cardIdList);
+    const reviewsCountData = await ReviewsCollection.aggregate([
+        { $match: { cardId: { $in: cardIdList } } },
+        { $group: { _id: "$cardId", reviewCount: { $sum: 1 } } }
+    ]);
+
+
+
+    console.log(reviewsCountData);
+
+    const cardsCount = await UserProfileModel
         .find()
         .merge(cardsQuery)
         .countDocuments();
