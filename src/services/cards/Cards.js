@@ -1,5 +1,4 @@
 import { SORT_ORDER } from "../../constants/sortOrder.js";
-import CardCollection from "../../db/models/Cards.js";
 import { ReviewsCollection } from "../../db/models/Review.js";
 import { UserProfileModel } from "../../db/models/UserProfileModel.js";
 import { calculatePaginationData } from "../../utils/calculatePaginationData.js";
@@ -20,13 +19,10 @@ export const getAllCards = async ({
     if (filter.address) cardsQuery.where("address").regex(new RegExp(filter.address, 'i'));
 
     // Фільтр за типом(тренер або клуб)
-    if (filter.type) cardsQuery.where("type").equals(filter.type);
+    if (filter.type) cardsQuery.where("role").equals(filter.role);
 
     // Мінімальна кількість відгуків === популярності
-    // if (filter.reviewCount) {
-
-    //     cardsQuery.where("reviewCount").gte(filter.reviewCount);
-    // }
+    if (filter.reviewCount) cardsQuery.where("countReview").gte(filter.reviewCount);
 
     // Фільтр за ціновим діапазоном
     if (filter.minPrice) cardsQuery.where('price').gte(filter.minPrice);
@@ -43,7 +39,7 @@ export const getAllCards = async ({
                 sortOrder = "desc";
                 break;
             case "популярні":
-                sortBy = "reviewCount";
+                sortBy = "countReview";
                 sortOrder = "desc";
                 break;
             case "ціна за зростанням":
