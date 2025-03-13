@@ -42,7 +42,6 @@ export const addReview = async (userId, userCommentId, ratings, comment, images)
     await UserProfileModel.findByIdAndUpdate(user._id, { $set: { countReview: reviews } }, { new: true });
     
 
-    console.log(reviews);
 
     if (!review) throw createHttpError(500, 'Server error');
 
