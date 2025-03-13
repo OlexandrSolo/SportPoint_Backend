@@ -28,15 +28,16 @@ const parseString = value => typeof value === "string" && value.trim().length > 
 
 //головна ф-ія обробки всіх інших
 export const parseFilterParams = query => {
-    const { type, rating, reviewCount, minPrice, maxPrice, address, services } = query;
+    const { role, rating, countReview, minPrice, maxPrice, address, services, sort } = query;
 
     return {
-        type: parseType(type),
-        reviewCount: parseNumber(reviewCount),
+        role: parseType(role),
+        countReview: parseNumber(countReview),
         rating: parseNumber(rating),
         minPrice: parseNumber(minPrice),
         maxPrice: parseNumber(maxPrice),
         address: parseString(address),
-        services: parseServices(services)
+        services: parseServices(services),
+        sort: sort
     };
 };
