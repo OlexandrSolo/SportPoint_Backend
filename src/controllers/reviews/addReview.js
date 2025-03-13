@@ -1,4 +1,5 @@
 import * as reviewService from '../../services/reviews/reviewService.js';
+import { ReviewsCollection } from '../../db/models/Review.js';
 
 // export const addReview = async (req, res) => {
 //     const { club, trainer, ratings, comment, images } = req.body;
@@ -27,20 +28,47 @@ export const addReview = async (req, res) => {
     });
 };
 
-export const getReviews = async (req, res) => {
-    const { clubId, trainerId, sortBy } = req.query;
-    const filter = {};
-    if (clubId) filter.club = clubId;
-    if (trainerId) filter.trainer = trainerId;
+// export const getReviews = async (req, res) => {
+//     const { clubId, trainerId, sortBy } = req.query;
+//     const filter = {};
+//     if (clubId) filter.club = clubId;
+//     if (trainerId) filter.trainer = trainerId;
 
-    const reviews = await reviewService.getReviews(filter, sortBy);
+//     const reviews = await reviewService.getReviews(filter, sortBy);
+
+//     res.status(200).json({
+//         status: 200,
+//         message: 'Successfully retrieved reviews!',
+//         data: reviews,
+//     });
+// };
+
+export const getOwnerReviews = async (req, res) => {
+    const { id } = req.params;
+    const owner = id;
+    const reviews = await ReviewsCollection.find({ owner });
 
     res.status(200).json({
         status: 200,
         message: 'Successfully retrieved reviews!',
         data: reviews,
+        total: reviews.length
     });
-};
+
+}
+
+export const getUserReviews = async (req, res) => {
+      const { id } = req.params;
+      const userCommentId = id;
+      const reviews = await ReviewsCollection.find({ userCommentId });
+
+    res.status(200).json({
+        status: 200,
+        message: 'Successfully retrieved reviews!',
+        data: reviews,
+        total: reviews.length
+    });
+}
 
 export const updateReview = async (req, res) => {
     const { id } = req.params;

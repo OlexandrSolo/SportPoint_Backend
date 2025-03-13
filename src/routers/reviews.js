@@ -1,7 +1,8 @@
 import express from 'express';
 import {
   addReview,
- 
+  getOwnerReviews,
+  getUserReviews,
   updateReview,
   deleteReview,
   replyToReview,
@@ -19,9 +20,10 @@ import reviewsSchema from '../validation/reviews/reviewsValidation.js';
 
 const router = express.Router();
 
-
+router.get('/owner/:id', ctrlWrapper(getOwnerReviews));
+router.get('/user/:id', ctrlWrapper(getUserReviews));
 router.post('/', auth, reviewsSchema, ctrlWrapper(addReview)); 
-router.patch('/:id', auth, reviewsSchema, ctrlWrapper(updateReview))
+router.patch('/:id', auth, reviewsSchema, ctrlWrapper(updateReview));
 router.delete('/:id', auth, ctrlWrapper(deleteReview));
 router.patch('/:id/reply', auth, ctrlWrapper(replyToReview));
 router.post('/:id/report', auth, ctrlWrapper(reportReview));

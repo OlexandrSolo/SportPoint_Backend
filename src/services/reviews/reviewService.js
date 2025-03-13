@@ -54,6 +54,7 @@ export const addReview = async (userId, userCommentId, ratings, comment, images)
     return { review, overallRating  };
 };
 
+// Редагувати відгук
 export const updateReviewService = async (id, owner, body) => {
     const review = await ReviewsCollection.findById(id);
     review.ratings = body.ratings;
@@ -63,7 +64,7 @@ export const updateReviewService = async (id, owner, body) => {
     await ReviewsCollection.findByIdAndUpdate({owner,  _id: id }, review, {new: true, fields: ['-createdAt', '-updatedAt']})
     
     const user = await UserProfileModel.findOne({ userId: review.userCommentId });
-    
+
     const overallRating = await calculateOverallRatingForReview(review.userCommentId);
 
     await UserProfileModel.findByIdAndUpdate(user._id, { $set: { rating: overallRating } }, { new: true });
