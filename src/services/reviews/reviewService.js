@@ -106,6 +106,8 @@ export const replyToReview = async (reviewId, reply, userId) => {
 export const reportReview = async (reviewId, userId, reason) => {
     const review = await ReviewsCollection.findById(reviewId);
     if (!review) throw createHttpError(404, 'Review not found');
+    if (userId.toString() !== review.userCommentId.toString())
+        throw createHttpError(404, 'You are not the user being commented on.');
 
     review.reports.push({ user: userId, reason });
     await review.save();

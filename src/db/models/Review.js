@@ -1,6 +1,16 @@
 import { model, Schema } from 'mongoose';
 import { handleSaveError, setupUpdateValidator } from './hooks.js';
 
+const reportsSchema = new Schema({
+    user: { type: Schema.Types.ObjectId, ref: 'auth' },
+    reason: { type: String, default: '' }, 
+    
+}, { 
+    timestamps: true,
+    versionKey: false 
+});
+
+
 const reviewSchema = new Schema({
 
     // user: { type: Schema.Types.ObjectId, ref: 'auth', require: true },
@@ -18,7 +28,7 @@ const reviewSchema = new Schema({
     comment: { type: String, required: true, minlength: 20, maxlength: 500 },
     images: { type: String }, 
     adminReply: { type: String, default: '' }, 
-    reports: [{ user: { type: Schema.Types.ObjectId, ref: 'users' }, reason: String }]
+    reports: [reportsSchema],
 }, { 
     timestamps: true,
     versionKey: false 

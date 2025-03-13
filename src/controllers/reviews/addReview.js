@@ -106,8 +106,9 @@ export const replyToReview = async (req, res) => {
     });
 };
 
+// поскаржитись на коментар
 export const reportReview = async (req, res) => {
-    await reviewService.reportReview(req.params.id, req.user.id, req.body.reason);
+    await reviewService.reportReview(req.params.id, req.user._id, req.body.reason);
 
     res.status(200).json({
         status: 200,
