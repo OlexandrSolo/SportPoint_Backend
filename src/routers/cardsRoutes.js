@@ -1,18 +1,21 @@
 import { Router } from "express";
 
 import { ctrlWrapper } from "../utils/ctrlWrapper.js";
-// import { isValidId } from "../middlewares/isValidId.js";
-// import { validateBody } from "../middlewares/validateBody.js";
+import { isValidId } from "../middlewares/isValidId.js";
 import * as clubTrainer from "../controllers/cards/cards.js";
 
 // import { clubTrainerSchema, createTrainerClubSchema, updateClubTrainerSchema, deleteClubTrainerSchema } from "../validation/cards/trainerClub.js";
 
-// import auth from '../middlewares/auth.js';
-
 const CardsRouter = Router();
 
 // Отримати всі картки (з фільтрами)
-CardsRouter.get("/", ctrlWrapper(clubTrainer.getCardsController));
+// CardsRouter.get("/", ctrlWrapper(clubTrainer.getCardsController));
+
+// отримання карток тренера
+CardsRouter.get("/coach", ctrlWrapper(clubTrainer.getCoachCardsController));
+
+// отримання карток клубу 
+CardsRouter.get("/club", ctrlWrapper(clubTrainer.getClubCardsController));
 
 // Отримати одну картку за ID
 // CardsRouter.get("/:id", isValidId, validateBody(clubTrainerSchema), ctrlWrapper(clubTrainer.getCardByIdController));

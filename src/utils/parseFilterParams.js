@@ -1,10 +1,10 @@
 // перевіряє чи type входить у допустимий список значень
-const parseType = (type) => {
-    if (typeof type !== "string") return;
+const parseType = (role) => {
+    if (typeof role !== "string") return;
 
-    const isType = (type) => ["user", "trainer", "club"].includes(type);
+    const isType = (role) => ["coach", "adminClub",].includes(role);
 
-    return isType ? type : undefined;
+    return isType ? role : undefined;
 };
 
 //ф-ія парсингу чисел (rating, reviewCount, minPrice, maxPrice)
@@ -28,7 +28,7 @@ const parseString = value => typeof value === "string" && value.trim().length > 
 
 //головна ф-ія обробки всіх інших
 export const parseFilterParams = query => {
-    const { role, rating, countReview, minPrice, maxPrice, address, services, sort } = query;
+    const { role, rating, countReview, minPrice, maxPrice, address, abilities, sort } = query;
 
     return {
         role: parseType(role),
@@ -37,7 +37,7 @@ export const parseFilterParams = query => {
         minPrice: parseNumber(minPrice),
         maxPrice: parseNumber(maxPrice),
         address: parseString(address),
-        services: parseServices(services),
+        abilities: parseServices(abilities),
         sort: sort
     };
 };

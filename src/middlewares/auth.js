@@ -14,6 +14,7 @@ const auth = async (req, res, next) => {
   if (bearer !== 'Bearer') {
     return res.status(401).json({ message: ErrorsApp.NOT_AUTHORIZED });
   }
+
   try {
     const { id } = jwt.verify(token, SECRET_KEY);
     const user = await Auth.findById(id);
@@ -24,9 +25,10 @@ const auth = async (req, res, next) => {
 
     req.user = user;
     next();
+
   } catch (error) {
     if (
-      error.message === 'Invalid sugnature' ||
+      error.message === 'Invalid signature' ||
       error.message === 'invalid token'
     ) {
       error.status = 401;

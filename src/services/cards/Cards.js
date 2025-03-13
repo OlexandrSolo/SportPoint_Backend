@@ -8,11 +8,12 @@ export const getAllCards = async ({
     perPage = 10,
     sortOrder = SORT_ORDER.ASC,
     sortBy = "rating",
-    filter = {} }) => {
+    filter = {},
+}, role) => {
     const limit = perPage;
     const skip = (page - 1) * perPage;
 
-    const cardsQuery = UserProfileModel.find();
+    const cardsQuery = UserProfileModel.find({ role });
 
     // Переписати під switch ❌
 
@@ -20,7 +21,7 @@ export const getAllCards = async ({
     if (filter.address) cardsQuery.where("description.address").regex(new RegExp(filter.address, 'i'));
 
     // Фільтр за типом(тренер або клуб)
-    if (filter.role) cardsQuery.where("role").equals(filter.role);
+    // if (filter.role) cardsQuery.where("role").equals(filter.role);
 
     // Мінімальна кількість відгуків === популярності
     if (filter.countReview) cardsQuery.where("countReview").gte(filter.countReview);
@@ -30,7 +31,7 @@ export const getAllCards = async ({
     if (filter.maxPrice) cardsQuery.where('description.price.amount').lte(filter.maxPrice);
 
     // Фільтр за послугами (класифікацією)
-    if (filter.description && filter.description.abilities.length > 0) cardsQuery.where("abilities").in(filter.description.abilities);
+    if (filter.abilities && filter.abilities.length > 0) cardsQuery.where("description.abilities").in(filter.abilities);
 
     // Сортування
     if (filter.sort) {

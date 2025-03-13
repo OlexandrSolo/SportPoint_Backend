@@ -27,7 +27,7 @@ const favoriteSchema = new mongoose.Schema({
 const descriptionSchema = new mongoose.Schema({
   address: { type: String },
   short_desc: { type: String },
-  abilities: { type: [String] },
+  abilities: { type: [String], default: [] },
   schedule: { type: [schedulesSchema] },
   equipment: { type: [String] },
   experience: { type: [Date] },

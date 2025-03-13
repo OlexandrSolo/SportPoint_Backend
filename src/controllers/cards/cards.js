@@ -4,8 +4,8 @@ import { parseFilterParams } from "../../utils/parseFilterParams.js";
 import { parsePaginationParams } from "../../utils/parsePaginationParams.js";
 import { parseSortParams } from '../../utils/parseSortParams.js';
 
-// Отримати всі картки 
-export const getCardsController = async (req, res) => {
+// Отримати всі картки тренера
+export const getCoachCardsController = async (req, res) => {
     const { page, perPage } = parsePaginationParams(req.query);
     const { sortBy, sortOrder } = parseSortParams(req.query);
     const filter = parseFilterParams(req.query);
@@ -16,7 +16,28 @@ export const getCardsController = async (req, res) => {
         sortBy,
         sortOrder,
         filter
+    }, "coach");
+
+    res.json({
+        status: 200,
+        message: 'Successfully!',
+        data: clubsTrainers
     });
+};
+
+// Отримати всі картки клубу
+export const getClubCardsController = async (req, res) => {
+    const { page, perPage } = parsePaginationParams(req.query);
+    const { sortBy, sortOrder } = parseSortParams(req.query);
+    const filter = parseFilterParams(req.query);
+
+    const clubsTrainers = await clubTrainerService.getAllCards({
+        page,
+        perPage,
+        sortBy,
+        sortOrder,
+        filter,
+    }, "adminClub");
 
     res.json({
         status: 200,
