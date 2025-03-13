@@ -1,7 +1,9 @@
 import express from 'express';
 import {
   addReview,
-  getReviews,
+  getOwnerReviews,
+  getUserReviews,
+  updateReview,
   deleteReview,
   replyToReview,
   reportReview,
@@ -11,17 +13,21 @@ import auth from '../middlewares/auth.js';
 
 
 import { ctrlWrapper } from '../utils/ctrlWrapper.js';
-import { validateBody } from '../middlewares/validateBody.js';
+// import { validateBody } from '../middlewares/validateBody.js';
 // import { reviewSchema } from '../validation/reviews/reviewsValidation.js';
 import reviewsSchema from '../validation/reviews/reviewsValidation.js';
+import replySchema from '../validation/reviews/replyValidation.js';
+import reportsSchema from '../validation/reviews/reportsValidation.js';
 
 
 const router = express.Router();
 
+router.get('/owner/:id', ctrlWrapper(getOwnerReviews));
+router.get('/user/:id', ctrlWrapper(getUserReviews));
 router.post('/', auth, reviewsSchema, ctrlWrapper(addReview)); 
-router.get('/', ctrlWrapper(getReviews));
+router.patch('/:id', auth, reviewsSchema, ctrlWrapper(updateReview));
 router.delete('/:id', auth, ctrlWrapper(deleteReview));
-router.patch('/:id/reply', auth, ctrlWrapper(replyToReview));
-router.post('/:id/report', auth, ctrlWrapper(reportReview));
+router.patch('/:id/reply', auth, replySchema, ctrlWrapper(replyToReview));
+router.post('/:id/report', auth, reportsSchema, ctrlWrapper(reportReview));
 
 export default router;
