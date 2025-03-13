@@ -42,6 +42,17 @@ export const getReviews = async (req, res) => {
     });
 };
 
+export const updateReview = async (req, res) => {
+    const { id } = req.params;
+    const { _id } = req.user;
+
+    await reviewService.updateReviewService(id, _id, req.body);
+    res.status(200).json({
+        status: 200,
+        message: 'Review updated successfully!',
+    });
+}
+
 export const deleteReview = async (req, res) => {
 
     await reviewService.deleteReview(req.params.id, req.user._id);
