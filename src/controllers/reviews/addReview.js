@@ -1,3 +1,4 @@
+import createHttpError from 'http-errors';
 import * as reviewService from '../../services/reviews/reviewService.js';
 import { ReviewsCollection } from '../../db/models/Review.js';
 
@@ -14,34 +15,7 @@ import { ReviewsCollection } from '../../db/models/Review.js';
 //     });
 // };
 
-export const addReview = async (req, res) => {
-    const { userCommentId, ratings, comment, images } = req.body;
-    const userId = req.user._id;
-  
-    const { review, overallRating } = await reviewService.addReview(userId, userCommentId, ratings, comment, images);
 
-    res.status(201).json({
-        status: 201,
-        message: 'Successfully created review!',
-        data: review,
-        overallRating
-    });
-};
-
-// export const getReviews = async (req, res) => {
-//     const { clubId, trainerId, sortBy } = req.query;
-//     const filter = {};
-//     if (clubId) filter.club = clubId;
-//     if (trainerId) filter.trainer = trainerId;
-
-//     const reviews = await reviewService.getReviews(filter, sortBy);
-
-//     res.status(200).json({
-//         status: 200,
-//         message: 'Successfully retrieved reviews!',
-//         data: reviews,
-//     });
-// };
 
 // отримання усіх коментарів власника коментару
 export const getOwnerReviews = async (req, res) => {
@@ -72,10 +46,46 @@ export const getUserReviews = async (req, res) => {
     });
 }
 
+export const addReview = async (req, res) => {
+    const { userCommentId, ratings, comment, images } = req.body;
+    const userId = req.user._id;
+  
+    const { review, overallRating } = await reviewService.addReview(userId, userCommentId, ratings, comment, images);
+
+    res.status(201).json({
+        status: 201,
+        message: 'Successfully created review!',
+        data: review,
+        overallRating
+    });
+};
+
+// export const getReviews = async (req, res) => {
+//     const { clubId, trainerId, sortBy } = req.query;
+//     const filter = {};
+//     if (clubId) filter.club = clubId;
+//     if (trainerId) filter.trainer = trainerId;
+
+//     const reviews = await reviewService.getReviews(filter, sortBy);
+
+//     res.status(200).json({
+//         status: 200,
+//         message: 'Successfully retrieved reviews!',
+//         data: reviews,
+//     });
+// };
+
+
+
 // редагування коментаря
 export const updateReview = async (req, res) => {
     const { id } = req.params;
     const { _id } = req.user;
+    
+    const review = await ReviewsCollection.findOne({ _id: id });
+    
+    if (review.owner.toString() !== _id.toString() || !review) 
+        throw createHttpError(404, 'It`s not your comment!');
 
     await reviewService.updateReviewService(id, _id, req.body);
     res.status(200).json({
