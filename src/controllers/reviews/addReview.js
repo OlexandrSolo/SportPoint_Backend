@@ -15,7 +15,8 @@ import * as reviewService from '../../services/reviews/reviewService.js';
 
 export const addReview = async (req, res) => {
     const { userCommentId, ratings, comment, images } = req.body;
-    const userId = req.user.id;
+    const userId = req.user._id;
+  
     const { review, overallRating } = await reviewService.addReview(userId, userCommentId, ratings, comment, images);
 
     res.status(201).json({

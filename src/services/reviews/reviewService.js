@@ -3,16 +3,18 @@ import { UserProfileModel } from '../../db/models/UserProfileModel.js';
 import createHttpError from 'http-errors';
 
 // Розрахунок середнього рейтинга до відгука
-const calculateOverallRatingForReview = (ratings, id) => {
+const calculateOverallRatingForReview = async (userCommentId) => {
     const allRatings = [];
-    const ratingValues = Object.values(ratings);
-   
-    const rating = parseFloat((ratingValues.reduce((acc, val) => acc + val, 0) / ratingValues.length).toFixed(2));
-    allRatings.push(rating);
+    const allReviews = await ReviewsCollection.find({ userCommentId });
 
-    const allReviews = ReviewsCollection.findById({  id },)
-    //  console.log(allRatings, allReviews);
-    return 4.5;
+    for (let i = 0; i < allReviews.length; i++) {
+       const ratingValues = Object.values(allReviews[i].ratings);
+       const rating = parseFloat((ratingValues.reduce((acc, val) => acc + val, 0) / ratingValues.length).toFixed(2)); 
+       allRatings.push(rating);
+    }
+
+    const generalRating =  parseFloat((allRatings.reduce((acc, val) => acc + val, 0) / allRatings.length).toFixed(2));
+    return generalRating;
 };
 
 // Додати відгук
@@ -32,7 +34,7 @@ export const addReview = async (userId, userCommentId, ratings, comment, images)
         throw createHttpError(400, 'The review must be linked to a club or trainer');
     }
     
-    const review = await ReviewsCollection.create({ user: userId, userCommentId, ratings, comment, images });
+    const review = await ReviewsCollection.create({ owner: userId, userCommentId, ratings, comment, images });
 
     const reviews = await ReviewsCollection.find({ userCommentId }).countDocuments();
     
@@ -45,7 +47,11 @@ export const addReview = async (userId, userCommentId, ratings, comment, images)
 
     if (!review) throw createHttpError(500, 'Server error');
 
-    return { review, overallRating: calculateOverallRatingForReview(review.ratings, userCommentId) };
+    const overallRating = await calculateOverallRatingForReview(userCommentId);
+
+    await UserProfileModel.findByIdAndUpdate(user._id, { $set: { rating: overallRating } }, { new: true });
+
+    return { review, overallRating  };
 };
 
 // Видалити відгук
