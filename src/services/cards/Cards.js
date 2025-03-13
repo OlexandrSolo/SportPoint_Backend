@@ -1,5 +1,5 @@
 import { SORT_ORDER } from "../../constants/sortOrder.js";
-import { ReviewsCollection } from "../../db/models/Review.js";
+// import { ReviewsCollection } from "../../db/models/Review.js";
 import { UserProfileModel } from "../../db/models/UserProfileModel.js";
 import { calculatePaginationData } from "../../utils/calculatePaginationData.js";
 
@@ -14,19 +14,20 @@ export const getAllCards = async ({
 
     const cardsQuery = UserProfileModel.find();
 
-    // Переписати під switch
+    // Переписати під switch ❌
+
     // Фільтр за містом
-    if (filter.address) cardsQuery.where("address").regex(new RegExp(filter.address, 'i'));
+    if (filter.address) cardsQuery.where("description.address").regex(new RegExp(filter.address, 'i'));
 
     // Фільтр за типом(тренер або клуб)
-    if (filter.type) cardsQuery.where("role").equals(filter.role);
+    if (filter.role) cardsQuery.where("role").equals(filter.role);
 
     // Мінімальна кількість відгуків === популярності
-    if (filter.reviewCount) cardsQuery.where("countReview").gte(filter.reviewCount);
+    if (filter.countReview) cardsQuery.where("countReview").gte(filter.countReview);
 
     // Фільтр за ціновим діапазоном
-    if (filter.minPrice) cardsQuery.where('price').gte(filter.minPrice);
-    if (filter.maxPrice) cardsQuery.where('price').lte(filter.maxPrice);
+    if (filter.minPrice) cardsQuery.where('description.price.amount').gte(filter.minPrice);
+    if (filter.maxPrice) cardsQuery.where('description.price.amount').lte(filter.maxPrice);
 
     // Фільтр за послугами (класифікацією)
     if (filter.description && filter.description.abilities.length > 0) cardsQuery.where("abilities").in(filter.description.abilities);
@@ -36,35 +37,22 @@ export const getAllCards = async ({
         switch (filter.sort) {
             case "нові":
                 sortBy = "createdAt";
-                sortOrder = "desc";
+                sortOrder = "asc";
                 break;
             case "популярні":
                 sortBy = "countReview";
-                sortOrder = "desc";
+                sortOrder = "asc";
                 break;
             case "ціна за зростанням":
-                sortBy = "price";
+                sortBy = "description.price.amount";
                 sortOrder = "asc";
                 break;
             case "ціна за спаданням":
-                sortBy = "price";
+                sortBy = "description.price.amount";
                 sortOrder = "desc";
                 break;
         }
     };
-
-    const cardIds = await UserProfileModel.find().select("_id").exec();
-    console.log(cardIds);
-    const cardIdList = cardIds.map(card => card._id);
-    console.log(cardIdList);
-    const reviewsCountData = await ReviewsCollection.aggregate([
-        { $match: { cardId: { $in: cardIdList } } },
-        { $group: { _id: "$cardId", reviewCount: { $sum: 1 } } }
-    ]);
-
-
-
-    console.log(reviewsCountData);
 
     const cardsCount = await UserProfileModel
         .find()
