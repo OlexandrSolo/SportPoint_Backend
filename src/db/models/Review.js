@@ -17,7 +17,7 @@ const reviewSchema = new Schema({
     },
     comment: { type: String, required: true, minlength: 20, maxlength: 500 },
     images: { type: String }, 
-    adminReply: { type: String }, 
+    adminReply: { type: String, default: '' }, 
     reports: [{ user: { type: Schema.Types.ObjectId, ref: 'users' }, reason: String }]
 }, { 
     timestamps: true,

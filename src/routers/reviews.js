@@ -16,6 +16,7 @@ import { ctrlWrapper } from '../utils/ctrlWrapper.js';
 // import { validateBody } from '../middlewares/validateBody.js';
 // import { reviewSchema } from '../validation/reviews/reviewsValidation.js';
 import reviewsSchema from '../validation/reviews/reviewsValidation.js';
+import replySchema from '../validation/reviews/replyValidation.js';
 
 
 const router = express.Router();
@@ -25,7 +26,7 @@ router.get('/user/:id', ctrlWrapper(getUserReviews));
 router.post('/', auth, reviewsSchema, ctrlWrapper(addReview)); 
 router.patch('/:id', auth, reviewsSchema, ctrlWrapper(updateReview));
 router.delete('/:id', auth, ctrlWrapper(deleteReview));
-router.patch('/:id/reply', auth, ctrlWrapper(replyToReview));
+router.patch('/:id/reply', auth, replySchema, ctrlWrapper(replyToReview));
 router.post('/:id/report', auth, ctrlWrapper(reportReview));
 
 export default router;

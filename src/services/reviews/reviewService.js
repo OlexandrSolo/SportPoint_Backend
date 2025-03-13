@@ -90,9 +90,12 @@ export const deleteReview = async (reviewId, userId) => {
 };
 
 // Відповідь на відгук
-export const replyToReview = async (reviewId, reply) => {
+export const replyToReview = async (reviewId, reply, userId) => {
     const review = await ReviewsCollection.findById(reviewId);
     if (!review) throw createHttpError(404, 'Review not found');
+
+    if (userId.toString() !== review.userCommentId.toString())
+        throw createHttpError(404, 'You are not the user being commented on.');
 
     review.adminReply = reply;
     await review.save();

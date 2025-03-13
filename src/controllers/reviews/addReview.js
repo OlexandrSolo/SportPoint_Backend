@@ -43,6 +43,7 @@ export const addReview = async (req, res) => {
 //     });
 // };
 
+// отримання усіх коментарів власника коментару
 export const getOwnerReviews = async (req, res) => {
     const { id } = req.params;
     const owner = id;
@@ -57,6 +58,7 @@ export const getOwnerReviews = async (req, res) => {
 
 }
 
+// отримання усіх коментарів user якого прокоментували
 export const getUserReviews = async (req, res) => {
       const { id } = req.params;
       const userCommentId = id;
@@ -70,6 +72,7 @@ export const getUserReviews = async (req, res) => {
     });
 }
 
+// редагування коментаря
 export const updateReview = async (req, res) => {
     const { id } = req.params;
     const { _id } = req.user;
@@ -81,6 +84,7 @@ export const updateReview = async (req, res) => {
     });
 }
 
+// видалення коментаря
 export const deleteReview = async (req, res) => {
 
     await reviewService.deleteReview(req.params.id, req.user._id);
@@ -91,8 +95,9 @@ export const deleteReview = async (req, res) => {
     });
 };
 
+// відповідь на коментар
 export const replyToReview = async (req, res) => {
-    const review = await reviewService.replyToReview(req.params.id, req.body.reply);
+    const review = await reviewService.replyToReview(req.params.id, req.body.adminReply, req.user._id);
 
     res.status(200).json({
         status: 200,
