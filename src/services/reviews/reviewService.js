@@ -57,10 +57,20 @@ export const addReview = async (userId, userCommentId, ratings, comment, images)
 // Видалити відгук
 export const deleteReview = async (reviewId, userId) => {
     const review = await ReviewsCollection.findById(reviewId);
+    
     if (!review) throw createHttpError(404, 'Review not found');
-    if (review.user.toString() !== userId) throw createHttpError(403, 'You do not have permission to delete this review');
+    if (review.owner.toString() !== userId.toString()) throw createHttpError(403, 'You do not have permission to delete this review');
     
     await review.deleteOne();
+
+    const reviews = await ReviewsCollection.find({ userCommentId: review.userCommentId }).countDocuments();
+    const user = await UserProfileModel.findOne({ userId: review.userCommentId })
+
+    await UserProfileModel.findByIdAndUpdate(user._id, { $set: { countReview: reviews } }, { new: true }); 
+
+    const overallRating = await calculateOverallRatingForReview(review.userCommentId);
+
+    await UserProfileModel.findByIdAndUpdate(user._id, { $set: { rating: overallRating } }, { new: true });
 };
 
 // Відповідь на відгук

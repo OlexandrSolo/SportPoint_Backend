@@ -43,7 +43,8 @@ export const getReviews = async (req, res) => {
 };
 
 export const deleteReview = async (req, res) => {
-    await reviewService.deleteReview(req.params.id, req.user.id);
+
+    await reviewService.deleteReview(req.params.id, req.user._id);
 
     res.status(200).json({
         status: 200,
