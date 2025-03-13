@@ -1,10 +1,11 @@
 import Joi from 'joi';
 
 const reviewsSchema = (req, res, next) => {
-    console.log(req);
   const schema = Joi.object({
-    club: Joi.string().optional(),
-    trainer: Joi.string().optional(),
+    userCommentId: Joi.string().optional(),
+    // club: Joi.string().optional(),
+    // trainer: Joi.string().optional(),
+
     ratings: Joi.object({
         clientService: Joi.number().min(1).max(5).required(),
         serviceQuality: Joi.number().min(1).max(5).required(),
@@ -27,4 +28,4 @@ const reviewsSchema = (req, res, next) => {
   next();
 };
 
-export default reviewsSchema; 
+export default reviewsSchema;

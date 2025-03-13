@@ -1,10 +1,22 @@
 import * as reviewService from '../../services/reviews/reviewService.js';
 
-export const addReview = async (req, res) => {
-    const { club, trainer, ratings, comment, images } = req.body;
-    const userId = req.user.id;
+// export const addReview = async (req, res) => {
+//     const { club, trainer, ratings, comment, images } = req.body;
+//     const userId = req.user.id;
+//     const { review, overallRating } = await reviewService.addReview(userId, club, trainer, ratings, comment, images);
 
-    const { review, overallRating } = await reviewService.addReview(userId, club, trainer, ratings, comment, images);
+//     res.status(201).json({
+//         status: 201,
+//         message: 'Successfully created review!',
+//         data: review,
+//         overallRating
+//     });
+// };
+
+export const addReview = async (req, res) => {
+    const { userCommentId, ratings, comment, images } = req.body;
+    const userId = req.user.id;
+    const { review, overallRating } = await reviewService.addReview(userId, userCommentId, ratings, comment, images);
 
     res.status(201).json({
         status: 201,
