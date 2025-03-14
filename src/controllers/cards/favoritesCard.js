@@ -28,9 +28,21 @@ export const addToFavoritesCardController = async (req, res) => {
 };
 
 // Видалити з обраного
+// export const deleteFavoritesCardController = async (req, res) => {
+//     const { _id } = req.user;
+//     const { cardId } = req.query;
+
+//     await deleteFavoriteCard(_id, cardId);
+
+//     res.status(200).json({
+//         status: 200,
+//         message: "Successfully remove a card from favorites",
+//     });
+// };
+
 export const deleteFavoritesCardController = async (req, res) => {
     const { _id } = req.user;
-    const { cardId } = req.query;
+    const { cardId } = req.params;
 
     await deleteFavoriteCard(_id, cardId);
 

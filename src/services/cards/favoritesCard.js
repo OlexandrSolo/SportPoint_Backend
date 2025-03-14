@@ -19,11 +19,17 @@ import { UserProfileModel } from '../../db/models/UserProfileModel.js';
 // Додавання в обрані
 export const addToFavorites = async (_id, cardId) => {
     const user = await UserProfileModel.findOne({ userId: _id });
-    
+
     if (!user) throw new createHttpError(404, `User ${_id} not found`);
 
     const cardExists = await UserProfileModel.exists({ _id: cardId });
     if (!cardExists) throw new createHttpError(404, `Card ${cardId} not found`);
+
+    const currentCard = await UserProfileModel.findOne({ _id: cardId });
+
+    const isExistId = currentCard.favorite.find(({ userId }) => userId.toString() === user.userId.toString());
+    
+    if(isExistId) throw new createHttpError(404, `User ${user.firstLastName} already has this card in his favorites list`);
 
     const favorite = {
         userId: user.userId,
@@ -34,15 +40,26 @@ export const addToFavorites = async (_id, cardId) => {
     return favorite;
 };
 
+// export const deleteFavoriteCard = async (_id, cardId) => {
+//     const user = await UserProfileModel.findOne({ userId: _id });
+//     if (!user) throw new createHttpError(404, `User ${_id} not found`);
+
+//     user.favorite = user.favorite.filter(id => id.toString() !== cardId);
+//     await user.save();
+
+//     return user.favorite;
+// };
+
 export const deleteFavoriteCard = async (_id, cardId) => {
-    const user = await UserProfileModel.findOne({ userId: _id });
+    const user = await UserProfileModel.findOne({ _id: cardId });
     if (!user) throw new createHttpError(404, `User ${_id} not found`);
 
-    user.favorite = user.favorite.filter(id => id.toString() !== cardId);
+    const favorite = user.favorite.filter(id => id.userId.toString() !== _id.toString());
     await user.save();
-
-    return user.favorite;
+    await UserProfileModel.findByIdAndUpdate(cardId, { $set: { favorite } }, { new: true })
+    return favorite;
 };
+
 
 export const getFavoriteCards = async (userId) => {
 
