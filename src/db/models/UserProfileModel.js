@@ -19,11 +19,6 @@ const schedulesSchema = new mongoose.Schema({
   date: { type: Date },
 });
 
-//TODO change if you need
-// const favoriteSchema = new mongoose.Schema({
-//   type: { type: String },
-// });
-
 const favoriteSchema = new mongoose.Schema({
   userId: { type: mongoose.Schema.Types.ObjectId, ref: 'auth' },
   role: { type: mongoose.Schema.Types.String, ref: 'auth' },

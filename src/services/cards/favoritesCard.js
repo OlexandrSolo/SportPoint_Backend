@@ -29,7 +29,7 @@ export const addToFavorites = async (_id, cardId) => {
 
     const isExistId = currentCard.favorite.find(({ userId }) => userId.toString() === user.userId.toString());
     
-    if(isExistId) throw new createHttpError(404, `User ${user.firstLastName} already has this card in his favorites list`);
+    if(isExistId) throw new createHttpError(409, `User ${user.firstLastName} already has this card in his favorites list`);
 
     const favorite = {
         userId: user.userId,
@@ -55,7 +55,7 @@ export const deleteFavoriteCard = async (_id, cardId) => {
     if (!user) throw new createHttpError(404, `User ${_id} not found`);
 
     const favorite = user.favorite.filter(id => id.userId.toString() !== _id.toString());
-    await user.save();
+   
     await UserProfileModel.findByIdAndUpdate(cardId, { $set: { favorite } }, { new: true })
     return favorite;
 };
@@ -81,8 +81,6 @@ export const getFavoriteCards = async (userId, role) => {
             favoriteArray.push(users[i])
         }
     }
-    // console.log(favoriteArray.length);
-    // if (!user) throw new createHttpError(404, `User ${userId} not found`);
-
+  
     return favoriteArray;
 };
