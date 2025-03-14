@@ -53,12 +53,23 @@ export const deleteFavoritesCardController = async (req, res) => {
 };
 
 // Отримати список обраного
+// export const getFavoritesCardController = async (req, res) => {
+//     const { _id: userId } = req.user;
+
+//     const favorites = await getFavoriteCards(userId);
+
+//     res.status(200).json({
+//         data: favorites
+//     });
+// };
+
 export const getFavoritesCardController = async (req, res) => {
     const { _id: userId } = req.user;
 
     const favorites = await getFavoriteCards(userId);
 
     res.status(200).json({
-        data: favorites
+        data: favorites,
+        total: favorites.length
     });
 };

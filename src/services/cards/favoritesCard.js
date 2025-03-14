@@ -60,12 +60,28 @@ export const deleteFavoriteCard = async (_id, cardId) => {
     return favorite;
 };
 
+// отримання списку обраних
+// export const getFavoriteCards = async (userId) => {
+
+//     const user = UserProfileModel.findById(userId);
+//     console.log(userId)
+//     if (!user) throw new createHttpError(404, `User ${userId} not found`);
+
+//     return user.favorite;
+// };
 
 export const getFavoriteCards = async (userId) => {
+    const favoriteArray = [];
+    const users = await UserProfileModel.find();
+    for (let i = 0; i < users.length; i++) {
+        const isExistId = users[i].favorite.find(item => item.userId.toString() === userId.toString());
+        if (isExistId) {
+            console.log("yes")
+            favoriteArray.push(users[i])
+        }
+    }
+    // console.log(favoriteArray.length);
+    // if (!user) throw new createHttpError(404, `User ${userId} not found`);
 
-    const user = UserProfileModel.findById(userId);
-    console.log(userId)
-    if (!user) throw new createHttpError(404, `User ${userId} not found`);
-
-    return user.favorite;
+    return favoriteArray;
 };
