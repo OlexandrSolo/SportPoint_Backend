@@ -70,13 +70,14 @@ export const deleteFavoriteCard = async (_id, cardId) => {
 //     return user.favorite;
 // };
 
-export const getFavoriteCards = async (userId) => {
+export const getFavoriteCards = async (userId, role) => {
     const favoriteArray = [];
     const users = await UserProfileModel.find();
     for (let i = 0; i < users.length; i++) {
         const isExistId = users[i].favorite.find(item => item.userId.toString() === userId.toString());
+        
         if (isExistId) {
-            console.log("yes")
+            if(users[i].role === role)
             favoriteArray.push(users[i])
         }
     }

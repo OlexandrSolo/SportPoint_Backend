@@ -65,8 +65,9 @@ export const deleteFavoritesCardController = async (req, res) => {
 
 export const getFavoritesCardController = async (req, res) => {
     const { _id: userId } = req.user;
+    const { role } = req.query;
 
-    const favorites = await getFavoriteCards(userId);
+    const favorites = await getFavoriteCards(userId, role);
 
     res.status(200).json({
         data: favorites,
