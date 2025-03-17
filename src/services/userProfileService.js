@@ -29,15 +29,13 @@ export const getUserProfile = async (userId) => {
     ),
   ]);
 
-  const viewingOwnProfile = userId.equals(userProfile.userId);
-
   let userComments = [];
-  if (userProfile.role === 'customer' && viewingOwnProfile) {
-    userComments = await ReviewsCollection.find({ user: userId });
+  if (userProfile.role === 'customer') {
+    userComments = await ReviewsCollection.find({ owner: userId });
   } else if (userProfile.role === 'coach') {
-    userComments = await ReviewsCollection.find({ trainer: userId });
+    userComments = await ReviewsCollection.find({ userCommentId: userId });
   } else if (userProfile.role === 'adminClub') {
-    userComments = await ReviewsCollection.find({ club: userId });
+    userComments = await ReviewsCollection.find({ userCommentId: userId });
   }
 
   return {
