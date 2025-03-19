@@ -17,10 +17,10 @@ const parseNumber = (number) => {
 };
 
 // розбиття рядка в масив
-const parseServices = (services) => {
-    if (typeof services !== "string") return;
+const parseServices = (abilities) => {
+    if (typeof abilities !== "string") return;
 
-    return services.split(",").map(service => service.trim()).filter(Boolean);
+    return abilities.split(",").map(ability => ability.trim()).filter(Boolean);
 };
 
 //перевірка текстові поля address
@@ -28,7 +28,7 @@ const parseString = value => typeof value === "string" && value.trim().length > 
 
 //головна ф-ія обробки всіх інших
 export const parseFilterParams = query => {
-    const { role, rating, countReview, minPrice, maxPrice, address, services, sort } = query;
+    const { role, rating, countReview, minPrice, maxPrice, address, sort, abilities } = query;
 
     return {
         role: parseType(role),
@@ -37,7 +37,7 @@ export const parseFilterParams = query => {
         minPrice: parseNumber(minPrice),
         maxPrice: parseNumber(maxPrice),
         address: parseString(address),
-        services: parseServices(services),
+        abilities: parseServices(abilities),
         sort: sort
     };
 };
