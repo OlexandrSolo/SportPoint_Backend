@@ -1,7 +1,7 @@
 import { Router } from "express";
 
 import { ctrlWrapper } from "../utils/ctrlWrapper.js";
-// import { isValidId } from "../middlewares/isValidId.js";
+import { isValidId } from "../middlewares/isValidId.js";
 // import { validateBody } from "../middlewares/validateBody.js";
 import * as clubTrainer from "../controllers/cards/cards.js";
 
@@ -15,7 +15,7 @@ const CardsRouter = Router();
 CardsRouter.get("/", ctrlWrapper(clubTrainer.getCardsController));
 
 // Отримати одну картку за ID
-// CardsRouter.get("/:id", isValidId, validateBody(clubTrainerSchema), ctrlWrapper(clubTrainer.getCardByIdController));
+CardsRouter.get("/:id", isValidId, ctrlWrapper(clubTrainer.getCardByIdController));
 
 // // Додати нову картку (авторизація потрібна)
 // CardsRouter.post("/", auth, validateBody(createTrainerClubSchema), ctrlWrapper(clubTrainer.createCardController));

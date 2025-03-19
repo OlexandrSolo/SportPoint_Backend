@@ -30,7 +30,7 @@ export const getAllCards = async ({
     if (filter.maxPrice) cardsQuery.where('description.price.amount').lte(filter.maxPrice);
 
     // Фільтр за послугами (класифікацією)
-    if (filter.description && filter.description.abilities.length > 0) cardsQuery.where("abilities").in(filter.description.abilities);
+    if (filter.abilities && filter.abilities.length > 0) cardsQuery.where("description.abilities").in(filter.abilities);
 
     // Сортування
     if (filter.sort) {
@@ -72,3 +72,5 @@ export const getAllCards = async ({
         ...paginationData
     };
 };
+
+export const getCardById = async (id) => await UserProfileModel.findOne({ _id: id });
