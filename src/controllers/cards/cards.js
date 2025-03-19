@@ -20,7 +20,7 @@ export const getCardsController = async (req, res) => {
 
     res.json({
         status: 200,
-        message: 'Successfully!',
+        message: `Successfully get cards by ${filter.role}!`,
         data: clubsTrainers
     });
 };

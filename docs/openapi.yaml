@@ -55,6 +55,12 @@ paths:
   /search/by-name:
     get:
       $ref: '../swagger/paths/search/get.yaml'
+  /card/club:
+    get:
+      $ref: '../swagger/paths/cards/club/get.yaml'
+  /cards/coach:
+    get:
+      $ref: '../swagger/paths/cards/coach/get.yaml'
 components:
   securitySchemes:
     bearerAuth:
