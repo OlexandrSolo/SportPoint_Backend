@@ -15,6 +15,9 @@ tags:
     description: Operations about users profiles.
   - name: SearchUserProfile
     description: Search operations
+  - name: Reviews
+    description: Operations related to user reviews.
+
 servers:
   - url: https://sportpoint-backend.onrender.com
   - url: http://localhost:3000
@@ -61,6 +64,32 @@ paths:
   /cards/coach:
     get:
       $ref: '../swagger/paths/cards/coach/get.yaml'
+  /reviews:
+    post:
+      $ref: '../swagger/paths/reviews/post.yaml'
+
+  /reviews/owner/{id}:
+    get:
+      $ref: '../swagger/paths/reviews/getOwner.yaml'
+
+  /reviews/user/{id}:
+    get:
+      $ref: '../swagger/paths/reviews/getUser.yaml'
+
+  /reviews/{id}:
+    patch:
+      $ref: '../swagger/paths/reviews/patch.yaml'
+    delete:
+      $ref: '../swagger/paths/reviews/delete.yaml'
+
+  /reviews/{id}/reply:
+    patch:
+      $ref: '../swagger/paths/reviews/reply.yaml'
+
+  /reviews/{id}/report:
+    post:
+      $ref: '../swagger/paths/reviews/report.yaml'
+
 components:
   securitySchemes:
     bearerAuth:

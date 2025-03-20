@@ -32,6 +32,10 @@
     {
       "name": "SearchUserProfile",
       "description": "Search operations"
+    },
+     {
+      "name": "Reviews",
+      "description": "Operations related to user reviews."
     }
   ],
   "paths": {
@@ -1478,8 +1482,296 @@
           }
         }
       }
+    },
+    
+  "/reviews": {
+  "post": {
+    "tags": ["Reviews"],
+    "summary": "Create a review",
+    "description": "Create a review for a club or trainer",
+    "operationId": "createReview",
+    "security": [{ "bearerAuth": [] }],
+    "requestBody": {
+      "content": {
+        "application/json": {
+          "schema": {
+            "$ref": "#/components/schemas/reviews"
+          }
+        }
+      }
+    },
+    "responses": {
+      "201": {
+        "description": "Review created successfully",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string",
+                  "example": "Review successfully created!"
+                }
+              }
+            }
+          }
+        }
+      },
+      "400": { "$ref": "#/components/responses/404" }
+    }
+  }
+},
+ 
+
+"/reviews/reply/{id}": {
+  "post": {
+    "tags": ["Reviews"],
+    "summary": "Reply to a review",
+    "description": "Allows an admin or trainer to respond to a review",
+    "operationId": "replyToReview",
+    "security": [{ "bearerAuth": [] }],
+    "parameters": [
+      {
+        "name": "id",
+        "in": "path",
+        "required": true,
+        "schema": { "type": "string" }
+      }
+    ],
+    "requestBody": {
+      "content": {
+        "application/json": {
+          "schema": {
+            "type": "object",
+            "properties": {
+              "reply": {
+                "type": "string",
+                "example": "Thank you for your feedback!"
+              }
+            }
+          }
+        }
+      }
+    },
+    "responses": {
+      "200": {
+        "description": "Reply added successfully",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string",
+                  "example": "Reply successfully added!"
+                }
+              }
+            }
+          }
+        }
+      },
+      "404": { "$ref": "#/components/responses/404" }
+    }
+  }
+},
+"/reviews/report/{id}": {
+  "post": {
+    "tags": ["Reviews"],
+    "summary": "Report a review",
+    "description": "Report a review for inappropriate content",
+    "operationId": "reportReview",
+    "security": [{ "bearerAuth": [] }],
+    "parameters": [
+      {
+        "name": "id",
+        "in": "path",
+        "required": true,
+        "schema": { "type": "string" }
+      }
+    ],
+    "requestBody": {
+      "content": {
+        "application/json": {
+          "schema": {
+            "type": "object",
+            "properties": {
+              "reason": {
+                "type": "string",
+                "example": "Offensive language"
+              }
+            }
+          }
+        }
+      }
+    },
+    "responses": {
+      "200": {
+        "description": "Review reported successfully",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string",
+                  "example": "Review successfully reported!"
+                }
+              }
+            }
+          }
+        }
+      },
+      "404": { "$ref": "#/components/responses/404" }
+    }
+  }
+},
+"/reviews/owner/{id}": {
+  "get": {
+    "tags": ["Reviews"],
+    "summary": "Get all reviews created by a user",
+    "description": "Returns all reviews written by a user",
+    "operationId": "getUserReviews",
+    "security": [{ "bearerAuth": [] }],
+    "parameters": [
+      {
+        "name": "id",
+        "in": "path",
+        "required": true,
+        "schema": { "type": "string" }
+      }
+    ],
+    "responses": {
+      "200": {
+        "description": "List of user reviews",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "array",
+              "items": { "$ref": "#/components/schemas/reviews" }
+            }
+          }
+        }
+      },
+      "404": { "$ref": "#/components/responses/404" }
+    }
+  }
+},
+ "/reviews/user/{id}": {
+  "get": {
+    "tags": ["Reviews"],
+    "summary": "Get all reviews about a specific user",
+    "operationId": "getUserReviews",
+    "description": "Returns all reviews where a specific user was mentioned.",
+    "security": [{ "bearerAuth": [] }],
+    "parameters": [
+      {
+        "name": "id",
+        "in": "path",
+        "required": true,
+        "description": "The user ID for whom reviews are being retrieved",
+        "schema": { "type": "string" }
+      }
+    ],
+    "responses": {
+      "200": {
+        "description": "Successfully retrieved reviews",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "status": {
+                  "type": "integer",
+                  "example": 200
+                },
+                "message": {
+                  "type": "string",
+                  "example": "Successfully retrieved reviews!"
+                },
+                "data": {
+                  "type": "array",
+                  "items": { "$ref": "#/components/schemas/reviews" }
+                },
+                "total": {
+                  "type": "integer",
+                  "example": 5
+                }
+              }
+            }
+          }
+        }
+      },
+        "401": { "$ref": "#/components/responses/401" }
+    }
+  }
+},
+"/reviews/{id}": {
+  "patch": {
+    "tags": ["Reviews"],
+    "summary": "Update a review",
+    "description": "Edit an existing review",
+    "operationId": "updateReview",
+    "security": [{ "bearerAuth": [] }],
+    "parameters": [
+      {
+        "name": "id",
+        "in": "path",
+        "required": true,
+        "schema": { "type": "string" }
+      }
+    ],
+    "requestBody": {
+      "content": {
+        "application/json": {
+          "schema": { "$ref": "#/components/schemas/reviews" }
+        }
+      }
+    },
+    "responses": {
+      "200": {
+        "description": "Review updated successfully",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string",
+                  "example": "Review successfully updated!"
+                }
+              }
+            }
+          }
+        }
+      },
+      "404": { "$ref": "#/components/responses/404" }
     }
   },
+  
+  "delete": {
+    "tags": ["Reviews"],
+    "summary": "Delete a review",
+    "description": "Remove a review by ID",
+    "operationId": "deleteReview",
+    "security": [{ "bearerAuth": [] }],
+    "parameters": [
+      {
+        "name": "id",
+        "in": "path",
+        "required": true,
+        "schema": { "type": "string" }
+      }
+    ],
+    "responses": {
+      "204": {
+        "description": "Review deleted successfully"
+      },
+      "401": { "$ref": "#/components/responses/401" },
+      "404": { "$ref": "#/components/responses/404" }
+    }
+  }
+}
+ },
   "components": {
     "securitySchemes": {
       "bearerAuth": {

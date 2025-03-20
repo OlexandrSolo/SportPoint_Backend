@@ -1,0 +1,33 @@
+tags:
+  - Reviews
+summary: Delete a review
+operationId: deleteReview
+description: Allows the owner of a review to delete it.
+security:
+  - bearerAuth: [] 
+parameters:
+  - name: id
+    in: path
+    required: true
+    description: The ID of the review to delete
+    schema:
+      type: string
+responses:
+  '200':
+    description: 'Review deleted successfully'
+    content:
+      application/json:
+        schema:
+          type: object
+          properties:
+            status:
+              type: integer
+              example: 200
+            message:
+              type: string
+              example: 'Review deleted successfully!'
+  
+  '401':
+    $ref: '../../components/responses/401.yaml'
+  '404':
+    description: 'Review not found'
