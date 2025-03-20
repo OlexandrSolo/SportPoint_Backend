@@ -356,7 +356,7 @@
           "Auth"
         ],
         "summary": "Update user password",
-        "operationId": "updatePassword",
+        "operationId": "verifyUserPassword",
         "description": "Update user password using a  tokens.",
         "security": [
           {
@@ -376,7 +376,7 @@
                   "verifyCode": {
                     "description": "Enter verify code",
                     "type": "number",
-                    "example": "92736458292"
+                    "example": "9273"
                   },
                   "password": {
                     "description": "Enter your password",
@@ -510,6 +510,75 @@
           },
           "401": {
             "$ref": "#/components/responses/401"
+          }
+        }
+      }
+    },
+     "/auth/change/password": {
+      "put": {
+        "tags": [
+          "Auth"
+        ],
+        "summary": "Update user password",
+        "operationId": "updateUserPassword", 
+        "description": "Update user password",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": [
+                  "oldPassword",
+                  "newPassword"
+                ],
+                "properties": {
+                  "oldPassword": {
+                    "description": "Enter your old password",
+                    "type": "string",
+                    "example": "rwe2135"
+                  },
+                  "newPassword": {
+                    "description": "Enter your new password",
+                    "type": "string",
+                    "example": "rwe2135"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "update user password",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "status",
+                    "message"
+                  ],
+                  "properties": {
+                    "status": {
+                      "type": "integer",
+                      "example": 200
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Пароль успішно змінено!"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "$ref": "#/components/responses/404"
           }
         }
       }
