@@ -1,0 +1,44 @@
+tags:
+  - Reviews
+summary: Report a review
+operationId: reportReview
+description: Allows users to report an inappropriate review.
+security:
+  - bearerAuth: [] 
+parameters:
+  - name: id
+    in: path
+    required: true
+    description: The ID of the review to report
+    schema:
+      type: string
+requestBody:
+  required: true
+  content:
+    application/json:
+      schema:
+        type: object
+        properties:
+          reason:
+            type: string
+            example: 'Inappropriate content'
+responses:
+  '200':
+    description: 'Report submitted successfully'
+    content:
+      application/json:
+        schema:
+          type: object
+          properties:
+            status:
+              type: integer
+              example: 200
+            message:
+              type: string
+              example: 'Report submitted successfully!'
+  '400':
+    $ref: '../../components/responses/400.yaml'
+  '401':
+    $ref: '../../components/responses/401.yaml'
+  '404':
+    description: "Review not found"

@@ -1,0 +1,44 @@
+tags:
+  - Reviews
+summary: Reply to a review
+operationId: replyToReview
+description: Allows an admin to reply to a review.
+security:
+  - bearerAuth: [] 
+parameters:
+  - name: id
+    in: path
+    required: true
+    description: The ID of the review to reply to
+    schema:
+      type: string
+requestBody:
+  required: true
+  content:
+    application/json:
+      schema:
+        type: object
+        properties:
+          adminReply:
+            type: string
+            example: 'Thank you for your feedback!'
+responses:
+  '200':
+    description: 'Reply added successfully'
+    content:
+      application/json:
+        schema:
+          type: object
+          properties:
+            status:
+              type: integer
+              example: 200
+            message:
+              type: string
+              example: 'Reply added successfully!'
+  '400':
+    $ref: '../../components/responses/400.yaml'
+  '401':
+    $ref: '../../components/responses/401.yaml'
+  '404':
+    description: 'Review not found'

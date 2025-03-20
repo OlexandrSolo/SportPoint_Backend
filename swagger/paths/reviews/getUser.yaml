@@ -1,0 +1,39 @@
+tags:
+  - Reviews
+summary: Get all reviews about a specific user.
+operationId: getUserReviews
+description: Returns all reviews where a specific user was mentioned.
+security:
+  - bearerAuth: []
+parameters:
+  - name: id
+    in: path
+    required: true
+    description: The user ID for whom reviews are being retrieved
+    schema:
+      type: string
+responses:
+  '200':
+    description: 'Successfully retrieved reviews'
+    content:
+      application/json:
+        schema:
+          type: object
+          properties:
+            status:
+              type: integer
+              example: 200
+            message:
+              type: string
+              example: 'Successfully retrieved reviews!'
+            data:
+              type: array
+              items:
+                $ref: '../../components/schemas/reviews.yaml'
+            total:
+              type: integer
+              example: 5
+  '400':
+    $ref: '../../components/responses/400.yaml'
+  '401':
+    $ref: '../../components/responses/401.yaml'
