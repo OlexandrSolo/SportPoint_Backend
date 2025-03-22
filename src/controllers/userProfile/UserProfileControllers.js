@@ -38,8 +38,6 @@ export const updatedUserProfileController = async (req, res) => {
         message: 'User profile not found',
       });
     }
-    console.log('FILES:', req.files);
-    console.log('BODY:', req.body);
 
     const descriptionObject = req.body.description
       ? JSON.parse(req.body.description)
