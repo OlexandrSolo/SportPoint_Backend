@@ -41,7 +41,9 @@
   "paths": {
     "/auth/signup": {
       "post": {
-        "tags": ["Auth"],
+        "tags": [
+          "Auth"
+        ],
         "summary": "Register user",
         "operationId": "createUser",
         "description": "Register user",
@@ -55,7 +57,11 @@
             "application/json": {
               "schema": {
                 "type": "object",
-                "required": ["email", "password", "role"],
+                "required": [
+                  "email",
+                  "password",
+                  "role"
+                ],
                 "properties": {
                   "email": {
                     "description": "User email",
@@ -84,7 +90,10 @@
               "application/json": {
                 "schema": {
                   "type": "object",
-                  "required": ["status", "data"],
+                  "required": [
+                    "status",
+                    "data"
+                  ],
                   "properties": {
                     "status": {
                       "type": "integer",
@@ -92,7 +101,9 @@
                     },
                     "data": {
                       "type": "object",
-                      "required": ["email"],
+                      "required": [
+                        "email"
+                      ],
                       "properties": {
                         "email": {
                           "type": "string",
@@ -114,7 +125,9 @@
     },
     "/auth/signin": {
       "post": {
-        "tags": ["Auth"],
+        "tags": [
+          "Auth"
+        ],
         "summary": "Login user",
         "operationId": "loginUser",
         "description": "Login user",
@@ -128,7 +141,10 @@
             "application/json": {
               "schema": {
                 "type": "object",
-                "required": ["email", "password"],
+                "required": [
+                  "email",
+                  "password"
+                ],
                 "properties": {
                   "email": {
                     "description": "User email",
@@ -152,7 +168,11 @@
               "application/json": {
                 "schema": {
                   "type": "object",
-                  "required": ["status", "message", "data"],
+                  "required": [
+                    "status",
+                    "message",
+                    "data"
+                  ],
                   "properties": {
                     "status": {
                       "type": "integer",
@@ -179,7 +199,9 @@
     },
     "/auth/logout": {
       "post": {
-        "tags": ["Auth"],
+        "tags": [
+          "Auth"
+        ],
         "summary": "Logout user",
         "operationId": "logoutUser",
         "description": "Logout user",
@@ -204,7 +226,9 @@
               "application/json": {
                 "schema": {
                   "type": "object",
-                  "required": ["status"],
+                  "required": [
+                    "status"
+                  ],
                   "properties": {
                     "status": {
                       "type": "integer",
@@ -223,7 +247,9 @@
     },
     "/auth/refresh/current": {
       "get": {
-        "tags": ["Auth"],
+        "tags": [
+          "Auth"
+        ],
         "summary": "Refresh current",
         "operationId": "refreshCurrent",
         "description": "Refresh",
@@ -237,7 +263,9 @@
             "multipart/form-data": {
               "schema": {
                 "type": "object",
-                "required": ["refreshToken"],
+                "required": [
+                  "refreshToken"
+                ],
                 "properties": {
                   "refreshToken": {
                     "description": "Refresh token",
@@ -255,7 +283,9 @@
               "application/json": {
                 "schema": {
                   "type": "object",
-                  "required": ["status"],
+                  "required": [
+                    "status"
+                  ],
                   "properties": {
                     "status": {
                       "type": "integer",
@@ -284,7 +314,9 @@
     },
     "/auth/verify/:verificationToken": {
       "get": {
-        "tags": ["Auth"],
+        "tags": [
+          "Auth"
+        ],
         "summary": "Verify user email",
         "operationId": "verifyEmail",
         "description": "Verifies user email using a verification token.",
@@ -324,7 +356,9 @@
     },
     "/auth/verify": {
       "post": {
-        "tags": ["Auth"],
+        "tags": [
+          "Auth"
+        ],
         "summary": "Update user password",
         "operationId": "updatePassword",
         "description": "Update user password using a  tokens.",
@@ -338,7 +372,10 @@
             "application/json": {
               "schema": {
                 "type": "object",
-                "required": ["password", "verifyCode"],
+                "required": [
+                  "password",
+                  "verifyCode"
+                ],
                 "properties": {
                   "verifyCode": {
                     "description": "Enter verify code",
@@ -391,7 +428,9 @@
     },
     "/auth/send/verify": {
       "post": {
-        "tags": ["Auth"],
+        "tags": [
+          "Auth"
+        ],
         "summary": "Send message for update user password",
         "operationId": "sendUpdatePasswordMessage",
         "description": "Update user password message send by email.",
@@ -405,7 +444,9 @@
             "application/json": {
               "schema": {
                 "type": "object",
-                "required": ["email"],
+                "required": [
+                  "email"
+                ],
                 "properties": {
                   "email": {
                     "description": "User email",
@@ -443,7 +484,9 @@
     },
     "/auth/delete/account": {
       "delete": {
-        "tags": ["Auth"],
+        "tags": [
+          "Auth"
+        ],
         "summary": "Delete user account",
         "operationId": "deleteUserAccount",
         "description": "Delete  user account",
@@ -477,7 +520,9 @@
     },
     "/profile": {
       "get": {
-        "tags": ["UserProfile"],
+        "tags": [
+          "UserProfile"
+        ],
         "summary": "Get user profile",
         "operationId": "getUserProfile",
         "description": "Get user profile with this endpoint",
@@ -493,7 +538,11 @@
               "application/json": {
                 "schema": {
                   "type": "object",
-                  "required": ["status", "message", "data"],
+                  "required": [
+                    "status",
+                    "message",
+                    "data"
+                  ],
                   "properties": {
                     "status": {
                       "type": "integer",
@@ -572,7 +621,10 @@
                                 "type": "string"
                               },
                               "description": "List of gym equipment.",
-                              "example": ["Pool", "Sauna"]
+                              "example": [
+                                "Pool",
+                                "Sauna"
+                              ]
                             },
                             "experience": {
                               "type": "array",
@@ -581,7 +633,10 @@
                                 "format": "date"
                               },
                               "description": "Experience dates of the coach.",
-                              "example": ["2020-01-01", "2021-01-01"]
+                              "example": [
+                                "2020-01-01",
+                                "2021-01-01"
+                              ]
                             },
                             "schedule": {
                               "type": "array",
@@ -732,7 +787,9 @@
         }
       },
       "patch": {
-        "tags": ["UserProfile"],
+        "tags": [
+          "UserProfile"
+        ],
         "summary": "Patch user profile",
         "operationId": "patchUserProfile",
         "description": "Patch user profile",
@@ -809,7 +866,10 @@
                           "type": "string"
                         },
                         "description": "List of sport club equipment.",
-                        "example": ["Pool", "Sauna"]
+                        "example": [
+                          "Pool",
+                          "Sauna"
+                        ]
                       },
                       "experience": {
                         "type": "array",
@@ -818,7 +878,10 @@
                           "format": "date"
                         },
                         "description": "Experience dates of the user.",
-                        "example": ["2020-01-01", "2021-01-01"]
+                        "example": [
+                          "2020-01-01",
+                          "2021-01-01"
+                        ]
                       },
                       "schedule": {
                         "type": "array",
@@ -942,7 +1005,11 @@
               "application/json": {
                 "schema": {
                   "type": "object",
-                  "required": ["status", "message", "data"],
+                  "required": [
+                    "status",
+                    "message",
+                    "data"
+                  ],
                   "properties": {
                     "status": {
                       "type": "integer",
@@ -969,7 +1036,9 @@
     },
     "/search/by-name": {
       "get": {
-        "tags": ["SearchUserProfile"],
+        "tags": [
+          "SearchUserProfile"
+        ],
         "summary": "Get user profile by name",
         "operationId": "getSearchedProfile",
         "description": "Get user profile with this endpoint by name",
@@ -997,7 +1066,12 @@
               "application/json": {
                 "schema": {
                   "type": "object",
-                  "required": ["name", "status", "message", "data"],
+                  "required": [
+                    "name",
+                    "status",
+                    "message",
+                    "data"
+                  ],
                   "properties": {
                     "status": {
                       "type": "integer",
@@ -1021,11 +1095,337 @@
         }
       }
     },
-    "/card/club": {
+    "/cards": {
       "get": {
-        "tags": ["Club Cards"],
-        "summary": "Get all club cards",
-        "operationId": "getClubCards",
+        "tags": [
+          "Cards"
+        ],
+        "summary": "Get all cards with filters",
+        "operationId": "getAllCards",
+        "description": "Retrieve a list of coach and clubs with filtering and sorting options",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "page",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "default": 1
+            },
+            "description": "Page number for pagination"
+          },
+          {
+            "name": "perPage",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "default": 10
+            },
+            "description": "Number of items per page"
+          },
+          {
+            "name": "filter.address",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Filter by city"
+          },
+          {
+            "name": "filter.role",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Filter by role (adminClub or coach)"
+          },
+          {
+            "name": "filter.countReview",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer"
+            },
+            "description": "Minimum number of reviews"
+          },
+          {
+            "name": "filter.minPrice",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "number",
+              "default": 0
+            },
+            "description": "Minimum number of reviews"
+          },
+          {
+            "name": "filter.maxPrice",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "number",
+              "default": 5
+            },
+            "description": "Maximum number of reviews"
+          },
+          {
+            "name": "filter.abilities",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "style": "form",
+            "explode": false,
+            "description": "Filter by abilities"
+          },
+          {
+            "name": "filter.sort",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "нові",
+                "популярні",
+                "ціна_за_зростанням",
+                "ціна_за_спаданням"
+              ],
+              "default": "new"
+            },
+            "description": "Sorting options:\n - 'new' - By creation date\n - 'popular' By reviews count\n - 'price_asc' By price (ascending)\n - 'price_dec' By price (descending)\n"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response with filtered list of cards",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "integer",
+                      "example": 200
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Successfully found card with id 65ca67e7ae7f10c88b598384!"
+                    },
+                    "data": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/userProfile"
+                      }
+                    },
+                    "paginationData": {
+                      "type": "object",
+                      "properties": {
+                        "totalItems": {
+                          "type": "integer"
+                        },
+                        "totalPages": {
+                          "type": "integer"
+                        },
+                        "currentPage": {
+                          "type": "integer"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/401"
+          },
+          "404": {
+            "$ref": "#/components/responses/404"
+          }
+        }
+      }
+    },
+    "/cards/:id": {
+      "get": {
+        "tags": [
+          "Cards"
+        ],
+        "summary": "Get all cards with filters",
+        "operationId": "getAllCards",
+        "description": "Retrieve a list of coach and clubs with filtering and sorting options",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "page",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "default": 1
+            },
+            "description": "Page number for pagination"
+          },
+          {
+            "name": "perPage",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "default": 10
+            },
+            "description": "Number of items per page"
+          },
+          {
+            "name": "filter.address",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Filter by city"
+          },
+          {
+            "name": "filter.role",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Filter by role (adminClub or coach)"
+          },
+          {
+            "name": "filter.countReview",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer"
+            },
+            "description": "Minimum number of reviews"
+          },
+          {
+            "name": "filter.minPrice",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "number",
+              "default": 0
+            },
+            "description": "Minimum number of reviews"
+          },
+          {
+            "name": "filter.maxPrice",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "number",
+              "default": 5
+            },
+            "description": "Maximum number of reviews"
+          },
+          {
+            "name": "filter.abilities",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "style": "form",
+            "explode": false,
+            "description": "Filter by abilities"
+          },
+          {
+            "name": "filter.sort",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "нові",
+                "популярні",
+                "ціна_за_зростанням",
+                "ціна_за_спаданням"
+              ],
+              "default": "new"
+            },
+            "description": "Sorting options:\n - 'new' - By creation date\n - 'popular' By reviews count\n - 'price_asc' By price (ascending)\n - 'price_dec' By price (descending)\n"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response with filtered list of cards",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "integer",
+                      "example": 200
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Successfully found card with id 65ca67e7ae7f10c88b598384!"
+                    },
+                    "data": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/userProfile"
+                      }
+                    },
+                    "paginationData": {
+                      "type": "object",
+                      "properties": {
+                        "totalItems": {
+                          "type": "integer"
+                        },
+                        "totalPages": {
+                          "type": "integer"
+                        },
+                        "currentPage": {
+                          "type": "integer"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/401"
+          },
+          "404": {
+            "$ref": "#/components/responses/404"
+          }
+        }
+      }
+    },
+    "/favorites": {
+      "get": {
+        "tags": [
+          "Club or Coach Cards"
+        ],
+        "summary": "Get all club or coach cards",
+        "operationId": "getFavoritesCard",
         "description": "Get club cards",
         "security": [
           {
@@ -1039,7 +1439,11 @@
               "application/json": {
                 "schema": {
                   "type": "object",
-                  "required": ["status", "message", "data"],
+                  "required": [
+                    "status",
+                    "message",
+                    "data"
+                  ],
                   "properties": {
                     "status": {
                       "type": "integer",
@@ -1047,7 +1451,7 @@
                     },
                     "message": {
                       "type": "string",
-                      "example": "Successfully get club cards"
+                      "example": "Successfully club or coach cards"
                     },
                     "data": {
                       "type": "object",
@@ -1095,39 +1499,77 @@
               }
             }
           },
+          "400": {
+            "description": "Invalid request data"
+          },
+          "401": {
+            "$ref": "#/components/responses/401"
+          },
           "404": {
             "$ref": "#/components/responses/404"
           }
         }
       }
     },
-    "/cards/coach": {
-      "get": {
-        "tags": ["Coach Cards"],
-        "summary": "Get all coach cards",
-        "operationId": "getCoachCards",
-        "description": "Get coach cards",
+    "/favorites/:id": {
+      "post": {
+        "tags": [
+          "Add choose card club or coach"
+        ],
+        "summary": "Add a coach or club to favorites",
+        "operationId": "addToFavorites",
+        "description": "Add a coach or club to the users favorite list",
         "security": [
           {
             "bearerAuth": []
           }
         ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": [
+                  "itemId",
+                  "type"
+                ],
+                "properties": {
+                  "itemId": {
+                    "type": "string",
+                    "format": "ObjectId",
+                    "description": "ID of the coach or club to add to favorites",
+                    "example": "65f2dc3b8a7e8e3e3b5a3a1b"
+                  },
+                  "type": {
+                    "type": "string",
+                    "enum": [
+                      "coach",
+                      "adminClub"
+                    ],
+                    "description": "Type of the favorite item",
+                    "example": "coach"
+                  }
+                }
+              }
+            }
+          }
+        },
         "responses": {
-          "200": {
-            "description": "Successfully get coach cards",
+          "201": {
+            "description": "Item successfully added to favorites",
             "content": {
               "application/json": {
                 "schema": {
                   "type": "object",
-                  "required": ["status", "message", "data"],
                   "properties": {
                     "status": {
                       "type": "integer",
-                      "example": 200
+                      "example": 201
                     },
                     "message": {
                       "type": "string",
-                      "example": "Successfully get coach cards"
+                      "example": "Successfully added to favorites"
                     },
                     "data": {
                       "type": "object",
@@ -1137,58 +1579,8 @@
                           "format": "ObjectId",
                           "example": "65f2dc3b8a7e8e3e3b5a3a1b"
                         },
-                        "firstLastName": {
-                          "type": "string",
-                          "minLength": 2,
-                          "maxLength": 50,
-                          "description": "First and Last name of the user",
-                          "example": "John Doe"
-                        },
-                        "avatar": {
-                          "type": "string",
-                          "format": "uri",
-                          "description": "Avatar URL of the user.",
-                          "example": "https://example.com/avatar.jpg"
-                        },
-                        "countReview": {
-                          "type": "number",
-                          "description": "all sum reviews",
-                          "example": 2022
-                        },
-                        "rating": {
-                          "type": "number",
-                          "minLength": 0,
-                          "maxLength": 5,
-                          "description": "profile rating",
-                          "example": 4.5
-                        },
-                        "description": {
-                          "type": "object",
-                          "properties": {
-                            "abilities": {
-                              "type": "string",
-                              "description": "User’s abilities.",
-                              "example": "Coaching, mentoring"
-                            },
-                            "price": {
-                              "type": "array",
-                              "items": {
-                                "type": "object",
-                                "properties": {
-                                  "name": {
-                                    "type": "string",
-                                    "description": "Price name or description.",
-                                    "example": "Monthly Subscription"
-                                  },
-                                  "amount": {
-                                    "type": "string",
-                                    "description": "Price amount.",
-                                    "example": "99.99"
-                                  }
-                                }
-                              }
-                            }
-                          }
+                        "favorite": {
+                          "type": "array"
                         }
                       }
                     }
@@ -1196,6 +1588,70 @@
                 }
               }
             }
+          },
+          "400": {
+            "description": "Invalid request data"
+          },
+          "401": {
+            "$ref": "#/components/responses/401"
+          },
+          "404": {
+            "$ref": "#/components/responses/404"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Delete Fav Card"
+        ],
+        "summary": "Delete fav card",
+        "operationId": "deleteFavCard",
+        "description": "Delete favorite card",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": [
+                  "itemId"
+                ],
+                "properties": {
+                  "itemId": {
+                    "type": "string",
+                    "format": "ObjectId",
+                    "description": "ID of the coach or club to add to favorites",
+                    "example": "65f2dc3b8a7e8e3e3b5a3a1b"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "204": {
+            "description": "Successfully delete favorite card",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "integer",
+                      "example": 204
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/401"
           },
           "404": {
             "$ref": "#/components/responses/404"
@@ -1205,7 +1661,9 @@
     },
     "/reviews": {
       "post": {
-        "tags": ["Reviews"],
+        "tags": [
+          "Reviews"
+        ],
         "summary": "Create a new review",
         "operationId": "addReview",
         "description": "Allows a user to submit a review for a club or trainer.",
@@ -1263,7 +1721,9 @@
     },
     "/reviews/owner/{id}": {
       "get": {
-        "tags": ["Reviews"],
+        "tags": [
+          "Reviews"
+        ],
         "summary": "Get all reviews created by a user",
         "operationId": "getOwnerReviews",
         "description": "Returns all reviews written by a user.",
@@ -1325,7 +1785,9 @@
     },
     "/reviews/user/{id}": {
       "get": {
-        "tags": ["Reviews"],
+        "tags": [
+          "Reviews"
+        ],
         "summary": "Get all reviews about a specific user.",
         "operationId": "getUserReviews",
         "description": "Returns all reviews where a specific user was mentioned.",
@@ -1387,7 +1849,9 @@
     },
     "/reviews/{id}": {
       "patch": {
-        "tags": ["Reviews"],
+        "tags": [
+          "Reviews"
+        ],
         "summary": "Update an existing review",
         "operationId": "updateReview",
         "description": "Allows the owner of a review to edit their comment, ratings, or images.",
@@ -1504,7 +1968,9 @@
         }
       },
       "delete": {
-        "tags": ["Reviews"],
+        "tags": [
+          "Reviews"
+        ],
         "summary": "Delete a review",
         "operationId": "deleteReview",
         "description": "Allows the owner of a review to delete it.",
@@ -1556,7 +2022,9 @@
     },
     "/reviews/{id}/reply": {
       "patch": {
-        "tags": ["Reviews"],
+        "tags": [
+          "Reviews"
+        ],
         "summary": "Reply to a review",
         "operationId": "replyToReview",
         "description": "Allows an admin to reply to a review.",
@@ -1627,7 +2095,9 @@
     },
     "/reviews/{id}/report": {
       "post": {
-        "tags": ["Reviews"],
+        "tags": [
+          "Reviews"
+        ],
         "summary": "Report a review",
         "operationId": "reportReview",
         "description": "Allows users to report an inappropriate review.",
@@ -1711,7 +2181,11 @@
           "application/json": {
             "schema": {
               "type": "object",
-              "required": ["status", "message", "data"],
+              "required": [
+                "status",
+                "message",
+                "data"
+              ],
               "properties": {
                 "status": {
                   "type": "integer",
@@ -1723,7 +2197,9 @@
                 },
                 "data": {
                   "type": "object",
-                  "required": ["message"],
+                  "required": [
+                    "message"
+                  ],
                   "properties": {
                     "message": {
                       "type": "string",
@@ -1742,7 +2218,11 @@
           "application/json": {
             "schema": {
               "type": "object",
-              "required": ["status", "message", "data"],
+              "required": [
+                "status",
+                "message",
+                "data"
+              ],
               "properties": {
                 "status": {
                   "type": "integer",
@@ -1754,7 +2234,9 @@
                 },
                 "data": {
                   "type": "object",
-                  "required": ["message"],
+                  "required": [
+                    "message"
+                  ],
                   "properties": {
                     "message": {
                       "type": "string",
@@ -1773,7 +2255,11 @@
           "application/json": {
             "schema": {
               "type": "object",
-              "required": ["status", "message", "data"],
+              "required": [
+                "status",
+                "message",
+                "data"
+              ],
               "properties": {
                 "status": {
                   "type": "integer",
@@ -1785,7 +2271,9 @@
                 },
                 "data": {
                   "type": "object",
-                  "required": ["message"],
+                  "required": [
+                    "message"
+                  ],
                   "properties": {
                     "message": {
                       "type": "string",
@@ -1804,7 +2292,11 @@
           "application/json": {
             "schema": {
               "type": "object",
-              "required": ["status", "message", "data"],
+              "required": [
+                "status",
+                "message",
+                "data"
+              ],
               "properties": {
                 "status": {
                   "type": "integer",
@@ -1816,7 +2308,9 @@
                 },
                 "data": {
                   "type": "object",
-                  "required": ["message"],
+                  "required": [
+                    "message"
+                  ],
                   "properties": {
                     "message": {
                       "type": "string",
@@ -1833,7 +2327,10 @@
     "schemas": {
       "auth": {
         "type": "object",
-        "required": ["email", "password"],
+        "required": [
+          "email",
+          "password"
+        ],
         "properties": {
           "email": {
             "description": "Email for registration and login",
@@ -1908,7 +2405,10 @@
               "format": "binary"
             },
             "description": "Array of image  for the user.",
-            "example": ["image1.jpg", "image2.jpg"]
+            "example": [
+              "image1.jpg",
+              "image2.jpg"
+            ]
           },
           "certificates": {
             "type": "array",
@@ -1917,7 +2417,10 @@
               "format": "binary"
             },
             "description": "Array of  for the user’s certificates.",
-            "example": ["certificate1.pdf", "certificate2.pdf"]
+            "example": [
+              "certificate1.pdf",
+              "certificate2.pdf"
+            ]
           },
           "description": {
             "type": "object",
@@ -1943,7 +2446,10 @@
                   "type": "string"
                 },
                 "description": "List of sport club equipment.",
-                "example": ["Pool", "Sauna"]
+                "example": [
+                  "Pool",
+                  "Sauna"
+                ]
               },
               "experience": {
                 "type": "array",
@@ -1952,7 +2458,10 @@
                   "format": "date"
                 },
                 "description": "Experience dates of the user.",
-                "example": ["2020-01-01", "2021-01-01"]
+                "example": [
+                  "2020-01-01",
+                  "2021-01-01"
+                ]
               },
               "schedule": {
                 "type": "array",
@@ -2035,7 +2544,10 @@
               "type": "string"
             },
             "description": "List of clubs where the coach works.",
-            "example": ["65ca63kj7ae7f10c88b598384", "65coo7e7ae7f10c88b598384"]
+            "example": [
+              "65ca63kj7ae7f10c88b598384",
+              "65coo7e7ae7f10c88b598384"
+            ]
           },
           "couch": {
             "type": "array",
@@ -2043,7 +2555,10 @@
               "type": "string"
             },
             "description": "List of current coach jobs at this sports club.",
-            "example": ["65ca63kj7ae7f10c88b598384", "65coo7e7ae7f10c88b598384"]
+            "example": [
+              "65ca63kj7ae7f10c88b598384",
+              "65coo7e7ae7f10c88b598384"
+            ]
           },
           "favorite": {
             "type": "array",
@@ -2067,7 +2582,10 @@
       },
       "reviews": {
         "type": "object",
-        "required": ["email", "password"],
+        "required": [
+          "email",
+          "password"
+        ],
         "properties": {
           "_id": {
             "type": "string",
