@@ -14,7 +14,6 @@ const FavoritesCardsRouter = Router();
 FavoritesCardsRouter.post("/:cardId", auth, ctrlWrapper(favoritesCardController.addToFavoritesCardController));
 
 // Видалити з обраного
-// FavoritesCardsRouter.delete("/", auth, ctrlWrapper(favoritesCardController.deleteFavoritesCardController));
 FavoritesCardsRouter.delete("/:cardId", auth, ctrlWrapper(favoritesCardController.deleteFavoritesCardController));
 
 // Отримати список обраного
