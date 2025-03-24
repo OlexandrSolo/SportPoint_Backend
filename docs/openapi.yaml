@@ -15,6 +15,8 @@ tags:
     description: Operations about users profiles.
   - name: SearchUserProfile
     description: Search operations
+  - name: Reviews
+    description: Operations related to user reviews.
 servers:
   - url: https://sportpoint-backend.onrender.com
   - url: http://localhost:3000
@@ -43,15 +45,13 @@ paths:
   /auth/delete/account:
     delete:
       $ref: '../swagger/paths/deleteAccount/delete.yaml'
+  # /auth/change/password:
+  #     $ref: '../swagger/paths/updatePassword/update.yaml' 
   /profile:
     get:
       $ref: '../swagger/paths/userProfile/get.yaml'
-    delete:
-      $ref: '../swagger/paths/userProfile/delete.yaml'
     patch:
       $ref: '../swagger/paths/userProfile/patch.yaml'
-    post:
-      $ref: '../swagger/paths/userProfile/post.yaml'
   /search/by-name:
     get:
       $ref: '../swagger/paths/search/get.yaml'
@@ -71,6 +71,26 @@ paths:
       $ref: '../swagger/paths/favorites/post.yaml'
     delete:
       $ref: '../swagger/paths/favorites/delete.yaml'
+  /reviews:
+    post:
+      $ref: '../swagger/paths/reviews/post.yaml'
+  /reviews/owner/{id}:
+    get:
+      $ref: '../swagger/paths/reviews/getOwner.yaml'
+  /reviews/user/{id}:
+    get:
+      $ref: '../swagger/paths/reviews/getUser.yaml'
+  /reviews/{id}:
+    patch:
+      $ref: '../swagger/paths/reviews/patch.yaml'
+    delete:
+      $ref: '../swagger/paths/reviews/delete.yaml'
+  /reviews/{id}/reply:
+    patch:
+      $ref: '../swagger/paths/reviews/reply.yaml'
+  /reviews/{id}/report:
+    post:
+      $ref: '../swagger/paths/reviews/report.yaml'
 components:
   securitySchemes:
     bearerAuth:

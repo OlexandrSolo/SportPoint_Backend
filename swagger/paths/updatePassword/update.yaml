@@ -1,0 +1,44 @@
+# tags:
+#   - Auth
+# summary: Update user password
+# operationId: updatePassword
+# description: 'update user password'
+# security:
+#   - bearerAuth: []
+# requestBody:
+#   content:
+#     application/json:
+#       schema:
+#         type: object
+#         required:
+#           - oldPassword
+#           - newPassword
+#         properties:
+#           oldPassword:
+#             description: 'Enter your old password'
+#             type: string
+#             example: 'rwe2135'
+#           newPassword:
+#             description: 'Enter your new password'
+#             type: string
+#             example: 'rwe2135'
+# responses:
+#   '200':
+#     description: update password
+#     content:
+#       application/json:
+#         schema:
+#           type: object
+#           required:
+#             - status
+#             - message
+#             - data
+#           properties:
+#             status:
+#               type: integer
+#               example: 200
+#             message:
+#               type: string
+#               example: Successfully update password!
+#   '404':
+#     $ref: '../../components/responses/404.yaml'

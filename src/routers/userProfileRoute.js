@@ -1,8 +1,6 @@
 import { Router } from 'express';
 import { ctrlWrapper } from '../utils/ctrlWrapper.js';
 import {
-  createUserProfileController,
-  delateUserProfileController,
   getUserProfileController,
   updatedUserProfileController,
 } from '../controllers/userProfile/UserProfileControllers.js';
@@ -20,20 +18,11 @@ profileRouter.get(
   ctrlWrapper(getUserProfileController),
 );
 
-profileRouter.post(
-  '/',
-  uploadFields,
-  // validateBody(userProfileSchemaJoi),
-  ctrlWrapper(createUserProfileController),
-);
-
 profileRouter.patch(
   '/',
   uploadFields,
   // validateBody(userProfileUpdateSchemaJoi),
   ctrlWrapper(updatedUserProfileController),
 );
-
-profileRouter.delete('/', ctrlWrapper(delateUserProfileController));
 
 export default profileRouter;
