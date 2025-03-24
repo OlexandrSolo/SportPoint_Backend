@@ -114,6 +114,10 @@ requestBody:
                       type: string
                       description: 'Price name or description.'
                       example: 'Monthly Subscription'
+                    description:
+                      type: string
+                      description: 'Price description.'
+                      example: '07:00 - 15:00.'
                     amount:
                       type: string
                       description: 'Price amount.'

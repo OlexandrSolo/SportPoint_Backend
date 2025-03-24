@@ -23,22 +23,22 @@ responses:
               type: array
               items:
                 properties:
-                userId:
+                 userId:
                   type: string
                   format: ObjectId
                   example: '65f2dc3b8a7e8e3e3b5a3a1b'
-                firstLastName:
+                 firstLastName:
                   type: string
                   minLength: 2
                   maxLength: 50
                   description: 'First and Last name of the user. or name of sport club'
                   example: 'John Doe || The Best Gym '
-                avatar:
+                 avatar:
                   type: string
                   format: uri
                   description: 'Avatar URL of the user.'
                   example: 'https://example.com/avatar.jpg'
-                images:
+                 images:
                   type: array
                   items:
                     type: string
@@ -47,7 +47,7 @@ responses:
                   example:
                     - 'https://example.com/image1.jpg'
                     - 'https://example.com/image2.jpg'
-                certificates:
+                 certificates:
                   type: array
                   items:
                     type: string
@@ -56,7 +56,7 @@ responses:
                   example:
                     - 'https://example.com/certificate1.pdf'
                     - 'https://example.com/certificate2.pdf'
-                description:
+                 description:
                   type: object
                   properties:
                     address:
@@ -143,7 +143,7 @@ responses:
                       format: email
                       description: 'Email address of the user.'
                       example: 'example@gmail.com'
-                club:
+                 club:
                   type: array
                   items:
                     type: string
@@ -151,7 +151,7 @@ responses:
                   example:
                     - '65ca67e7ae7f10c88b598384'
                     - '65ca67e7ae7f10c88b59ke84'
-                couch:
+                 couch:
                   type: array
                   items:
                     type: string
@@ -159,7 +159,7 @@ responses:
                   example:
                     - '65ca63kj7ae7f10c88b598384'
                     - '65coo7e7ae7f10c88b598384'
-                favorite:
+                 favorite:
                   type: array
                   items:
                     type: object
@@ -168,19 +168,19 @@ responses:
                         type: string
                         description: 'Type of favorite item.'
                         example: '65ca63kj7ae7f10c88b598384'
-                role:
+                 role:
                   type: string
                   description: 'User role'
                   example: 'coach || customer || adminClub'
-                couches_list:
+                 couches_list:
                   type: array
                   items:
                     $ref: '../../components/schemas/userProfile.yaml'
-                work_list:
+                 work_list:
                   type: array
                   items:
                     $ref: '../../components/schemas/userProfile.yaml'
-                user_comments:
+                 user_comments:
                   type: array
                   items:
                     $ref: '../../components/schemas/reviews.yaml'
