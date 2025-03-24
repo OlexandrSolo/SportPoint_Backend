@@ -1,21 +1,88 @@
 tags:
-  - Card Coach or Club
-summary: Get card
-operationId: getCardClubOrCoach
-description: 'Get card coach or club'
+  - Cards
+summary: Get all cards with filters
+operationId: getAllCards
+description: 'Retrieve a list of coach and clubs with filtering and sorting options'
 security:
   - bearerAuth: []
+parameters:
+  - name: page
+    in: query
+    required: false
+    schema:
+      type: integer
+      default: 1
+    description: 'Page number for pagination'
+  - name: perPage
+    in: query
+    required: false
+    schema:
+      type: integer
+      default: 10
+    description: 'Number of items per page'
+  - name: filter.address
+    in: query
+    required: false
+    schema:
+      type: string
+    description: 'Filter by city'
+  - name: filter.role
+    in: query
+    required: false
+    schema:
+      type: string
+    description: 'Filter by role (adminClub or coach)'
+  - name: filter.countReview
+    in: query
+    required: false
+    schema:
+      type: integer
+    description: 'Minimum number of reviews'
+  - name: filter.minPrice
+    in: query
+    required: false
+    schema:
+      type: number
+      default: 0
+    description: 'Minimum number of reviews'
+  - name: filter.maxPrice
+    in: query
+    required: false
+    schema:
+      type: number
+      default: 5
+    description: 'Maximum number of reviews'
+  - name: filter.abilities
+    in: query
+    required: false
+    schema:
+      type: array
+      items:
+        type: string
+    style: form
+    explode: false
+    description: 'Filter by abilities'
+  - name: filter.sort
+    in: query
+    required: false
+    schema:
+      type: string
+      enum: [нові, популярні, ціна_за_зростанням, ціна_за_спаданням]
+      #  enum: [new, popular, price_asc, price_desc]
+      default: new
+    description: |
+      Sorting options:
+       - 'new' - By creation date
+       - 'popular' By reviews count
+       - 'price_asc' By price (ascending)
+       - 'price_dec' By price (descending)
 responses:
   '200':
-    description: 'Successfully found card with id=65ca67e7ae7f10c88b598384'
+    description: 'Successful response with filtered list of cards'
     content:
       application/json:
         schema:
           type: object
-          required:
-            - status
-            - message
-            - data
           properties:
             status:
               type: integer
@@ -24,169 +91,18 @@ responses:
               type: string
               example: Successfully found card with id 65ca67e7ae7f10c88b598384!
             data:
+              type: array
+              items:
+                $ref: ../../components/schemas/userProfile.yaml
+            paginationData:
               type: object
               properties:
-                userId:
-                  type: string
-                  format: ObjectId
-                  example: '65f2dc3b8a7e8e3e3b5a3a1b'
-                firstLastName:
-                  type: string
-                  minLength: 2
-                  maxLength: 50
-                  description: 'First and Last name of the user. or name of sport club'
-                  example: 'John Doe || The Best Gym '
-                avatar:
-                  type: string
-                  format: uri
-                  description: 'If use coach'
-                  example: 'https://example.com/avatar.jpg'
-                images:
-                  type: array
-                  items:
-                    type: string
-                    format: uri
-                  description: 'If use club'
-                  example:
-                    - 'https://example.com/image1.jpg'
-                    - 'https://example.com/image2.jpg'
-                certificates:
-                  type: array
-                  items:
-                    type: string
-                    format: uri
-                  description: 'Array of URLs for the coach certificates or gym.'
-                  example:
-                    - 'https://example.com/certificate1.pdf'
-                    - 'https://example.com/certificate2.pdf'
-                description:
-                  type: object
-                  properties:
-                    address:
-                      type: string
-                      description: 'Address of the  sport club or coach.'
-                      example: 'Odesa, 123 Main St'
-                    short_desc:
-                      type: string
-                      description: 'Short description of the couch or sport club.'
-                      example: 'Experienced coach in football.'
-                    abilities:
-                      type: string
-                      description: 'User’s abilities.'
-                      example: 'Coaching, mentoring'
-                    equipment:
-                      type: array
-                      items:
-                        type: string
-                      description: 'List of gym equipment.'
-                      example:
-                        - 'Pool'
-                        - 'Sauna'
-                    experience:
-                      type: array
-                      items:
-                        type: string
-                        format: date
-                      description: 'Experience dates of the coach.'
-                      example:
-                        - '2020-01-01'
-                        - '2021-01-01'
-                    schedule:
-                      type: array
-                      items:
-                        type: object
-                        properties:
-                          days:
-                            type: string
-                            description: 'Days of the week.'
-                            example: 'Monday, Wednesday'
-                          hours:
-                            type: string
-                            description: 'Working hours.'
-                            example: '9:00 AM - 5:00 PM'
-                          date:
-                            type: string
-                            format: date
-                            description: 'Date of the schedule. For example, special days such as holidays'
-                            example: '2023-12-01'
-                    social_links:
-                      type: array
-                      items:
-                        type: object
-                        properties:
-                          name:
-                            type: string
-                            description: 'Name of the social platform.'
-                            example: 'Facebook'
-                          url:
-                            type: string
-                            format: uri
-                            description: 'URL to the social media profile.'
-                            example: 'https://facebook.com/example'
-                    price:
-                      type: array
-                      items:
-                        type: object
-                        properties:
-                          name:
-                            type: string
-                            description: 'Price name or description.'
-                            example: 'Monthly Subscription'
-                          amount:
-                            type: string
-                            description: 'Price amount.'
-                            example: '99.99'
-                    phone:
-                      type: string
-                      pattern: '^\+?[0-9]{10,15}$'
-                      description: 'Phone number of the gym or coach .'
-                      example: '+1234567890'
-                    email:
-                      type: string
-                      format: email
-                      description: 'Email address of the user.'
-                      example: 'example@gmail.com'
-                club:
-                  type: array
-                  items:
-                    type: string
-                  description: 'List of clubs id where the coach works.'
-                  example:
-                    - '65ca67e7ae7f10c88b598384'
-                    - '65ca67e7ae7f10c88b59ke84'
-                couch:
-                  type: array
-                  items:
-                    type: string
-                  description: 'List of current coach id jobs at this sports club.'
-                  example:
-                    - '65ca63kj7ae7f10c88b598384'
-                    - '65coo7e7ae7f10c88b598384'
-                favorite:
-                  type: array
-                  items:
-                    type: object
-                    properties:
-                      type:
-                        type: string
-                        description: 'Type of favorite item.'
-                        example: '65ca63kj7ae7f10c88b598384'
-                role:
-                  type: string
-                  description: 'User role'
-                  example: 'coach || customer || adminClub'
-                couches_list:
-                  type: array
-                  items:
-                    $ref: '../../components/schemas/userProfile.yaml'
-                work_list:
-                  type: array
-                  items:
-                    $ref: '../../components/schemas/userProfile.yaml'
-                user_comments:
-                  type: array
-                  items:
-                    $ref: '../../components/schemas/reviews.yaml'
+                totalItems:
+                  type: integer
+                totalPages:
+                  type: integer
+                currentPage:
+                  type: integer
   '401':
     $ref: '../../components/responses/401.yaml'
   '404':

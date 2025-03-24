@@ -1,24 +1,28 @@
 tags:
-  - All Favorites
-summary: Get user favorite coaches and clubs
-operationId: getUserFavorites
-description: 'Retrieve a list of favorite coaches and clubs for the authenticated user'
+  - Club or Coach Cards
+summary: Get all club or coach cards
+operationId: getFavoritesCard
+description: 'Get club cards'
 security:
   - bearerAuth: []
 responses:
   '200':
-    description: 'List of favorite items retrieved successfully'
+    description: 'Successfully get club cards'
     content:
       application/json:
         schema:
           type: object
+          required:
+            - status
+            - message
+            - data
           properties:
             status:
               type: integer
               example: 200
             message:
               type: string
-              example: 'Successfully retrieved favorite items'
+              example: 'Successfully club or coach cards'
             data:
               type: array
               items:
@@ -31,6 +35,7 @@ responses:
                   type: string
                   minLength: 2
                   maxLength: 50
+
                   description: 'First and Last name of the user. or name of sport club'
                   example: 'John Doe || The Best Gym '
                  avatar:
@@ -187,4 +192,4 @@ responses:
   '401':
     $ref: '../../components/responses/401.yaml'
   '404':
-    $ref: '../../components/responses/404.yaml'
+    $ref: ../../components/responses/404.yaml

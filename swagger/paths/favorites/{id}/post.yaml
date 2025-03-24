@@ -1,5 +1,5 @@
 tags:
-  - Add Favorites
+  - Add choose card club or coach
 summary: Add a coach or club to favorites
 operationId: addToFavorites
 description: 'Add a coach or club to the users favorite list'
@@ -22,7 +22,7 @@ requestBody:
             example: '65f2dc3b8a7e8e3e3b5a3a1b'
           type:
             type: string
-            enum: [coach, club]
+            enum: [coach, adminClub]
             description: 'Type of the favorite item'
             example: 'coach'
 responses:
@@ -51,6 +51,6 @@ responses:
   '400':
     description: 'Invalid request data'
   '401':
-    $ref: '../../components/responses/401.yaml'
+    $ref: '../../../components/responses/401.yaml'
   '404':
-    $ref: '../../components/responses/404.yaml'
+    $ref: '../../../components/responses/404.yaml'
