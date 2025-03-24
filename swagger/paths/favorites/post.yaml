@@ -1,0 +1,56 @@
+tags:
+  - Add Favorites
+summary: Add a coach or club to favorites
+operationId: addToFavorites
+description: 'Add a coach or club to the users favorite list'
+security:
+  - bearerAuth: []
+requestBody:
+  required: true
+  content:
+    application/json:
+      schema:
+        type: object
+        required:
+          - itemId
+          - type
+        properties:
+          itemId:
+            type: string
+            format: ObjectId
+            description: 'ID of the coach or club to add to favorites'
+            example: '65f2dc3b8a7e8e3e3b5a3a1b'
+          type:
+            type: string
+            enum: [coach, club]
+            description: 'Type of the favorite item'
+            example: 'coach'
+responses:
+  '201':
+    description: 'Item successfully added to favorites'
+    content:
+      application/json:
+        schema:
+          type: object
+          properties:
+            status:
+              type: integer
+              example: 201
+            message:
+              type: string
+              example: 'Successfully added to favorites'
+            data:
+              type: object
+              properties:
+                userId:
+                  type: string
+                  format: ObjectId
+                  example: '65f2dc3b8a7e8e3e3b5a3a1b'
+                favorite:
+                  type: array
+  '400':
+    description: 'Invalid request data'
+  '401':
+    $ref: '../../components/responses/401.yaml'
+  '404':
+    $ref: '../../components/responses/404.yaml'
