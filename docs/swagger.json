@@ -77,7 +77,60 @@
                     "description": "User role",
                     "type": "string",
                     "example": "customer"
-                  }
+                  },
+                  "firstName": {
+                    "description": "User first name",
+                    "type": "string",
+                    "example": "Володимир" 
+                  },
+                  "lastName": {
+                    "description": "User last name",
+                    "type": "string",
+                    "example": "Кіт" 
+                  },
+                  "clubName": {
+                    "description": "Name club",
+                    "type": "string",
+                    "example": "Sport Life" 
+                  },
+                    "phone": {
+                    "description": "User phone number",
+                    "type": "string",
+                    "example": "+380678654323" 
+                  },
+                  "address": {
+                    "description": "User address",
+                    "type": "string",
+                    "example": "м.Львів, Шевченка, 30"  
+                  },
+                  "abilities": {
+                    "description": "User abilities",
+                    "type": "string",
+                    "example": "Coaching, mentoring" 
+                  },
+                  "sport": {
+                    "description": "User sport",
+                    "type": "string",
+                    "example": "Карате" 
+                  },
+                  "avatar": {
+                     "description": "User avatar URL",
+                     "type": "string",
+                     "format": "uri",
+                     "example": "https://example.com/avatar.jpg"
+                  },
+                  "images": {
+                     "description": "Array of image URLs",
+                     "type": "array",
+                     "items": {
+                       "type": "string",
+                       "format": "uri"
+                     },
+                     "example": [
+                       "https://example.com/image1.jpg",
+                       "https://example.com/image2.jpg"
+                     ]
+                   }
                 }
               }
             }
