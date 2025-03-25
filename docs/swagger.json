@@ -77,60 +77,7 @@
                     "description": "User role",
                     "type": "string",
                     "example": "customer"
-                  },
-                  "firstName": {
-                    "description": "User first name",
-                    "type": "string",
-                    "example": "Володимир" 
-                  },
-                  "lastName": {
-                    "description": "User last name",
-                    "type": "string",
-                    "example": "Кіт" 
-                  },
-                  "clubName": {
-                    "description": "Name club",
-                    "type": "string",
-                    "example": "Sport Life" 
-                  },
-                    "phone": {
-                    "description": "User phone number",
-                    "type": "string",
-                    "example": "+380678654323" 
-                  },
-                  "address": {
-                    "description": "User address",
-                    "type": "string",
-                    "example": "м.Львів, Шевченка, 30"  
-                  },
-                  "abilities": {
-                    "description": "User abilities",
-                    "type": "string",
-                    "example": "Coaching, mentoring" 
-                  },
-                  "sport": {
-                    "description": "User sport",
-                    "type": "string",
-                    "example": "Карате" 
-                  },
-                  "avatar": {
-                     "description": "User avatar URL",
-                     "type": "string",
-                     "format": "uri",
-                     "example": "https://example.com/avatar.jpg"
-                  },
-                  "images": {
-                     "description": "Array of image URLs",
-                     "type": "array",
-                     "items": {
-                       "type": "string",
-                       "format": "uri"
-                     },
-                     "example": [
-                       "https://example.com/image1.jpg",
-                       "https://example.com/image2.jpg"
-                     ]
-                   }
+                  }
                 }
               }
             }
@@ -567,6 +514,76 @@
           },
           "401": {
             "$ref": "#/components/responses/401"
+          }
+        }
+      }
+    },
+    "/auth/change/password": {
+      "put": {
+        "tags": [
+          "Auth"
+        ],
+        "summary": "Update user password",
+        "operationId": "putPassword",
+        "description": "update user password",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": [
+                  "oldPassword",
+                  "newPassword"
+                ],
+                "properties": {
+                  "oldPassword": {
+                    "description": "Enter your old password",
+                    "type": "string",
+                    "example": "rwe2135"
+                  },
+                  "newPassword": {
+                    "description": "Enter your new password",
+                    "type": "string",
+                    "example": "rwe2135"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "update password",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "status",
+                    "message",
+                    "data"
+                  ],
+                  "properties": {
+                    "status": {
+                      "type": "integer",
+                      "example": 200
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Successfully update password!"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "$ref": "#/components/responses/404"
           }
         }
       }
