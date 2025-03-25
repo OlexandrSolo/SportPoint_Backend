@@ -524,8 +524,8 @@
           "Auth"
         ],
         "summary": "Update user password",
-        "operationId": "putPassword",
-        "description": "update user password",
+        "operationId": "updateUserPassword",
+        "description": "Update user password",
         "security": [
           {
             "bearerAuth": []
