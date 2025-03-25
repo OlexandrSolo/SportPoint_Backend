@@ -45,8 +45,9 @@ paths:
   /auth/delete/account:
     delete:
       $ref: '../swagger/paths/deleteAccount/delete.yaml'
-  # /auth/change/password:
-  #     $ref: '../swagger/paths/updatePassword/update.yaml'
+  /auth/change/password:
+    put:
+      $ref: '../swagger/paths/updatePassword/put.yaml'
   /profile:
     get:
       $ref: '../swagger/paths/userProfile/get.yaml'

@@ -9,24 +9,32 @@ export const getUserProfile = async (userId) => {
   if (!userProfile) {
     throw createHttpError(404, 'Profile not found');
   }
+  console.log(userProfile);
+
 
   const { coach: coaches, club: clubs } = userProfile;
 
   const [coachesList, clubsList] = await Promise.all([
-    Promise.all(
-      coaches.map(async (coachId) => {
-        const coach = await UserProfileModel.findOne({
-          userId: coachId,
-        }).lean();
-        return coach;
-      }),
-    ),
-    Promise.all(
-      clubs.map(async (clubId) => {
-        const club = await UserProfileModel.findOne({ userId: clubId }).lean();
-        return club;
-      }),
-    ),
+    coaches
+      ? Promise.all(
+          coaches.map(async (coachId) => {
+            const coach = await UserProfileModel.findOne({
+              userId: coachId,
+            }).lean();
+            return coach;
+          }),
+        )
+      : [],
+    clubs
+      ? Promise.all(
+          clubs.map(async (clubId) => {
+            const club = await UserProfileModel.findOne({
+              userId: clubId,
+            }).lean();
+            return club;
+          }),
+        )
+      : [],
   ]);
 
   let userComments = [];

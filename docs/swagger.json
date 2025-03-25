@@ -77,60 +77,7 @@
                     "description": "User role",
                     "type": "string",
                     "example": "customer"
-                  },
-                  "firstName": {
-                    "description": "User first name",
-                    "type": "string",
-                    "example": "Володимир" 
-                  },
-                  "lastName": {
-                    "description": "User last name",
-                    "type": "string",
-                    "example": "Кіт" 
-                  },
-                  "clubName": {
-                    "description": "Name club",
-                    "type": "string",
-                    "example": "Sport Life" 
-                  },
-                    "phone": {
-                    "description": "User phone number",
-                    "type": "string",
-                    "example": "+380678654323" 
-                  },
-                  "address": {
-                    "description": "User address",
-                    "type": "string",
-                    "example": "м.Львів, Шевченка, 30"  
-                  },
-                  "abilities": {
-                    "description": "User abilities",
-                    "type": "string",
-                    "example": "Coaching, mentoring" 
-                  },
-                  "sport": {
-                    "description": "User sport",
-                    "type": "string",
-                    "example": "Карате" 
-                  },
-                  "avatar": {
-                     "description": "User avatar URL",
-                     "type": "string",
-                     "format": "uri",
-                     "example": "https://example.com/avatar.jpg"
-                  },
-                  "images": {
-                     "description": "Array of image URLs",
-                     "type": "array",
-                     "items": {
-                       "type": "string",
-                       "format": "uri"
-                     },
-                     "example": [
-                       "https://example.com/image1.jpg",
-                       "https://example.com/image2.jpg"
-                     ]
-                   }
+                  }
                 }
               }
             }
@@ -571,13 +518,14 @@
         }
       }
     },
-     "/auth/change/password": {
+
+    "/auth/change/password": {
       "put": {
         "tags": [
           "Auth"
         ],
         "summary": "Update user password",
-        "operationId": "updateUserPassword", 
+        "operationId": "updateUserPassword",
         "description": "Update user password",
         "security": [
           {
@@ -611,14 +559,17 @@
         },
         "responses": {
           "200": {
+
             "description": "update user password",
+
             "content": {
               "application/json": {
                 "schema": {
                   "type": "object",
                   "required": [
                     "status",
-                    "message"
+                    "message",
+                    "data"
                   ],
                   "properties": {
                     "status": {
@@ -627,7 +578,7 @@
                     },
                     "message": {
                       "type": "string",
-                      "example": "Пароль успішно змінено!"
+                      "example": "Successfully update password!"
                     }
                   }
                 }
