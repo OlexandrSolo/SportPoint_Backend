@@ -1,0 +1,46 @@
+tags:
+  - Cards
+summary: Get  card by id
+operationId: getCard
+description: 'Retrieve coach or club card by id !'
+security:
+  - bearerAuth: []
+parameters:
+  - name: id
+    in: path
+    required: false
+    schema:
+      type: string
+      example: 67c4c89d4d695e8b07c91dab
+    description: 'Card id '
+responses:
+  '200':
+    description: 'Found card with by id!'
+    content:
+      application/json:
+        schema:
+          type: object
+          properties:
+            status:
+              type: integer
+              example: 200
+            message:
+              type: string
+              example: Successfully found card with id 65ca67e7ae7f10c88b598384!
+            data:
+              type: array
+              items:
+                $ref: ../../../components/schemas/userProfile.yaml
+            paginationData:
+              type: object
+              properties:
+                totalItems:
+                  type: integer
+                totalPages:
+                  type: integer
+                currentPage:
+                  type: integer
+  '401':
+    $ref: '../../../components/responses/401.yaml'
+  '404':
+    $ref: '../../../components/responses/404.yaml'

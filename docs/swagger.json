@@ -1267,14 +1267,14 @@
         }
       }
     },
-    "/cards/:id": {
+    "/cards/{id}": {
       "get": {
         "tags": [
           "Cards"
         ],
-        "summary": "Get all cards with filters",
-        "operationId": "getAllCards",
-        "description": "Retrieve a list of coach and clubs with filtering and sorting options",
+        "summary": "Get  card by id",
+        "operationId": "getCard",
+        "description": "Retrieve coach or club card by id !",
         "security": [
           {
             "bearerAuth": []
@@ -1282,106 +1282,19 @@
         ],
         "parameters": [
           {
-            "name": "page",
-            "in": "query",
-            "required": false,
-            "schema": {
-              "type": "integer",
-              "default": 1
-            },
-            "description": "Page number for pagination"
-          },
-          {
-            "name": "perPage",
-            "in": "query",
-            "required": false,
-            "schema": {
-              "type": "integer",
-              "default": 10
-            },
-            "description": "Number of items per page"
-          },
-          {
-            "name": "filter.address",
-            "in": "query",
-            "required": false,
-            "schema": {
-              "type": "string"
-            },
-            "description": "Filter by city"
-          },
-          {
-            "name": "filter.role",
-            "in": "query",
-            "required": false,
-            "schema": {
-              "type": "string"
-            },
-            "description": "Filter by role (adminClub or coach)"
-          },
-          {
-            "name": "filter.countReview",
-            "in": "query",
-            "required": false,
-            "schema": {
-              "type": "integer"
-            },
-            "description": "Minimum number of reviews"
-          },
-          {
-            "name": "filter.minPrice",
-            "in": "query",
-            "required": false,
-            "schema": {
-              "type": "number",
-              "default": 0
-            },
-            "description": "Minimum number of reviews"
-          },
-          {
-            "name": "filter.maxPrice",
-            "in": "query",
-            "required": false,
-            "schema": {
-              "type": "number",
-              "default": 5
-            },
-            "description": "Maximum number of reviews"
-          },
-          {
-            "name": "filter.abilities",
-            "in": "query",
-            "required": false,
-            "schema": {
-              "type": "array",
-              "items": {
-                "type": "string"
-              }
-            },
-            "style": "form",
-            "explode": false,
-            "description": "Filter by abilities"
-          },
-          {
-            "name": "filter.sort",
-            "in": "query",
+            "name": "id",
+            "in": "path",
             "required": false,
             "schema": {
               "type": "string",
-              "enum": [
-                "нові",
-                "популярні",
-                "ціна_за_зростанням",
-                "ціна_за_спаданням"
-              ],
-              "default": "new"
+              "example": "67c4c89d4d695e8b07c91dab"
             },
-            "description": "Sorting options:\n - 'new' - By creation date\n - 'popular' By reviews count\n - 'price_asc' By price (ascending)\n - 'price_dec' By price (descending)\n"
+            "description": "Card id "
           }
         ],
         "responses": {
           "200": {
-            "description": "Successful response with filtered list of cards",
+            "description": "Found card with by id!",
             "content": {
               "application/json": {
                 "schema": {

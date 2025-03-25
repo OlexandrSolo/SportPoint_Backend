@@ -58,9 +58,9 @@ paths:
   /cards:
     get:
       $ref: '../swagger/paths/cards/get.yaml'
-  /cards/:id:
+  /cards/{id}:
     get:
-      $ref: '../swagger/paths/cards/get.yaml'
+      $ref: '../swagger/paths/cards/{id}/get.yaml'
   /favorites:
     get:
       $ref: '../swagger/paths/favorites/get.yaml'
