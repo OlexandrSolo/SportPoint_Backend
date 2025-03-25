@@ -1,0 +1,36 @@
+tags:
+  - Get fav card
+summary: Get favorite card
+operationId: getFavCard
+description: 'Get favorite card club or coach'
+security:
+  - bearerAuth: []
+requestBody:
+  required: true
+  content:
+    application/json:
+      schema:
+        type: object
+        required:
+          - itemId
+        properties:
+          itemId:
+            type: string
+            format: ObjectId
+            description: 'ID of the coach or club to add to favorites'
+            example: '65f2dc3b8a7e8e3e3b5a3a1b'
+responses:
+  '204':
+    description: 'Successfully get favorite card'
+    content:
+      application/json:
+        schema:
+          type: object
+          properties:
+            status:
+              type: integer
+              example: 204
+  '401':
+    $ref: ../../../components/responses/401.yaml
+  '404':
+    $ref: '../../../components/responses/404.yaml'

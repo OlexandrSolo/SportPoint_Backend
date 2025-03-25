@@ -46,7 +46,7 @@ paths:
     delete:
       $ref: '../swagger/paths/deleteAccount/delete.yaml'
   # /auth/change/password:
-  #     $ref: '../swagger/paths/updatePassword/update.yaml' 
+  #     $ref: '../swagger/paths/updatePassword/update.yaml'
   /profile:
     get:
       $ref: '../swagger/paths/userProfile/get.yaml'
@@ -55,22 +55,20 @@ paths:
   /search/by-name:
     get:
       $ref: '../swagger/paths/search/get.yaml'
-  /cards/club:
+  /cards:
     get:
-      $ref: '../swagger/paths/cards/club/get.yaml'
-  /cards/coach:
-    get:
-      $ref: '../swagger/paths/cards/coach/get.yaml'
+      $ref: '../swagger/paths/cards/get.yaml'
   /cards/:id:
     get:
       $ref: '../swagger/paths/cards/get.yaml'
   /favorites:
     get:
       $ref: '../swagger/paths/favorites/get.yaml'
+  /favorites/:id:
     post:
-      $ref: '../swagger/paths/favorites/post.yaml'
+      $ref: '../swagger/paths/favorites/{id}/post.yaml'
       # delete:
-      #   $ref: '../swagger/paths/favorites/delete.yaml'
+      #   $ref: '../swagger/paths/favorites/delete.yaml
   /reviews:
     post:
       $ref: '../swagger/paths/reviews/post.yaml'
