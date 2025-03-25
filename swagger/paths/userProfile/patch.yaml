@@ -140,7 +140,7 @@ requestBody:
             example:
               - '65ca67e7ae7f10c88b598384'
               - '65ca67e7ae7f10c88b59ke84'
-          couch:
+          coach:
             type: array
             items:
               type: string

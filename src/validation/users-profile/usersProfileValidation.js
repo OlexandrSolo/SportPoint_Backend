@@ -37,7 +37,7 @@ export const userProfileSchemaJoi = Joi.object({
   certificates: Joi.array().items(Joi.string().uri()),
   description: descriptionSchemaJoi.optional(),
   club: Joi.array().items(Joi.string()).optional(),
-  couch: Joi.array().items(Joi.string()).optional(),
+  coach: Joi.array().items(Joi.string()).optional(),
 
   //TODO change if you need
   favorite: Joi.array().items(Joi.object({ type: Joi.string() })),
@@ -58,7 +58,7 @@ export const userProfileUpdateSchemaJoi = Joi.object({
       }
       return value;
     }),
-  couch: Joi.array()
+  coach: Joi.array()
     .items(Joi.string())
     .optional()
     .custom((value, helpers) => {

@@ -131,7 +131,7 @@ properties:
     example:
       - '65ca63kj7ae7f10c88b598384'
       - '65coo7e7ae7f10c88b598384'
-  couch:
+  coach:
     type: array
     items:
       type: string

@@ -68,7 +68,7 @@ responses:
                       example: 'Odesa, 123 Main St'
                     short_desc:
                       type: string
-                      description: 'Short description of the couch or sport club.'
+                      description: 'Short description of the coach or sport club.'
                       example: 'Experienced coach in football.'
                     abilities:
                       type: string
@@ -158,7 +158,7 @@ responses:
                   example:
                     - '65ca67e7ae7f10c88b598384'
                     - '65ca67e7ae7f10c88b59ke84'
-                couch:
+                coach:
                   type: array
                   items:
                     type: string
@@ -179,7 +179,7 @@ responses:
                   type: string
                   description: 'User role'
                   example: 'coach || customer || adminClub'
-                couches_list:
+                coaches_list:
                   type: array
                   items:
                     $ref: '../../components/schemas/userProfile.yaml'

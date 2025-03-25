@@ -51,7 +51,7 @@ const userProfileSchema = new mongoose.Schema(
     role: { type: mongoose.Schema.Types.String, ref: 'auth' },
     favorite: { type: [favoriteSchema] },
     club: { type: [String] },
-    couch: { type: [String], default: [] },
+    coach: { type: [String], default: [] },
     sport: { type: String },
   },
   {
