@@ -518,6 +518,7 @@
         }
       }
     },
+
     "/auth/change/password": {
       "put": {
         "tags": [
@@ -558,7 +559,9 @@
         },
         "responses": {
           "200": {
-            "description": "update password",
+
+            "description": "update user password",
+
             "content": {
               "application/json": {
                 "schema": {
