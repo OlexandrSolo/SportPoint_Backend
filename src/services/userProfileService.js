@@ -10,15 +10,15 @@ export const getUserProfile = async (userId) => {
     throw createHttpError(404, 'Profile not found');
   }
 
-  const { couch: couches, club: clubs } = userProfile;
+  const { coach: coaches, club: clubs } = userProfile;
 
-  const [couchesList, clubsList] = await Promise.all([
+  const [coachesList, clubsList] = await Promise.all([
     Promise.all(
-      couches.map(async (couchId) => {
-        const couch = await UserProfileModel.findOne({
-          userId: couchId,
+      coaches.map(async (coachId) => {
+        const coach = await UserProfileModel.findOne({
+          userId: coachId,
         }).lean();
-        return couch;
+        return coach;
       }),
     ),
     Promise.all(
@@ -40,7 +40,7 @@ export const getUserProfile = async (userId) => {
 
   return {
     ...userProfile,
-    couches_list: couchesList,
+    coaches_list: coachesList,
     work_list: clubsList,
     user_comments: userComments,
   };

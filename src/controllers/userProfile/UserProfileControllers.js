@@ -45,9 +45,9 @@ export const updatedUserProfileController = async (req, res) => {
     const clubArray = req.body.club
       ? req.body.club.split(',')
       : userProfile.club;
-    const couchArray = req.body.couch
-      ? req.body.couch.split(',')
-      : userProfile.couch;
+    const coachArray = req.body.coach
+      ? req.body.coach.split(',')
+      : userProfile.coach;
 
     const favoriteArray = req.body.favorite
       ? JSON.parse(req.body.favorite)
@@ -83,7 +83,7 @@ export const updatedUserProfileController = async (req, res) => {
         email: user.email,
       },
       club: clubArray,
-      couch: couchArray,
+      coach: coachArray,
       favorite: favoriteArray,
     };
 
