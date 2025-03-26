@@ -31,7 +31,7 @@ const descriptionSchema = new mongoose.Schema({
   abilities: { type: [String] },
   schedule: { type: [schedulesSchema] },
   equipment: { type: [String] },
-  experience: { type: [Date] },
+  experience: { type: String },
   price: { type: [pricesSchema] },
   social_links: { type: [socialLinkSchema] },
   phone: { type: String },
