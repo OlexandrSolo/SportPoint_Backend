@@ -44,7 +44,7 @@ export const getUserReviews = async (req, res) => {
 };
 
 export const addReview = async (req, res) => {
-  const { userCommentId, ratings, comment, images } = req.body;
+  const { userCommentId, ratings, comment } = req.body;
   const userId = req.user._id;
 
   const { review, overallRating } = await reviewService.addReview(
@@ -52,7 +52,7 @@ export const addReview = async (req, res) => {
     userCommentId,
     ratings,
     comment,
-    images,
+    
   );
 
   res.status(201).json({

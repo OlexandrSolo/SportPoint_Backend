@@ -25,8 +25,9 @@ const reviewSchema = new Schema({
         location: { type: Number, required: true, min: 1, max: 5 },
         cleanliness: { type: Number, required: true, min: 1, max: 5 }
     },
+    average: { type: Number, min: 0, max: 5, default: 0 },
     comment: { type: String, required: true, minlength: 20, maxlength: 500 },
-    images: { type: String }, 
+    // images: { type: String }, 
     adminReply: { type: String, default: '' }, 
     reports: [reportsSchema],
 }, { 

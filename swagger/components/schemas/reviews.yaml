@@ -1,7 +1,7 @@
 type: object
 required:
-  - email
-  - password
+  - ratings
+  - comment
 properties:
   _id:
     type: string
@@ -46,19 +46,24 @@ properties:
         minimum: 1
         maximum: 5
         example: 5
+  average:
+    type: number
+    minimum: 0
+    maximum: 5
+    example: 4.2      
   comment:
     type: string
     minLength: 20
     maxLength: 500
     example: "Дуже гарний клуб, але трохи завищена ціна."
-  images:
-    type: array
-    items:
-      type: string
-      format: uri
-    example:
-      - "https://example.com/image1.jpg"
-      - "https://example.com/image2.jpg"
+  # images:
+  #   type: array
+  #   items:
+  #     type: string
+  #     format: uri
+  #   example:
+  #     - "https://example.com/image1.jpg"
+  #     - "https://example.com/image2.jpg"
   adminReply:
     type: string
     example: "Дякуємо за ваш відгук!"

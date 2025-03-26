@@ -14,7 +14,7 @@ const reviewsSchema = (req, res, next) => {
         cleanliness: Joi.number().min(1).max(5).required(),
     }).required(),
     comment: Joi.string().min(20).max(500).required(),
-    images: Joi.string().uri().allow(null, '').optional(),
+    // images: Joi.string().uri().allow(null, '').optional(),
   });
 
   const validationResult = schema.validate(req.body);

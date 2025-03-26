@@ -29,24 +29,28 @@ const calculateOverallRatingForReview = async (userCommentId) => {
 //     return { review, overallRating: calculateOverallRatingForReview(review.ratings) };
 // };
 
-export const addReview = async (userId, userCommentId, ratings, comment, images) => {
+export const addReview = async (userId, userCommentId, ratings, comment) => {
     if (!userCommentId) {
         throw createHttpError(400, 'The review must be linked to a club or trainer');
     }
+     // Обчислюємо середнє значення оцінки 
+  const ratingValues = Object.values(ratings);
+  const average = parseFloat(
+    (ratingValues.reduce((acc, val) => acc + val, 0) / ratingValues.length).toFixed(2)
+    );
     
-    const review = await ReviewsCollection.create({ owner: userId, userCommentId, ratings, comment, images });
+    // Створюємо новий відгук
+    const review = await ReviewsCollection.create({ owner: userId, userCommentId, ratings, comment, average });
+    
+     if (!review) throw createHttpError(500, 'Server error');
 
     const reviews = await ReviewsCollection.find({ userCommentId }).countDocuments();
+    const user = await UserProfileModel.findOne({ userId: userCommentId });
+
+    // Розраховуємо загальний середній рейтинг по всім відгукам користувача 
     
-
-    const user = await UserProfileModel.findOne({ userId: userCommentId })
-
     await UserProfileModel.findByIdAndUpdate(user._id, { $set: { countReview: reviews } }, { new: true });
     
-
-
-    if (!review) throw createHttpError(500, 'Server error');
-
     const overallRating = await calculateOverallRatingForReview(userCommentId);
 
     await UserProfileModel.findByIdAndUpdate(user._id, { $set: { rating: overallRating } }, { new: true });
@@ -59,16 +63,22 @@ export const updateReviewService = async (id, owner, body) => {
     const review = await ReviewsCollection.findById(id);
     review.ratings = body.ratings;
     review.comment = body.comment;
-    review.images = body.images;
+    // review.images = body.images;
 
-    await ReviewsCollection.findByIdAndUpdate({owner,  _id: id }, review, {new: true, fields: ['-createdAt', '-updatedAt']})
+    // Обчислюємо average
+    const ratingValues = Object.values(body.ratings);
+    review.average = parseFloat(
+        (ratingValues.reduce((acc, val) => acc + val, 0) / ratingValues.length).toFixed(2)
+    );
+
+    await ReviewsCollection.findByIdAndUpdate({ owner, _id: id }, review, { new: true, fields: ['-createdAt', '-updatedAt'] });
     
     const user = await UserProfileModel.findOne({ userId: review.userCommentId });
 
     const overallRating = await calculateOverallRatingForReview(review.userCommentId);
 
     await UserProfileModel.findByIdAndUpdate(user._id, { $set: { rating: overallRating } }, { new: true });
-}
+};
 
 // Видалити відгук
 export const deleteReview = async (reviewId, userId) => {

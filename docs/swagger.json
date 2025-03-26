@@ -1971,7 +1971,7 @@
         ],
         "summary": "Update an existing review",
         "operationId": "updateReview",
-        "description": "Allows the owner of a review to edit their comment, ratings, or images.",
+        "description": "Allows the owner of a review to edit their comment, ratings",
         "security": [
           {
             "bearerAuth": []
@@ -2035,17 +2035,6 @@
                     "minLength": 20,
                     "maxLength": 500,
                     "example": "After renovation, the club has improved a lot!"
-                  },
-                  "images": {
-                    "type": "array",
-                    "items": {
-                      "type": "string",
-                      "format": "uri"
-                    },
-                    "example": [
-                      "https://example.com/new-image1.jpg",
-                      "https://example.com/new-image2.jpg"
-                    ]
                   }
                 }
               }
