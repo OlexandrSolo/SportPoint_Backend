@@ -1,5 +1,5 @@
 import { SORT_ORDER } from "../../constants/sortOrder.js";
-// import { ReviewsCollection } from "../../db/models/Review.js";
+import { ReviewsCollection } from "../../db/models/Review.js";
 import { UserProfileModel } from "../../db/models/UserProfileModel.js";
 import { calculatePaginationData } from "../../utils/calculatePaginationData.js";
 
@@ -73,4 +73,12 @@ export const getAllCards = async ({
     };
 };
 
-export const getCardById = async (id) => await UserProfileModel.findOne({ _id: id });
+export const getCardById = async (id) => {
+    const card = await UserProfileModel.findOne({ _id: id });
+    const userComments = await ReviewsCollection.findOne({ owner: card.userId });
+
+    return {
+        data: card,
+        userComments
+    };
+};
