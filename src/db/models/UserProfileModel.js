@@ -29,6 +29,7 @@ const descriptionSchema = new mongoose.Schema({
   address: { type: String },
   short_desc: { type: String },
   abilities: { type: [String] },
+  age: { type: String },
   schedule: { type: [schedulesSchema] },
   equipment: { type: [String] },
   experience: { type: String },
