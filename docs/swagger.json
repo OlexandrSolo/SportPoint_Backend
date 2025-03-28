@@ -518,7 +518,6 @@
         }
       }
     },
-
     "/auth/change/password": {
       "put": {
         "tags": [
@@ -559,9 +558,7 @@
         },
         "responses": {
           "200": {
-
-            "description": "update user password",
-
+            "description": "update password",
             "content": {
               "application/json": {
                 "schema": {
@@ -1387,6 +1384,12 @@
                         "$ref": "#/components/schemas/userProfile"
                       }
                     },
+                    "userComments": {
+                      "type": "object",
+                      "items": {
+                        "$ref": "#/components/schemas/reviews"
+                      }
+                    },
                     "paginationData": {
                       "type": "object",
                       "properties": {
@@ -1774,6 +1777,41 @@
             "$ref": "#/components/responses/404"
           }
         }
+      },
+      "delete": {
+        "tags": [
+          "Card"
+        ],
+        "summary": "Delete fav card by id",
+        "operationId": "deleteFavCard",
+        "description": "Delete favorite card by id",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "example": "67c4c89d4d695e8b07c91dab"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Successfully remove a card from favorites"
+          },
+          "401": {
+            "$ref": "#/components/responses/401"
+          },
+          "404": {
+            "$ref": "#/components/responses/404"
+          }
+        }
       }
     },
     "/reviews": {
@@ -1971,7 +2009,7 @@
         ],
         "summary": "Update an existing review",
         "operationId": "updateReview",
-        "description": "Allows the owner of a review to edit their comment, ratings",
+        "description": "Allows the owner of a review to edit their comment, rating.",
         "security": [
           {
             "bearerAuth": []
@@ -2689,8 +2727,8 @@
       "reviews": {
         "type": "object",
         "required": [
-          "email",
-          "password"
+          "ratings",
+          "comment"
         ],
         "properties": {
           "_id": {
@@ -2747,22 +2785,17 @@
               }
             }
           },
+          "average": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 5,
+            "example": 4.2
+          },
           "comment": {
             "type": "string",
             "minLength": 20,
             "maxLength": 500,
             "example": "Дуже гарний клуб, але трохи завищена ціна."
-          },
-          "images": {
-            "type": "array",
-            "items": {
-              "type": "string",
-              "format": "uri"
-            },
-            "example": [
-              "https://example.com/image1.jpg",
-              "https://example.com/image2.jpg"
-            ]
           },
           "adminReply": {
             "type": "string",

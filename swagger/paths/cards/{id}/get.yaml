@@ -31,6 +31,10 @@ responses:
               type: array
               items:
                 $ref: ../../../components/schemas/userProfile.yaml
+            userComments:
+              type: array
+              items:
+                $ref: '../../../components/schemas/reviews.yaml'
             paginationData:
               type: object
               properties:
