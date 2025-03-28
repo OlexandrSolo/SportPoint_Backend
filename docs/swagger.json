@@ -518,7 +518,6 @@
         }
       }
     },
-
     "/auth/change/password": {
       "put": {
         "tags": [
@@ -559,9 +558,7 @@
         },
         "responses": {
           "200": {
-
-            "description": "update user password",
-
+            "description": "update password",
             "content": {
               "application/json": {
                 "schema": {
@@ -684,7 +681,7 @@
                               "example": "Experienced coach in football."
                             },
                             "abilities": {
-                              "type": "string",
+                              "type": "array",
                               "description": "User’s abilities.",
                               "example": "Coaching, mentoring"
                             },
@@ -934,7 +931,7 @@
                         "example": "Experienced coach in football."
                       },
                       "abilities": {
-                        "type": "string",
+                        "type": "array",
                         "description": "Coach abilities.",
                         "example": "Coaching, mentoring"
                       },
@@ -2553,7 +2550,7 @@
                 "example": "Experienced coach in football."
               },
               "abilities": {
-                "type": "string",
+                "type": "array",
                 "description": "Coach abilities.",
                 "example": "Coaching, mentoring"
               },
@@ -2632,6 +2629,11 @@
                       "type": "string",
                       "description": "Price name or description.",
                       "example": "Monthly Subscription"
+                    },
+                    "description": {
+                      "type": "string",
+                      "description": "Price  description.",
+                      "example": "07:00-14:00"
                     },
                     "amount": {
                       "type": "string",
