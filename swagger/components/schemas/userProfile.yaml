@@ -48,7 +48,7 @@ properties:
         description: 'Short description of the coach or sport club.'
         example: 'Experienced coach in football.'
       abilities:
-        type: string
+        type: array
         description: 'Coach abilities.'
         example: 'Coaching, mentoring'
       equipment:
@@ -109,6 +109,10 @@ properties:
               type: string
               description: 'Price name or description.'
               example: 'Monthly Subscription'
+            description:
+              type: string
+              description: 'Price  description.'
+              example: '07:00-14:00'
             amount:
               type: string
               description: 'Price amount.'
