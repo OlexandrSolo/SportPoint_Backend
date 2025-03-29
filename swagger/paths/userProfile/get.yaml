@@ -71,7 +71,7 @@ responses:
                       description: 'Short description of the coach or sport club.'
                       example: 'Experienced coach in football.'
                     abilities:
-                      type: string
+                      type: array
                       description: 'User’s abilities.'
                       example: 'Coaching, mentoring'
                     equipment:
