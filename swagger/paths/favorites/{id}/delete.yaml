@@ -1,5 +1,5 @@
 tags:
-  - Card
+  - Favorite
 summary: Delete fav card by id
 operationId: deleteFavCard
 description: 'Delete favorite card by id'
