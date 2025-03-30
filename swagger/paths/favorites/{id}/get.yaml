@@ -1,5 +1,5 @@
 tags:
-  - Get fav card
+  - Favorite
 summary: Get favorite card
 operationId: getFavCard
 description: 'Get favorite card club or coach'

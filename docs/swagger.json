@@ -1385,7 +1385,7 @@
                       }
                     },
                     "userComments": {
-                      "type": "object",
+                      "type": "array",
                       "items": {
                         "$ref": "#/components/schemas/reviews"
                       }
@@ -1421,7 +1421,7 @@
     "/favorites": {
       "get": {
         "tags": [
-          "Club or Coach Cards"
+          "Favorite"
         ],
         "summary": "Get all club or coach cards",
         "operationId": "getFavoritesCard",
@@ -1692,7 +1692,7 @@
     "/favorites/:id": {
       "post": {
         "tags": [
-          "Add choose card club or coach"
+          "Favorite"
         ],
         "summary": "Add a coach or club to favorites",
         "operationId": "addToFavorites",
@@ -1780,7 +1780,7 @@
       },
       "delete": {
         "tags": [
-          "Card"
+          "Favorite"
         ],
         "summary": "Delete fav card by id",
         "operationId": "deleteFavCard",
