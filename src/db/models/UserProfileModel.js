@@ -53,7 +53,7 @@ const userProfileSchema = new mongoose.Schema(
     favorite: { type: [favoriteSchema] },
     club: { type: [String] },
     coach: { type: [String], default: [] },
-    sport: { type: String },
+    sport: { type: [String] },
   },
   {
     timestamps: true,

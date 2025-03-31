@@ -683,7 +683,10 @@
                             "abilities": {
                               "type": "array",
                               "description": "User’s abilities.",
-                              "example": "Coaching, mentoring"
+                              "example": [
+                                "Coaching",
+                                "Mentoring"
+                              ]
                             },
                             "equipment": {
                               "type": "array",
@@ -697,16 +700,9 @@
                               ]
                             },
                             "experience": {
-                              "type": "array",
-                              "items": {
-                                "type": "string",
-                                "format": "date"
-                              },
+                              "type": "string",
                               "description": "Experience dates of the coach.",
-                              "example": [
-                                "2020-01-01",
-                                "2021-01-01"
-                              ]
+                              "example": "8"
                             },
                             "schedule": {
                               "type": "array",
@@ -811,16 +807,33 @@
                           ]
                         },
                         "favorite": {
+                          "type": "object",
+                          "properties": {
+                            "userId": {
+                              "type": "string",
+                              "format": "uuid",
+                              "description": "User ID of the favorite item",
+                              "example": "65ca63kj7ae7f10c88b598384"
+                            },
+                            "role": {
+                              "type": "string",
+                              "description": "Role associated with the favorite item",
+                              "example": "coach"
+                            }
+                          }
+                        },
+                        "sport": {
                           "type": "array",
                           "items": {
-                            "type": "object",
-                            "properties": {
-                              "type": {
-                                "type": "string",
-                                "description": "Type of favorite item.",
-                                "example": "65ca63kj7ae7f10c88b598384"
-                              }
-                            }
+                            "type": "string",
+                            "description": "What is the name of the sport?",
+                            "example": [
+                              "Football",
+                              "Basketball",
+                              "Hockey",
+                              "Tennis",
+                              "Golf"
+                            ]
                           }
                         },
                         "role": {
@@ -933,7 +946,10 @@
                       "abilities": {
                         "type": "array",
                         "description": "Coach abilities.",
-                        "example": "Coaching, mentoring"
+                        "example": [
+                          "Coaching",
+                          "Mentoring"
+                        ]
                       },
                       "equipment": {
                         "type": "array",
@@ -947,16 +963,9 @@
                         ]
                       },
                       "experience": {
-                        "type": "array",
-                        "items": {
-                          "type": "string",
-                          "format": "date"
-                        },
+                        "type": "string",
                         "description": "Experience dates of the user.",
-                        "example": [
-                          "2020-01-01",
-                          "2021-01-01"
-                        ]
+                        "example": "6"
                       },
                       "schedule": {
                         "type": "array",
@@ -1061,16 +1070,33 @@
                     ]
                   },
                   "favorite": {
+                    "type": "object",
+                    "properties": {
+                      "userId": {
+                        "type": "string",
+                        "format": "uuid",
+                        "description": "User ID of the favorite item",
+                        "example": "65ca63kj7ae7f10c88b598384"
+                      },
+                      "role": {
+                        "type": "string",
+                        "description": "Role associated with the favorite item",
+                        "example": "coach"
+                      }
+                    }
+                  },
+                  "sport": {
                     "type": "array",
                     "items": {
-                      "type": "object",
-                      "properties": {
-                        "type": {
-                          "type": "string",
-                          "description": "Type of favorite item.",
-                          "example": "65ca63kj7ae7f10c88b598384"
-                        }
-                      }
+                      "type": "string",
+                      "description": "What is the name of the sport?",
+                      "example": [
+                        "Football",
+                        "Basketball",
+                        "Hockey",
+                        "Tennis",
+                        "Golf"
+                      ]
                     }
                   }
                 }
@@ -2582,7 +2608,10 @@
               "abilities": {
                 "type": "array",
                 "description": "Coach abilities.",
-                "example": "Coaching, mentoring"
+                "example": [
+                  "Coaching",
+                  "Mentoring"
+                ]
               },
               "equipment": {
                 "type": "array",
@@ -2596,16 +2625,9 @@
                 ]
               },
               "experience": {
-                "type": "array",
-                "items": {
-                  "type": "string",
-                  "format": "date"
-                },
+                "type": "string",
                 "description": "Experience dates of the user.",
-                "example": [
-                  "2020-01-01",
-                  "2021-01-01"
-                ]
+                "example": "6"
               },
               "schedule": {
                 "type": "array",
@@ -2710,16 +2732,33 @@
             ]
           },
           "favorite": {
+            "type": "object",
+            "properties": {
+              "userId": {
+                "type": "string",
+                "format": "uuid",
+                "description": "User ID of the favorite item",
+                "example": "65ca63kj7ae7f10c88b598384"
+              },
+              "role": {
+                "type": "string",
+                "description": "Role associated with the favorite item",
+                "example": "coach"
+              }
+            }
+          },
+          "sport": {
             "type": "array",
             "items": {
-              "type": "object",
-              "properties": {
-                "type": {
-                  "type": "string",
-                  "description": "Type of favorite item.",
-                  "example": "coach"
-                }
-              }
+              "type": "string",
+              "description": "What is the name of the sport?",
+              "example": [
+                "Football",
+                "Basketball",
+                "Hockey",
+                "Tennis",
+                "Golf"
+              ]
             }
           },
           "role": {
