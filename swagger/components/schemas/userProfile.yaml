@@ -53,6 +53,10 @@ properties:
         example:
           - 'Coaching'
           - 'Mentoring'
+      age:
+        type: string
+        description: 'User age'
+        example: '40'
       equipment:
         type: array
         items:
