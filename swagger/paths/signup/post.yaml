@@ -27,6 +27,79 @@ requestBody:
             description: 'User role'
             type: string
             example: 'customer'
+          firstLastName:
+            type: string
+            minLength: 2
+            maxLength: 50
+            description: 'First and Last name of the user or sport club name .'
+            example: 'John Doe || Beast Gim'
+          avatar:
+            type: string
+            format: binary
+            description: 'Avatar URL of the user.'
+            example: 'https://example.com/avatar.jpg'
+          images:
+            type: array
+            items:
+              type: string
+              format: binary
+            description: 'Array of image URLs for the sport club.'
+            example:
+              - 'https://example.com/image1.jpg'
+              - 'https://example.com/image2.jpg'
+          description:
+            type: object
+            properties:
+              address:
+                type: string
+                description: 'Address of the sport club.'
+                example: '123 Main St'
+              abilities:
+                type: array
+                description: 'Coach abilities.'
+                example:
+                  - 'Coaching'
+                  - 'Mentoring'
+              equipment:
+                type: array
+                items:
+                  type: string
+                description: 'List of sport club equipment.'
+                example:
+                  - 'Pool'
+                  - 'Sauna'
+              phone:
+                type: string
+                pattern: '^\+?[0-9]{10,15}$'
+                description: 'Phone number of the user.'
+                example: '+1234567890'
+          club:
+            type: array
+            items:
+              type: string
+            description: 'List of clubs where the coach works.'
+            example:
+              - '65ca67e7ae7f10c88b598384'
+              - '65ca67e7ae7f10c88b59ke84'
+          coach:
+            type: array
+            items:
+              type: string
+            description: 'List of current coach jobs at this sports club.'
+            example:
+              - '65ca63kj7ae7f10c88b598384'
+              - '65coo7e7ae7f10c88b598384'
+          sport:
+            type: array
+            items:
+              type: string
+              description: 'What is the name of the sport?'
+              example:
+                - 'Football'
+                - 'Basketball'
+                - 'Hockey'
+                - 'Tennis'
+                - 'Golf'
 responses:
   '201':
     description: Register a user
