@@ -688,6 +688,11 @@
                                 "Mentoring"
                               ]
                             },
+                            "age": {
+                              "type": "string",
+                              "description": "User age",
+                              "example": "40"
+                            },
                             "equipment": {
                               "type": "array",
                               "items": {
@@ -950,6 +955,11 @@
                           "Coaching",
                           "Mentoring"
                         ]
+                      },
+                      "age": {
+                        "type": "string",
+                        "description": "User age",
+                        "example": "40"
                       },
                       "equipment": {
                         "type": "array",
@@ -2612,6 +2622,11 @@
                   "Coaching",
                   "Mentoring"
                 ]
+              },
+              "age": {
+                "type": "string",
+                "description": "User age",
+                "example": "40"
               },
               "equipment": {
                 "type": "array",
