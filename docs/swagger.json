@@ -683,12 +683,19 @@
                           "format": "ObjectId",
                           "example": "65f2dc3b8a7e8e3e3b5a3a1b"
                         },
-                        "firstLastName": {
+                        "firstName": {
                           "type": "string",
                           "minLength": 2,
                           "maxLength": 50,
-                          "description": "First and Last name of the user. or name of sport club",
-                          "example": "John Doe || The Best Gym "
+                          "description": "First  name of the user. or name of sport club",
+                          "example": "John|| The Best Gym "
+                        },
+                        "lastName": {
+                          "type": "string",
+                          "minLength": 2,
+                          "maxLength": 50,
+                          "description": " Last name of the user.",
+                          "example": "Doe"
                         },
                         "avatar": {
                           "type": "string",
@@ -951,12 +958,19 @@
                 "type": "object",
                 "required": [],
                 "properties": {
-                  "firstLastName": {
+                  "firstName": {
                     "type": "string",
                     "minLength": 2,
                     "maxLength": 50,
-                    "description": "First and Last name of the user or sport club name .",
+                    "description": "First  name of the user or sport club name .",
                     "example": "John Doe || Beast Gim"
+                  },
+                  "lastName": {
+                    "type": "string",
+                    "minLength": 2,
+                    "maxLength": 50,
+                    "description": " Last name of the user.",
+                    "example": "Doe"
                   },
                   "avatar": {
                     "type": "string",
@@ -1550,12 +1564,19 @@
                             "format": "ObjectId",
                             "example": "65f2dc3b8a7e8e3e3b5a3a1b"
                           },
-                          "firstLastName": {
+                          "firstName": {
                             "type": "string",
                             "minLength": 2,
                             "maxLength": 50,
-                            "description": "First and Last name of the user. or name of sport club",
+                            "description": "First  name of the user. or name of sport club",
                             "example": "John Doe || The Best Gym "
+                          },
+                          "lastName": {
+                            "type": "string",
+                            "minLength": 2,
+                            "maxLength": 50,
+                            "description": " Last name of the user.",
+                            "example": "Doe"
                           },
                           "avatar": {
                             "type": "string",
@@ -2671,12 +2692,19 @@
             "format": "string",
             "example": "65f2dc3b8a7e8e3e3b5a3a1b"
           },
-          "firstLastName": {
+          "firstName": {
             "type": "string",
             "minLength": 2,
             "maxLength": 50,
-            "description": "First and Last name of the user.",
-            "example": "John Doe"
+            "description": "First  name of the user.",
+            "example": "John"
+          },
+          "lastName": {
+            "type": "string",
+            "minLength": 2,
+            "maxLength": 50,
+            "description": " Last name of the user.",
+            "example": "Doe"
           },
           "avatar": {
             "type": "string",

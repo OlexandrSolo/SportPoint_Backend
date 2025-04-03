@@ -18,26 +18,36 @@ import { UserProfileModel } from '../../db/models/UserProfileModel.js';
 
 // Додавання в обрані
 export const addToFavorites = async (_id, cardId) => {
-    const user = await UserProfileModel.findOne({ userId: _id });
+  const user = await UserProfileModel.findOne({ userId: _id });
 
-    if (!user) throw new createHttpError(404, `User ${_id} not found`);
+  if (!user) throw new createHttpError(404, `User ${_id} not found`);
 
-    const cardExists = await UserProfileModel.exists({ _id: cardId });
-    if (!cardExists) throw new createHttpError(404, `Card ${cardId} not found`);
+  const cardExists = await UserProfileModel.exists({ _id: cardId });
+  if (!cardExists) throw new createHttpError(404, `Card ${cardId} not found`);
 
-    const currentCard = await UserProfileModel.findOne({ _id: cardId });
+  const currentCard = await UserProfileModel.findOne({ _id: cardId });
 
-    const isExistId = currentCard.favorite.find(({ userId }) => userId.toString() === user.userId.toString());
+  const isExistId = currentCard.favorite.find(
+    ({ userId }) => userId.toString() === user.userId.toString(),
+  );
 
-    if (isExistId) throw new createHttpError(409, `User ${user.firstLastName} already has this card in his favorites list`);
+  if (isExistId)
+    throw new createHttpError(
+      409,
+      `User ${user.firstName} ${user.lastName} already has this card in his favorites list`,
+    );
 
-    const favorite = {
-        userId: user.userId,
-        role: user.role
-    };
+  const favorite = {
+    userId: user.userId,
+    role: user.role,
+  };
 
-    await UserProfileModel.findByIdAndUpdate(cardId, { $push: { favorite } }, { new: true });
-    return favorite;
+  await UserProfileModel.findByIdAndUpdate(
+    cardId,
+    { $push: { favorite } },
+    { new: true },
+  );
+  return favorite;
 };
 
 // export const deleteFavoriteCard = async (_id, cardId) => {
@@ -51,13 +61,19 @@ export const addToFavorites = async (_id, cardId) => {
 // };
 
 export const deleteFavoriteCard = async (_id, cardId) => {
-    const user = await UserProfileModel.findOne({ _id: cardId });
-    if (!user) throw new createHttpError(404, `User ${_id} not found`);
+  const user = await UserProfileModel.findOne({ _id: cardId });
+  if (!user) throw new createHttpError(404, `User ${_id} not found`);
 
-    const favorite = user.favorite.filter(id => id.userId.toString() !== _id.toString());
+  const favorite = user.favorite.filter(
+    (id) => id.userId.toString() !== _id.toString(),
+  );
 
-    await UserProfileModel.findByIdAndUpdate(cardId, { $set: { favorite } }, { new: true });
-    return favorite;
+  await UserProfileModel.findByIdAndUpdate(
+    cardId,
+    { $set: { favorite } },
+    { new: true },
+  );
+  return favorite;
 };
 
 // отримання списку обраних
@@ -71,16 +87,17 @@ export const deleteFavoriteCard = async (_id, cardId) => {
 // };
 
 export const getFavoriteCards = async (userId, role) => {
-    const favoriteArray = [];
-    const users = await UserProfileModel.find();
-    for (let i = 0; i < users.length; i++) {
-        const isExistId = users[i].favorite.find(item => item.userId.toString() === userId.toString());
+  const favoriteArray = [];
+  const users = await UserProfileModel.find();
+  for (let i = 0; i < users.length; i++) {
+    const isExistId = users[i].favorite.find(
+      (item) => item.userId.toString() === userId.toString(),
+    );
 
-        if (isExistId) {
-            if (users[i].role === role)
-                favoriteArray.push(users[i]);
-        }
+    if (isExistId) {
+      if (users[i].role === role) favoriteArray.push(users[i]);
     }
+  }
 
-    return favoriteArray;
+  return favoriteArray;
 };

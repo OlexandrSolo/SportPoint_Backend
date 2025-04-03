@@ -31,7 +31,8 @@ export const descriptionSchemaJoi = Joi.object({
 });
 
 export const userProfileSchemaJoi = Joi.object({
-  firstLastName: Joi.string().min(2).max(50),
+  firstName: Joi.string().min(2).max(50),
+  lastName: Joi.string().min(2).max(50),
   avatar: Joi.string().uri(),
   images: Joi.array().items(Joi.string().uri()),
   certificates: Joi.array().items(Joi.string().uri()),

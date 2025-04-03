@@ -12,12 +12,18 @@ requestBody:
         type: object
         required: []
         properties:
-          firstLastName:
+          firstName:
             type: string
             minLength: 2
             maxLength: 50
-            description: 'First and Last name of the user or sport club name .'
+            description: 'First  name of the user or sport club name .'
             example: 'John Doe || Beast Gim'
+          lastName:
+            type: string
+            minLength: 2
+            maxLength: 50
+            description: ' Last name of the user.'
+            example: 'Doe'
           avatar:
             type: string
             format: binary
