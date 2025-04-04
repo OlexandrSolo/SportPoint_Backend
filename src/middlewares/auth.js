@@ -8,12 +8,12 @@ dotenv.config();
 const { SECRET_KEY } = process.env;
 
 const auth = async (req, res, next) => {
-  const { authorization = '' } = req.headers;
-  const [bearer, token] = authorization.split(' ');
+  const token = req.cookies.token;
 
-  if (bearer !== 'Bearer') {
+  if (!token) {
     return res.status(401).json({ message: ErrorsApp.NOT_AUTHORIZED });
   }
+
   try {
     const { id } = jwt.verify(token, SECRET_KEY);
     const user = await Auth.findById(id);
@@ -26,7 +26,7 @@ const auth = async (req, res, next) => {
     next();
   } catch (error) {
     if (
-      error.message === 'Invalid sugnature' ||
+      error.message === 'Invalid signature' ||
       error.message === 'invalid token'
     ) {
       error.status = 401;
