@@ -5,15 +5,15 @@ const refreshToken = async (req, res) => {
   const tokens = await refreshTokenService(user);
   res.cookie('token', tokens.token, {
     httpOnly: true,
-    secure: process.env.NODE_ENV === 'production',
+    secure: true,
     sameSite: 'None',
     maxAge: 7 * 24 * 60 * 60 * 1000,
   });
 
   res.cookie('refreshToken', tokens.refreshToken, {
     httpOnly: true,
-    secure: process.env.NODE_ENV === 'production',
-    sameSite: 'true',
+    secure: true,
+    sameSite: 'None',
     maxAge: 7 * 24 * 60 * 60 * 1000,
   });
   res.status(200).json(tokens);
