@@ -64,19 +64,26 @@ export const updatedUserProfileController = async (req, res) => {
     const avatarUrl = req.files?.avatar?.[0]
       ? await handleFileUpload(req.files.avatar[0])
       : userProfile.avatar;
-    const photoUrls = req.files?.images
+
+    const newPhotoUrls = req.files?.images
       ? await handleMultipleFileUploads(req.files.images)
-      : userProfile.images;
-    const certificates = req.files?.certificates
+      : [];
+    const updatedPhotoUrls = [...userProfile.images, ...newPhotoUrls];
+
+    const newCertificates = req.files?.certificates
       ? await handleMultipleFileUploads(req.files.certificates)
-      : userProfile.certificates;
+      : [];
+    const updatedCertificates = [
+      ...userProfile.certificates,
+      ...newCertificates,
+    ];
 
     const updatedData = {
       ...req.body,
       userId: user._id,
       avatar: avatarUrl,
-      images: photoUrls,
-      certificates: certificates,
+      images: updatedPhotoUrls,
+      certificates: updatedCertificates,
       role: user.role,
       description: {
         ...descriptionObject,
