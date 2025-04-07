@@ -3,35 +3,67 @@ import { ReviewsCollection } from '../db/models/Review.js';
 import { UserProfileModel } from '../db/models/UserProfileModel.js';
 import createHttpError from 'http-errors';
 
-//get user profile for logged in user
+const parseIdArray = (arr) => {
+  if (!Array.isArray(arr)) return [];
+
+  return arr.flatMap((item) => {
+    try {
+      const parsed = JSON.parse(item);
+      if (Array.isArray(parsed)) return parsed;
+      return [item];
+    } catch (e) {
+      console.log(e.message);
+      return [item];
+    }
+  });
+};
+
+const normalizeIds = (arr) => {
+  if (!Array.isArray(arr)) return [];
+
+  const flat = arr.flatMap((item) => {
+    try {
+      const parsed = JSON.parse(item);
+      return Array.isArray(parsed) ? parsed : [parsed];
+    } catch {
+      return [item];
+    }
+  });
+
+  const unique = [...new Set(flat.map(String))];
+  return unique.filter((id) => mongoose.Types.ObjectId.isValid(id));
+};
+
+// get user profile for logged in user
 export const getUserProfile = async (userId) => {
   const userProfile = await UserProfileModel.findOne({ userId: userId }).lean();
   if (!userProfile) {
     throw createHttpError(404, 'Profile not found');
   }
 
-  const { coach: coaches, club: clubs } = userProfile;
+  const { coach, club } = userProfile;
+
+  const fixedCoach = parseIdArray(coach);
+  const fixedClub = parseIdArray(club);
 
   const [coachesList, clubsList] = await Promise.all([
-    coaches
+    fixedCoach
       ? Promise.all(
-        coaches.map(async (coachId) => {
-          const coach = await UserProfileModel.findOne({
-            userId: coachId,
-          }).lean();
-          return coach;
-        }),
-      )
+          fixedCoach
+            .filter((id) => mongoose.Types.ObjectId.isValid(id))
+            .map(async (coachId) => {
+              return await UserProfileModel.findOne({ userId: coachId }).lean();
+            }),
+        )
       : [],
-    clubs
+    fixedClub
       ? Promise.all(
-        clubs.map(async (clubId) => {
-          const club = await UserProfileModel.findOne({
-            userId: clubId,
-          }).lean();
-          return club;
-        }),
-      )
+          fixedClub
+            .filter((id) => mongoose.Types.ObjectId.isValid(id))
+            .map(async (clubId) => {
+              return await UserProfileModel.findOne({ userId: clubId }).lean();
+            }),
+        )
       : [],
   ]);
 
@@ -61,19 +93,28 @@ export const createUserProfile = async (payload) => {
     throw new Error('User profile already exists');
   }
 
+  const normalizedCoach = normalizeIds(payload.coach);
+  const normalizedClub = normalizeIds(payload.club);
+
   const newUserProfile = new UserProfileModel({
     ...payload,
+    coach: normalizedCoach,
+    club: normalizedClub,
     userId: payload.userId,
   });
+
   await newUserProfile.save();
   return newUserProfile;
 };
 
 //update user profile for logged in users
 export const updateUserProfile = async (payload, userId, options = {}) => {
+  const normalizedCoach = normalizeIds(payload.coach);
+  const normalizedClub = normalizeIds(payload.club);
+
   const updatedUserProfile = await UserProfileModel.findOneAndUpdate(
     { userId: new mongoose.Types.ObjectId(userId) },
-    payload,
+    { ...payload, coach: normalizedCoach, club: normalizedClub },
     {
       new: true,
       ...options,
