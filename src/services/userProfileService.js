@@ -8,11 +8,14 @@ const parseIdArray = (arr) => {
 
   return arr.flatMap((item) => {
     try {
-      const parsed = JSON.parse(item);
-      if (Array.isArray(parsed)) return parsed;
+      // Check if the item is a valid JSON string
+      if (typeof item === 'string' && item.trim().startsWith('{')) {
+        const parsed = JSON.parse(item);
+        if (Array.isArray(parsed)) return parsed;
+      }
       return [item];
     } catch (e) {
-      console.log(e.message);
+      console.error('Error parsing JSON:', e.message, 'Input:', item);
       return [item];
     }
   });
@@ -26,7 +29,7 @@ const normalizeIds = (arr) => {
       const parsed = JSON.parse(item);
       return Array.isArray(parsed) ? parsed : [parsed];
     } catch {
-      return [item];
+      return item;
     }
   });
 
@@ -52,7 +55,7 @@ export const getUserProfile = async (userId) => {
           fixedCoach
             .filter((id) => mongoose.Types.ObjectId.isValid(id))
             .map(async (coachId) => {
-              return await UserProfileModel.findOne({ userId: coachId }).lean();
+              return await UserProfileModel.findOne({ user: coachId }).lean();
             }),
         )
       : [],
@@ -109,20 +112,74 @@ export const createUserProfile = async (payload) => {
 
 //update user profile for logged in users
 export const updateUserProfile = async (payload, userId, options = {}) => {
-  const normalizedCoach = normalizeIds(payload.coach);
-  const normalizedClub = normalizeIds(payload.club);
+  const existingProfile = await UserProfileModel.findOne({ userId: userId });
+  if (!existingProfile) {
+    throw new Error('User profile not found');
+  }
+
+  const normalizedCoach = normalizeIds(payload.coach || []);
+  const normalizedClub = normalizeIds(payload.club || []);
+
+  const updatedCoach = [
+    ...new Set([...(existingProfile.coach || []), ...normalizedCoach]),
+  ];
+  const updatedClub = [
+    ...new Set([...(existingProfile.club || []), ...normalizedClub]),
+  ];
+
+  console.log('Payload sport before processing:', payload.sport);
+
+  let sportArray = [];
+  if (Array.isArray(payload.sport)) {
+    sportArray = payload.sport;
+  } else if (typeof payload.sport === 'string') {
+    try {
+      sportArray = JSON.parse(payload.sport);
+      if (!Array.isArray(sportArray)) {
+        throw new Error('Parsed sport is not an array');
+      }
+    } catch (error) {
+      console.error('Error parsing sport:', error.message);
+      sportArray = [];
+    }
+  }
+
+  const updatedSport = [
+    ...new Set([
+      ...(existingProfile.sport || []),
+      ...sportArray.flatMap((item) => {
+        try {
+          if (typeof item === 'string' && item.startsWith('[')) {
+            const parsed = JSON.parse(item);
+            return Array.isArray(parsed) ? parsed : [parsed];
+          }
+          return [item];
+        } catch (error) {
+          console.error('Error parsing sport item:', error.message, item);
+          return [item];
+        }
+      }),
+    ]),
+  ];
 
   const updatedUserProfile = await UserProfileModel.findOneAndUpdate(
     { userId: new mongoose.Types.ObjectId(userId) },
-    { ...payload, coach: normalizedCoach, club: normalizedClub },
+    {
+      ...payload,
+      coach: updatedCoach,
+      club: updatedClub,
+      sport: updatedSport,
+    },
     {
       new: true,
       ...options,
     },
   );
+
   if (!updatedUserProfile) {
     throw new Error('User profile not found');
   }
+
   return {
     profile: updatedUserProfile,
     isNew: Boolean(updatedUserProfile?.lastErrorObject?.upserted),
