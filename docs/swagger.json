@@ -884,6 +884,11 @@
                                 "type": "string",
                                 "description": "Address of the club",
                                 "example": "123 Main St"
+                              },
+                              "city": {
+                                "type": "string",
+                                "description": "City of the club",
+                                "example": "New York"
                               }
                             }
                           },
@@ -891,13 +896,17 @@
                           "example": [
                             {
                               "id": "65ca63kj7ae7f10c88b598384",
-                              "name": "Fitness Club",
-                              "address": "123 Main St"
+                              "firstName": "Fitness",
+                              "lastName": "Club",
+                              "address": "123 Main St",
+                              "city": "New York"
                             },
                             {
                               "id": "65coo7e7ae7f10c88b598384",
-                              "name": "Yoga Center",
-                              "address": "456 Elm St"
+                              "firstName": "Yoga",
+                              "lastName": "Wellness",
+                              "address": "456 Elm St",
+                              "city": "Los Angeles"
                             }
                           ]
                         },
@@ -921,6 +930,11 @@
                                 "type": "string",
                                 "description": "Address of the coach job",
                                 "example": "789 Oak St"
+                              },
+                              "city": {
+                                "type": "string",
+                                "description": "City of the coach job",
+                                "example": "New York"
                               }
                             }
                           },
@@ -928,13 +942,17 @@
                           "example": [
                             {
                               "id": "65ca63kj7ae7f10c88b598384",
-                              "name": "Personal Trainer",
-                              "address": "789 Oak St"
+                              "firstName": "Personal",
+                              "lastName": "Trainer",
+                              "address": "789 Oak St",
+                              "city": "New York"
                             },
                             {
                               "id": "65coo7e7ae7f10c88b598384",
-                              "name": "Group Trainer",
-                              "address": "101 Pine St"
+                              "firstName": "Group",
+                              "lastName": "Trainer",
+                              "address": "101 Pine St",
+                              "city": "Los Angeles"
                             }
                           ]
                         },
@@ -1221,6 +1239,11 @@
                           "type": "string",
                           "description": "Address of the club",
                           "example": "123 Main St"
+                        },
+                        "city": {
+                          "type": "string",
+                          "description": "City of the club",
+                          "example": "New York"
                         }
                       }
                     },
@@ -1228,13 +1251,17 @@
                     "example": [
                       {
                         "id": "65ca63kj7ae7f10c88b598384",
-                        "name": "Fitness Club",
-                        "address": "123 Main St"
+                        "firstName": "Fitness",
+                        "lastName": "Club",
+                        "address": "123 Main St",
+                        "city": "New York"
                       },
                       {
                         "id": "65coo7e7ae7f10c88b598384",
-                        "name": "Yoga Center",
-                        "address": "456 Elm St"
+                        "firstName": "Yoga",
+                        "lastName": "Wellness",
+                        "address": "456 Elm St",
+                        "city": "Los Angeles"
                       }
                     ]
                   },
@@ -1249,7 +1276,7 @@
                           "description": "ID of the coach job",
                           "example": "65ca63kj7ae7f10c88b598384"
                         },
-                        "name": {
+                        "firstName": {
                           "type": "string",
                           "description": "Name of the coach job",
                           "example": "Personal Trainer"
@@ -1258,6 +1285,11 @@
                           "type": "string",
                           "description": "Address of the coach job",
                           "example": "789 Oak St"
+                        },
+                        "city": {
+                          "type": "string",
+                          "description": "City of the coach job",
+                          "example": "New York"
                         }
                       }
                     },
@@ -1265,13 +1297,17 @@
                     "example": [
                       {
                         "id": "65ca63kj7ae7f10c88b598384",
-                        "name": "Personal Trainer",
-                        "address": "789 Oak St"
+                        "firstName": "Personal",
+                        "lastName": "Trainer",
+                        "address": "789 Oak St",
+                        "city": "Chicago"
                       },
                       {
                         "id": "65coo7e7ae7f10c88b598384",
-                        "name": "Group Trainer",
-                        "address": "101 Pine St"
+                        "firstName": "Group",
+                        "lastName": "Trainer",
+                        "address": "101 Pine St",
+                        "city": "Los Angeles"
                       }
                     ]
                   },
@@ -1369,6 +1405,16 @@
               "type": "string",
               "example": "John Doe"
             }
+          },
+          {
+            "name": "role",
+            "in": "query",
+            "required": false,
+            "description": "The role (or part of it) to search for",
+            "schema": {
+              "type": "string",
+              "example": "adminClub"
+            }
           }
         ],
         "responses": {
@@ -1442,7 +1488,7 @@
             "description": "Number of items per page"
           },
           {
-            "name": "filter.address",
+            "name": "address",
             "in": "query",
             "required": false,
             "schema": {
@@ -1460,7 +1506,7 @@
             "description": "Filter by role (adminClub or coach)"
           },
           {
-            "name": "filter.countReview",
+            "name": "countReview",
             "in": "query",
             "required": false,
             "schema": {
@@ -1469,7 +1515,7 @@
             "description": "Minimum number of reviews"
           },
           {
-            "name": "filter.minPrice",
+            "name": "minPrice",
             "in": "query",
             "required": false,
             "schema": {
@@ -1479,7 +1525,7 @@
             "description": "Minimum number of reviews"
           },
           {
-            "name": "filter.maxPrice",
+            "name": "maxPrice",
             "in": "query",
             "required": false,
             "schema": {
@@ -1489,7 +1535,7 @@
             "description": "Maximum number of reviews"
           },
           {
-            "name": "filter.abilities",
+            "name": "abilities",
             "in": "query",
             "required": false,
             "schema": {
@@ -1503,7 +1549,7 @@
             "description": "Filter by abilities"
           },
           {
-            "name": "filter.sort",
+            "name": "sort",
             "in": "query",
             "required": false,
             "schema": {

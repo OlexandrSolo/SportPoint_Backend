@@ -13,6 +13,13 @@ parameters:
     schema:
       type: string
       example: 'John Doe'
+  - name: role
+    in: query
+    required: false
+    description: 'The role (or part of it) to search for'
+    schema:
+      type: string
+      example: 'adminClub'
 responses:
   '200':
     description: 'User profile retrieved successfully'
