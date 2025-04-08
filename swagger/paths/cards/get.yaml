@@ -20,7 +20,7 @@ parameters:
       type: integer
       default: 10
     description: 'Number of items per page'
-  - name: filter.address
+  - name: address
     in: query
     required: false
     schema:
@@ -32,27 +32,27 @@ parameters:
     schema:
       type: string
     description: 'Filter by role (adminClub or coach)'
-  - name: filter.countReview
+  - name: countReview
     in: query
     required: false
     schema:
       type: integer
     description: 'Minimum number of reviews'
-  - name: filter.minPrice
+  - name: minPrice
     in: query
     required: false
     schema:
       type: number
       default: 0
     description: 'Minimum number of reviews'
-  - name: filter.maxPrice
+  - name: maxPrice
     in: query
     required: false
     schema:
       type: number
       default: 5
     description: 'Maximum number of reviews'
-  - name: filter.abilities
+  - name: abilities
     in: query
     required: false
     schema:
@@ -62,7 +62,7 @@ parameters:
     style: form
     explode: false
     description: 'Filter by abilities'
-  - name: filter.sort
+  - name: sort
     in: query
     required: false
     schema:
