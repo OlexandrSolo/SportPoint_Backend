@@ -54,6 +54,10 @@ requestBody:
                 type: string
                 description: 'Address of the sport club.'
                 example: '123 Main St'
+              city:
+                type: string
+                description: 'City of the sport club.'
+                example: 'New York'
               short_desc:
                 type: string
                 description: 'Short description of the coach or sport club.'
@@ -142,19 +146,59 @@ requestBody:
           club:
             type: array
             items:
-              type: string
-            description: 'List of clubs where the coach works.'
+              type: object
+              properties:
+                id:
+                  type: string
+                  format: uuid
+                  description: "ID of the club"
+                  example: "65ca63kj7ae7f10c88b598384"
+                firstName:
+                  type: string
+                  description: "Name of the club"
+                  example: "Fitness Club"
+                lastName:
+                  type: string
+                  description: "Name of the club"
+                  example: "Fitness Club"
+                address:
+                  type: string
+                  description: "Address of the club"
+                  example: "123 Main St"
+            description: "List of clubs where the coach works"
             example:
-              - '65ca67e7ae7f10c88b598384'
-              - '65ca67e7ae7f10c88b59ke84'
+              - id: "65ca63kj7ae7f10c88b598384"
+                name: "Fitness Club"
+                address: "123 Main St"
+              - id: "65coo7e7ae7f10c88b598384"
+                name: "Yoga Center"
+                address: "456 Elm St"
           coach:
             type: array
             items:
-              type: string
-            description: 'List of current coach jobs at this sports club.'
+              type: object
+              properties:
+                id:
+                  type: string
+                  format: uuid
+                  description: "ID of the coach job"
+                  example: "65ca63kj7ae7f10c88b598384"
+                name:
+                  type: string
+                  description: "Name of the coach job"
+                  example: "Personal Trainer"
+                address:
+                  type: string
+                  description: "Address of the coach job"
+                  example: "789 Oak St"
+            description: "List of current coach jobs at this sports club"
             example:
-              - '65ca63kj7ae7f10c88b598384'
-              - '65coo7e7ae7f10c88b598384'
+              - id: "65ca63kj7ae7f10c88b598384"
+                name: "Personal Trainer"
+                address: "789 Oak St"
+              - id: "65coo7e7ae7f10c88b598384"
+                name: "Group Trainer"
+                address: "101 Pine St"
           favorite:
             type: object
             properties:

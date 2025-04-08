@@ -18,6 +18,7 @@ const register = async (req, res) => {
   const clubName = req.body.clubName ? req.body.clubName : '';
   const phone = req.body.phone ? req.body.phone : '';
   const address = req.body.address ? req.body.address : '';
+  const city = req.body.city ? req.body.city : '';
   const abilities = req.body.abilities ? req.body.abilities : '';
   const descriptionObject = req.body.description
     ? JSON.parse(req.body.description)
@@ -59,6 +60,7 @@ const register = async (req, res) => {
       email: findNewUser.email,
       phone,
       address,
+      city,
       abilities,
     },
     firstName: firstName,

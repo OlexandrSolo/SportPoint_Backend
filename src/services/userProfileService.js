@@ -3,40 +3,6 @@ import { ReviewsCollection } from '../db/models/Review.js';
 import { UserProfileModel } from '../db/models/UserProfileModel.js';
 import createHttpError from 'http-errors';
 
-const parseIdArray = (arr) => {
-  if (!Array.isArray(arr)) return [];
-
-  return arr.flatMap((item) => {
-    try {
-      // Check if the item is a valid JSON string
-      if (typeof item === 'string' && item.trim().startsWith('{')) {
-        const parsed = JSON.parse(item);
-        if (Array.isArray(parsed)) return parsed;
-      }
-      return [item];
-    } catch (e) {
-      console.error('Error parsing JSON:', e.message, 'Input:', item);
-      return [item];
-    }
-  });
-};
-
-const normalizeIds = (arr) => {
-  if (!Array.isArray(arr)) return [];
-
-  const flat = arr.flatMap((item) => {
-    try {
-      const parsed = JSON.parse(item);
-      return Array.isArray(parsed) ? parsed : [parsed];
-    } catch {
-      return item;
-    }
-  });
-
-  const unique = [...new Set(flat.map(String))];
-  return unique.filter((id) => mongoose.Types.ObjectId.isValid(id));
-};
-
 // get user profile for logged in user
 export const getUserProfile = async (userId) => {
   const userProfile = await UserProfileModel.findOne({ userId: userId }).lean();
@@ -44,31 +10,31 @@ export const getUserProfile = async (userId) => {
     throw createHttpError(404, 'Profile not found');
   }
 
-  const { coach, club } = userProfile;
+  // const { coach, club } = userProfile;
 
-  const fixedCoach = parseIdArray(coach);
-  const fixedClub = parseIdArray(club);
+  // const fixedCoach = parseIdArray(coach);
+  // const fixedClub = parseIdArray(club);
 
-  const [coachesList, clubsList] = await Promise.all([
-    fixedCoach
-      ? Promise.all(
-          fixedCoach
-            .filter((id) => mongoose.Types.ObjectId.isValid(id))
-            .map(async (coachId) => {
-              return await UserProfileModel.findOne({ user: coachId }).lean();
-            }),
-        )
-      : [],
-    fixedClub
-      ? Promise.all(
-          fixedClub
-            .filter((id) => mongoose.Types.ObjectId.isValid(id))
-            .map(async (clubId) => {
-              return await UserProfileModel.findOne({ userId: clubId }).lean();
-            }),
-        )
-      : [],
-  ]);
+  // const [coachesList, clubsList] = await Promise.all([
+  //   fixedCoach
+  //     ? Promise.all(
+  //         fixedCoach
+  //           .filter((id) => mongoose.Types.ObjectId.isValid(id))
+  //           .map(async (coachId) => {
+  //             return await UserProfileModel.findOne({ user: coachId }).lean();
+  //           }),
+  //       )
+  //     : [],
+  //   fixedClub
+  //     ? Promise.all(
+  //         fixedClub
+  //           .filter((id) => mongoose.Types.ObjectId.isValid(id))
+  //           .map(async (clubId) => {
+  //             return await UserProfileModel.findOne({ userId: clubId }).lean();
+  //           }),
+  //       )
+  //     : [],
+  // ]);
 
   let userComments = [];
   if (userProfile.role === 'customer') {
@@ -87,8 +53,7 @@ export const getUserProfile = async (userId) => {
 
   return {
     ...userProfile,
-    coaches_list: coachesList,
-    work_list: clubsList,
+    // coaches_list: coachesList,
     user_comments: userComments,
   };
 };
@@ -102,13 +67,10 @@ export const createUserProfile = async (payload) => {
     throw new Error('User profile already exists');
   }
 
-  const normalizedCoach = normalizeIds(payload.coach);
-  const normalizedClub = normalizeIds(payload.club);
-
   const newUserProfile = new UserProfileModel({
     ...payload,
-    coach: normalizedCoach,
-    club: normalizedClub,
+    coach: payload.coach || [],
+    club: payload.club || [],
     userId: payload.userId,
   });
 
@@ -123,20 +85,93 @@ export const updateUserProfile = async (payload, userId, options = {}) => {
     throw new Error('User profile not found');
   }
 
-  const normalizedCoach = normalizeIds(payload.coach || []);
-  const normalizedClub = normalizeIds(payload.club || []);
+  let updatedClub = [];
+  if (Array.isArray(payload.club)) {
+    try {
+      const combinedString = payload.club.join(',');
+      updatedClub = JSON.parse(combinedString);
+    } catch (error) {
+      console.error(
+        'Error parsing combined club JSON:',
+        error.message,
+        'Input:',
+        payload.club,
+      );
+      throw new Error('Invalid format for club');
+    }
+  } else if (typeof payload.club === 'string') {
+    try {
+      updatedClub = JSON.parse(payload.club);
+    } catch (error) {
+      console.error(
+        'Error parsing club:',
+        error.message,
+        'Input:',
+        payload.club,
+      );
+      throw new Error('Invalid format for club');
+    }
+  }
 
-  const updatedCoach = [
-    ...new Set([...(existingProfile.coach || []), ...normalizedCoach]),
-  ];
-  const updatedClub = [
-    ...new Set([...(existingProfile.club || []), ...normalizedClub]),
-  ];
+  updatedClub = updatedClub.map((item) => {
+    if (typeof item === 'object' && item !== null) {
+      return {
+        id: item.id || '',
+        firstName: item.firstName || '',
+        lastName: item.lastName || '',
+        address: item.address || '',
+        city: item.city || '',
+      };
+    }
+    console.error('Invalid club item:', item);
+    throw new Error('Invalid club item format');
+  });
 
-  console.log(
-    'Payload sport before processing:',
-    payload.description.social_links,
-  );
+  let updatedCoach = [];
+  if (Array.isArray(payload.coach)) {
+    updatedCoach = payload.coach.flatMap((item) => {
+      if (typeof item === 'string') {
+        try {
+          return JSON.parse(item);
+        } catch (error) {
+          console.error(
+            'Error parsing coach item:',
+            error.message,
+            'Input:',
+            item,
+          );
+          throw new Error('Invalid format for coach item');
+        }
+      }
+      return item;
+    });
+  } else if (typeof payload.coach === 'string') {
+    try {
+      updatedCoach = JSON.parse(payload.coach);
+    } catch (error) {
+      console.error(
+        'Error parsing coach:',
+        error.message,
+        'Input:',
+        payload.coach,
+      );
+      throw new Error('Invalid format for coach');
+    }
+  }
+
+  updatedCoach = updatedCoach.map((item) => {
+    if (typeof item === 'object' && item !== null) {
+      return {
+        id: item.id || '',
+        firstName: item.firstName || '',
+        lastName: item.lastName || '',
+        address: item.address || '',
+        city: item.city || '',
+      };
+    }
+    console.error('Invalid coach item:', item);
+    throw new Error('Invalid coach item format');
+  });
 
   let sportArray = [];
   if (Array.isArray(payload.sport)) {
