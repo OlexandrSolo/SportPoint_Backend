@@ -74,9 +74,15 @@ export const getUserProfile = async (userId) => {
   if (userProfile.role === 'customer') {
     userComments = await ReviewsCollection.find({ owner: userId });
   } else if (userProfile.role === 'coach') {
-    userComments = await ReviewsCollection.find({ userCommentId: userId });
+    userComments = await ReviewsCollection.find({
+      userCommentId: userId,
+      owner: userId,
+    });
   } else if (userProfile.role === 'adminClub') {
-    userComments = await ReviewsCollection.find({ userCommentId: userId });
+    userComments = await ReviewsCollection.find({
+      userCommentId: userId,
+      owner: userId,
+    });
   }
 
   return {
@@ -127,7 +133,10 @@ export const updateUserProfile = async (payload, userId, options = {}) => {
     ...new Set([...(existingProfile.club || []), ...normalizedClub]),
   ];
 
-  console.log('Payload sport before processing:', payload.sport);
+  console.log(
+    'Payload sport before processing:',
+    payload.description.social_links,
+  );
 
   let sportArray = [];
   if (Array.isArray(payload.sport)) {
