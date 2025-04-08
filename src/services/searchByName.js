@@ -1,14 +1,18 @@
 import { UserProfileModel } from '../db/models/UserProfileModel.js';
 
 export const searchByName = async (name) => {
-  const regex = new RegExp(name.trim(), 'i');
+  const words = name.trim().split(/\s+/);
 
-  const userFirst = await UserProfileModel.find({
-    firstName: { $regex: regex },
+  const regexConditions = words.map((word) => {
+    const regex = new RegExp(word, 'i');
+    return {
+      $or: [{ firstName: { $regex: regex } }, { lastName: { $regex: regex } }],
+    };
   });
-  const userLast = await UserProfileModel.find({
-    lastName: { $regex: regex },
+
+  const users = await UserProfileModel.find({
+    $and: regexConditions,
   });
-  const users = [...userFirst, ...userLast];
+
   return users;
 };
