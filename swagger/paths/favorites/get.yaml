@@ -73,6 +73,10 @@ responses:
                         type: string
                         description: 'Address of the  sport club or coach.'
                         example: 'Odesa, 123 Main St'
+                      city:
+                        type: string
+                        description: 'City of the sport club or coach.'
+                        example: 'Odesa'  
                       short_desc:
                         type: string
                         description: 'Short description of the coach or sport club.'

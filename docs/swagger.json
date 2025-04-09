@@ -101,7 +101,12 @@
                   "address": {
                     "description": "User address",
                     "type": "string",
-                    "example": "м.Львів, Шевченка, 30"
+                    "example": " Шевченка, 30"
+                  },
+                  "city": {
+                    "description": "User city",
+                    "type": "string",
+                    "example": "Львів"
                   },
                   "abilities": {
                     "description": "User abilities",
@@ -735,6 +740,11 @@
                               "description": "Address of the  sport club or coach.",
                               "example": "Odesa, 123 Main St"
                             },
+                            "city": {
+                              "type": "string",
+                              "description": "City of the sport club.",
+                              "example": "New York"
+                            },
                             "short_desc": {
                               "type": "string",
                               "description": "Short description of the coach or sport club.",
@@ -852,23 +862,98 @@
                         "club": {
                           "type": "array",
                           "items": {
-                            "type": "string"
+                            "type": "object",
+                            "properties": {
+                              "id": {
+                                "type": "string",
+                                "format": "uuid",
+                                "description": "ID of the club",
+                                "example": "65ca63kj7ae7f10c88b598384"
+                              },
+                              "firstName": {
+                                "type": "string",
+                                "description": "Name of the club",
+                                "example": "Fitness Club"
+                              },
+                              "lastName": {
+                                "type": "string",
+                                "description": "Name of the club",
+                                "example": "Fitness Club"
+                              },
+                              "address": {
+                                "type": "string",
+                                "description": "Address of the club",
+                                "example": "123 Main St"
+                              },
+                              "city": {
+                                "type": "string",
+                                "description": "City of the club",
+                                "example": "New York"
+                              }
+                            }
                           },
-                          "description": "List of clubs id where the coach works.",
+                          "description": "List of clubs where the coach works",
                           "example": [
-                            "65ca67e7ae7f10c88b598384",
-                            "65ca67e7ae7f10c88b59ke84"
+                            {
+                              "id": "65ca63kj7ae7f10c88b598384",
+                              "firstName": "Fitness",
+                              "lastName": "Club",
+                              "address": "123 Main St",
+                              "city": "New York"
+                            },
+                            {
+                              "id": "65coo7e7ae7f10c88b598384",
+                              "firstName": "Yoga",
+                              "lastName": "Wellness",
+                              "address": "456 Elm St",
+                              "city": "Los Angeles"
+                            }
                           ]
                         },
                         "coach": {
                           "type": "array",
                           "items": {
-                            "type": "string"
+                            "type": "object",
+                            "properties": {
+                              "id": {
+                                "type": "string",
+                                "format": "uuid",
+                                "description": "ID of the coach job",
+                                "example": "65ca63kj7ae7f10c88b598384"
+                              },
+                              "name": {
+                                "type": "string",
+                                "description": "Name of the coach job",
+                                "example": "Personal Trainer"
+                              },
+                              "address": {
+                                "type": "string",
+                                "description": "Address of the coach job",
+                                "example": "789 Oak St"
+                              },
+                              "city": {
+                                "type": "string",
+                                "description": "City of the coach job",
+                                "example": "New York"
+                              }
+                            }
                           },
-                          "description": "List of current coach id jobs at this sports club.",
+                          "description": "List of current coach jobs at this sports club",
                           "example": [
-                            "65ca63kj7ae7f10c88b598384",
-                            "65coo7e7ae7f10c88b598384"
+                            {
+                              "id": "65ca63kj7ae7f10c88b598384",
+                              "firstName": "Personal",
+                              "lastName": "Trainer",
+                              "address": "789 Oak St",
+                              "city": "New York"
+                            },
+                            {
+                              "id": "65coo7e7ae7f10c88b598384",
+                              "firstName": "Group",
+                              "lastName": "Trainer",
+                              "address": "101 Pine St",
+                              "city": "Los Angeles"
+                            }
                           ]
                         },
                         "favorite": {
@@ -1010,6 +1095,11 @@
                         "description": "Address of the sport club.",
                         "example": "123 Main St"
                       },
+                      "city": {
+                        "type": "string",
+                        "description": "City of the sport club.",
+                        "example": "New York"
+                      },
                       "short_desc": {
                         "type": "string",
                         "description": "Short description of the coach or sport club.",
@@ -1127,23 +1217,98 @@
                   "club": {
                     "type": "array",
                     "items": {
-                      "type": "string"
+                      "type": "object",
+                      "properties": {
+                        "id": {
+                          "type": "string",
+                          "format": "uuid",
+                          "description": "ID of the club",
+                          "example": "65ca63kj7ae7f10c88b598384"
+                        },
+                        "firstName": {
+                          "type": "string",
+                          "description": "Name of the club",
+                          "example": "Fitness Club"
+                        },
+                        "lastName": {
+                          "type": "string",
+                          "description": "Name of the club",
+                          "example": "Fitness Club"
+                        },
+                        "address": {
+                          "type": "string",
+                          "description": "Address of the club",
+                          "example": "123 Main St"
+                        },
+                        "city": {
+                          "type": "string",
+                          "description": "City of the club",
+                          "example": "New York"
+                        }
+                      }
                     },
-                    "description": "List of clubs where the coach works.",
+                    "description": "List of clubs where the coach works",
                     "example": [
-                      "65ca67e7ae7f10c88b598384",
-                      "65ca67e7ae7f10c88b59ke84"
+                      {
+                        "id": "65ca63kj7ae7f10c88b598384",
+                        "firstName": "Fitness",
+                        "lastName": "Club",
+                        "address": "123 Main St",
+                        "city": "New York"
+                      },
+                      {
+                        "id": "65coo7e7ae7f10c88b598384",
+                        "firstName": "Yoga",
+                        "lastName": "Wellness",
+                        "address": "456 Elm St",
+                        "city": "Los Angeles"
+                      }
                     ]
                   },
                   "coach": {
                     "type": "array",
                     "items": {
-                      "type": "string"
+                      "type": "object",
+                      "properties": {
+                        "id": {
+                          "type": "string",
+                          "format": "uuid",
+                          "description": "ID of the coach job",
+                          "example": "65ca63kj7ae7f10c88b598384"
+                        },
+                        "firstName": {
+                          "type": "string",
+                          "description": "Name of the coach job",
+                          "example": "Personal Trainer"
+                        },
+                        "address": {
+                          "type": "string",
+                          "description": "Address of the coach job",
+                          "example": "789 Oak St"
+                        },
+                        "city": {
+                          "type": "string",
+                          "description": "City of the coach job",
+                          "example": "New York"
+                        }
+                      }
                     },
-                    "description": "List of current coach jobs at this sports club.",
+                    "description": "List of current coach jobs at this sports club",
                     "example": [
-                      "65ca63kj7ae7f10c88b598384",
-                      "65coo7e7ae7f10c88b598384"
+                      {
+                        "id": "65ca63kj7ae7f10c88b598384",
+                        "firstName": "Personal",
+                        "lastName": "Trainer",
+                        "address": "789 Oak St",
+                        "city": "Chicago"
+                      },
+                      {
+                        "id": "65coo7e7ae7f10c88b598384",
+                        "firstName": "Group",
+                        "lastName": "Trainer",
+                        "address": "101 Pine St",
+                        "city": "Los Angeles"
+                      }
                     ]
                   },
                   "favorite": {
@@ -1240,6 +1405,16 @@
               "type": "string",
               "example": "John Doe"
             }
+          },
+          {
+            "name": "role",
+            "in": "query",
+            "required": false,
+            "description": "The role (or part of it) to search for",
+            "schema": {
+              "type": "string",
+              "example": "adminClub"
+            }
           }
         ],
         "responses": {
@@ -1313,7 +1488,7 @@
             "description": "Number of items per page"
           },
           {
-            "name": "filter.address",
+            "name": "address",
             "in": "query",
             "required": false,
             "schema": {
@@ -1331,7 +1506,7 @@
             "description": "Filter by role (adminClub or coach)"
           },
           {
-            "name": "filter.countReview",
+            "name": "countReview",
             "in": "query",
             "required": false,
             "schema": {
@@ -1340,7 +1515,7 @@
             "description": "Minimum number of reviews"
           },
           {
-            "name": "filter.minPrice",
+            "name": "minPrice",
             "in": "query",
             "required": false,
             "schema": {
@@ -1350,7 +1525,7 @@
             "description": "Minimum number of reviews"
           },
           {
-            "name": "filter.maxPrice",
+            "name": "maxPrice",
             "in": "query",
             "required": false,
             "schema": {
@@ -1360,7 +1535,7 @@
             "description": "Maximum number of reviews"
           },
           {
-            "name": "filter.abilities",
+            "name": "abilities",
             "in": "query",
             "required": false,
             "schema": {
@@ -1374,7 +1549,7 @@
             "description": "Filter by abilities"
           },
           {
-            "name": "filter.sort",
+            "name": "sort",
             "in": "query",
             "required": false,
             "schema": {
@@ -1425,6 +1600,101 @@
                           "type": "integer"
                         }
                       }
+                    },
+                    "club": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "id": {
+                            "type": "string",
+                            "format": "uuid",
+                            "description": "ID of the club",
+                            "example": "65ca63kj7ae7f10c88b598384"
+                          },
+                          "firstName": {
+                            "type": "string",
+                            "description": "Name of the club",
+                            "example": "Fitness Club"
+                          },
+                          "lastName": {
+                            "type": "string",
+                            "description": "Name of the club",
+                            "example": "Fitness Club"
+                          },
+                          "address": {
+                            "type": "string",
+                            "description": "Address of the club",
+                            "example": "123 Main St"
+                          },
+                          "city": {
+                            "type": "string",
+                            "description": "City of the club",
+                            "example": "New York"
+                          }
+                        }
+                      },
+                      "description": "List of clubs where the coach works",
+                      "example": [
+                        {
+                          "id": "65ca63kj7ae7f10c88b598384",
+                          "name": "Fitness Club",
+                          "address": "123 Main St",
+                          "city": "New York"
+                        },
+                        {
+                          "id": "65coo7e7ae7f10c88b598384",
+                          "name": "Yoga Center",
+                          "address": "456 Elm St",
+                          "city": "Los Angeles"
+                        }
+                      ]
+                    },
+                    "coach": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "id": {
+                            "type": "string",
+                            "format": "uuid",
+                            "description": "ID of the coach job",
+                            "example": "65ca63kj7ae7f10c88b598384"
+                          },
+                          "name": {
+                            "type": "string",
+                            "description": "Name of the coach job",
+                            "example": "Personal Trainer"
+                          },
+                          "address": {
+                            "type": "string",
+                            "description": "Address of the coach job",
+                            "example": "789 Oak St"
+                          },
+                          "city": {
+                            "type": "string",
+                            "description": "City of the coach job",
+                            "example": "New York"
+                          }
+                        }
+                      },
+                      "description": "List of current coach jobs at this sports club",
+                      "example": [
+                        {
+                          "id": "65ca63kj7ae7f10c88b598384",
+                          "firstName": "Personal",
+                          "lastName": "Trainer",
+                          "address": "789 Oak St",
+                          "city": "New York"
+                        },
+                        {
+                          "id": "65coo7e7ae7f10c88b598384",
+                          "firstName": "Group",
+                          "lastName": "Fitness",
+                          "address": "101 Pine St",
+                          "city": "Los Angeles"
+                        }
+                      ]
                     }
                   }
                 }
@@ -1506,6 +1776,98 @@
                           "type": "integer"
                         }
                       }
+                    },
+                    "club": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "id": {
+                            "type": "string",
+                            "format": "uuid",
+                            "description": "ID of the club",
+                            "example": "65ca63kj7ae7f10c88b598384"
+                          },
+                          "firstName": {
+                            "type": "string",
+                            "description": "Name of the club",
+                            "example": "Fitness Club"
+                          },
+                          "lastName": {
+                            "type": "string",
+                            "description": "Name of the club",
+                            "example": "Fitness Club"
+                          },
+                          "address": {
+                            "type": "string",
+                            "description": "Address of the club",
+                            "example": "123 Main St"
+                          },
+                          "city": {
+                            "type": "string",
+                            "description": "City of the club",
+                            "example": "New York"
+                          }
+                        }
+                      },
+                      "description": "List of clubs where the coach works",
+                      "example": [
+                        {
+                          "id": "65ca63kj7ae7f10c88b598384",
+                          "firstName": "Fitness Club",
+                          "address": "123 Main St",
+                          "city": "New York"
+                        },
+                        {
+                          "id": "65coo7e7ae7f10c88b598384",
+                          "firstName": "Yoga",
+                          "lastName": "Wellness",
+                          "address": "456 Elm St",
+                          "city": "Los Angeles"
+                        }
+                      ]
+                    },
+                    "coach": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "id": {
+                            "type": "string",
+                            "format": "uuid",
+                            "description": "ID of the coach job",
+                            "example": "65ca63kj7ae7f10c88b598384"
+                          },
+                          "name": {
+                            "type": "string",
+                            "description": "Name of the coach job",
+                            "example": "Personal Trainer"
+                          },
+                          "address": {
+                            "type": "string",
+                            "description": "Address of the coach job",
+                            "example": "789 Oak St"
+                          },
+                          "city": {
+                            "type": "string",
+                            "description": "City of the coach job",
+                            "example": "New York"
+                          }
+                        }
+                      },
+                      "description": "List of current coach jobs at this sports club",
+                      "example": [
+                        {
+                          "id": "65ca63kj7ae7f10c88b598384",
+                          "name": "Personal Trainer",
+                          "address": "789 Oak St"
+                        },
+                        {
+                          "id": "65coo7e7ae7f10c88b598384",
+                          "name": "Group Trainer",
+                          "address": "101 Pine St"
+                        }
+                      ]
                     }
                   }
                 }
@@ -1615,6 +1977,11 @@
                                 "type": "string",
                                 "description": "Address of the  sport club or coach.",
                                 "example": "Odesa, 123 Main St"
+                              },
+                              "city": {
+                                "type": "string",
+                                "description": "City of the sport club or coach.",
+                                "example": "Odesa"
                               },
                               "short_desc": {
                                 "type": "string",
@@ -2624,7 +2991,12 @@
           "address": {
             "description": "User address",
             "type": "string",
-            "example": "м.Львів, Шевченка, 30"
+            "example": "Шевченка, 30"
+          },
+          "city": {
+            "description": "User city",
+            "type": "string",
+            "example": "Львів"
           },
           "abilities": {
             "description": "User abilities",
@@ -2744,6 +3116,11 @@
                 "description": "Address of the sport club.",
                 "example": "123 Main St"
               },
+              "city": {
+                "type": "string",
+                "description": "City of the sport club.",
+                "example": "New York"
+              },
               "short_desc": {
                 "type": "string",
                 "description": "Short description of the coach or sport club.",
@@ -2861,23 +3238,103 @@
           "club": {
             "type": "array",
             "items": {
-              "type": "string"
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "string",
+                  "format": "uuid",
+                  "description": "ID of the club",
+                  "example": "65ca63kj7ae7f10c88b598384"
+                },
+                "firstName": {
+                  "type": "string",
+                  "description": "Name of the club",
+                  "example": "Fitness Club"
+                },
+                "lastName": {
+                  "type": "string",
+                  "description": "Name of the club",
+                  "example": "Fitness Club"
+                },
+                "address": {
+                  "type": "string",
+                  "description": "Address of the club",
+                  "example": "123 Main St"
+                },
+                "city": {
+                  "type": "string",
+                  "description": "City of the club",
+                  "example": "New York"
+                }
+              }
             },
-            "description": "List of clubs where the coach works.",
+            "description": "List of clubs where the coach works",
             "example": [
-              "65ca63kj7ae7f10c88b598384",
-              "65coo7e7ae7f10c88b598384"
+              {
+                "id": "65ca63kj7ae7f10c88b598384",
+                "firstName": "Fitness",
+                "lastName": "Club",
+                "address": "123 Main St",
+                "city": "New York"
+              },
+              {
+                "id": "65coo7e7ae7f10c88b598384",
+                "firstName": "Yoga",
+                "lastName": "Wellness",
+                "address": "456 Elm St",
+                "city": "Los Angeles"
+              }
             ]
           },
           "coach": {
             "type": "array",
             "items": {
-              "type": "string"
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "string",
+                  "format": "uuid",
+                  "description": "ID of the coach job",
+                  "example": "65ca63kj7ae7f10c88b598384"
+                },
+                "firstName": {
+                  "type": "string",
+                  "description": "Name of the coach job",
+                  "example": "Personal "
+                },
+                "lastName": {
+                  "type": "string",
+                  "description": "Name of the coach job",
+                  "example": "Trainer"
+                },
+                "address": {
+                  "type": "string",
+                  "description": "Address of the coach job",
+                  "example": "789 Oak St"
+                },
+                "city": {
+                  "type": "string",
+                  "description": "City of the coach job",
+                  "example": "Chicago"
+                }
+              }
             },
-            "description": "List of current coach jobs at this sports club.",
+            "description": "List of current coach jobs at this sports club",
             "example": [
-              "65ca63kj7ae7f10c88b598384",
-              "65coo7e7ae7f10c88b598384"
+              {
+                "id": "65ca63kj7ae7f10c88b598384",
+                "firstName": "Personal Trainer",
+                "lastName": "Fitness",
+                "address": "789 Oak St",
+                "city": "Chicago"
+              },
+              {
+                "id": "65coo7e7ae7f10c88b598384",
+                "firstName": "Group",
+                "lastName": "Fitness",
+                "address": "101 Pine St",
+                "city": "San Francisco"
+              }
             ]
           },
           "favorite": {

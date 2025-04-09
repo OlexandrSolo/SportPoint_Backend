@@ -25,8 +25,17 @@ const favoriteSchema = new mongoose.Schema({
   role: { type: mongoose.Schema.Types.String, ref: 'auth' },
 });
 
+const workSchema = new mongoose.Schema({
+  id: { type: String },
+  firstName: { type: String },
+  lastName: { type: String },
+  address: { type: String },
+  city: { type: String },
+});
+
 const descriptionSchema = new mongoose.Schema({
   address: { type: String },
+  city: { type: String },
   short_desc: { type: String },
   abilities: { type: [String] },
   age: { type: String },
@@ -52,8 +61,8 @@ const userProfileSchema = new mongoose.Schema(
     description: descriptionSchema,
     role: { type: mongoose.Schema.Types.String, ref: 'auth' },
     favorite: { type: [favoriteSchema] },
-    club: { type: [String] },
-    coach: { type: [String], default: [] },
+    club: { type: [workSchema] },
+    coach: { type: [workSchema] },
     sport: { type: [String] },
   },
   {

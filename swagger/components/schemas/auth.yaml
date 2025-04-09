@@ -15,7 +15,7 @@ properties:
     description: 'Role for registration'
     type: string
     example: 'customer'
-  firstName: 
+  firstName:
     description: 'User first name'
     type: string
     example: 'Володимир'
@@ -34,7 +34,11 @@ properties:
   address:
     description: 'User address'
     type: string
-    example: 'м.Львів, Шевченка, 30'
+    example: 'Шевченка, 30'
+  city:
+    description: 'User city'
+    type: string
+    example: 'Львів'
   abilities:
     description: "User abilities"
     type: string
@@ -42,8 +46,8 @@ properties:
   sport:
     description: 'User sport'
     type: string
-    example: 'Карате'  
-  avatar: 
+    example: 'Карате'
+  avatar:
     description: 'User avatar'
     type: string
     format: uri

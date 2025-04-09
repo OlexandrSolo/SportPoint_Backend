@@ -3,6 +3,7 @@ import { patternLines } from '../../constants/patternLines.js';
 
 export const descriptionSchemaJoi = Joi.object({
   address: Joi.string(),
+  city: Joi.string(),
   short_desc: Joi.string(),
   abilities: Joi.string(),
   equipment: Joi.array().items(Joi.string()),
