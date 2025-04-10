@@ -9,51 +9,76 @@ export const getUserProfile = async (userId) => {
   if (!userProfile) {
     throw createHttpError(404, 'Profile not found');
   }
-
-  // const { coach, club } = userProfile;
-
-  // const fixedCoach = parseIdArray(coach);
-  // const fixedClub = parseIdArray(club);
-
-  // const [coachesList, clubsList] = await Promise.all([
-  //   fixedCoach
-  //     ? Promise.all(
-  //         fixedCoach
-  //           .filter((id) => mongoose.Types.ObjectId.isValid(id))
-  //           .map(async (coachId) => {
-  //             return await UserProfileModel.findOne({ user: coachId }).lean();
-  //           }),
-  //       )
-  //     : [],
-  //   fixedClub
-  //     ? Promise.all(
-  //         fixedClub
-  //           .filter((id) => mongoose.Types.ObjectId.isValid(id))
-  //           .map(async (clubId) => {
-  //             return await UserProfileModel.findOne({ userId: clubId }).lean();
-  //           }),
-  //       )
-  //     : [],
-  // ]);
-
   let userComments = [];
   if (userProfile.role === 'customer') {
-    userComments = await ReviewsCollection.find({ owner: userId });
+    const reviews = await ReviewsCollection.find({ owner: userId });
+    const userIds = reviews.map((review) => review.userCommentId);
+
+    const userProfiles = await UserProfileModel.find({
+      userId: { $in: userIds },
+    });
+
+    const reviewsWithProfiles = reviews.map((review) => {
+      const profile = userProfiles.find(
+        (userProfile) =>
+          userProfile.userId.toString() === review.userCommentId.toString(),
+      );
+      return {
+        ...review.toObject(),
+        userProfile: profile || null,
+      };
+    });
+
+    userComments = reviewsWithProfiles;
   } else if (userProfile.role === 'coach') {
-    userComments = await ReviewsCollection.find({
+    const reviews = await ReviewsCollection.find({
       userCommentId: userId,
-      owner: userId,
     });
+
+    const userIds = reviews.map((review) => review.owner);
+
+    const userProfiles = await UserProfileModel.find({
+      userId: { $in: userIds },
+    });
+
+    const reviewsWithProfiles = reviews.map((review) => {
+      const profile = userProfiles.find(
+        (userProfile) =>
+          userProfile.userId.toString() === review.owner.toString(),
+      );
+      return {
+        ...review.toObject(),
+        userProfile: profile || null,
+      };
+    });
+
+    userComments = reviewsWithProfiles;
   } else if (userProfile.role === 'adminClub') {
-    userComments = await ReviewsCollection.find({
+    const reviews = await ReviewsCollection.find({
       userCommentId: userId,
-      owner: userId,
     });
+
+    const userIds = reviews.map((review) => review.owner);
+
+    const userProfiles = await UserProfileModel.find({
+      userId: { $in: userIds },
+    });
+    const reviewsWithProfiles = reviews.map((review) => {
+      const profile = userProfiles.find(
+        (userProfile) =>
+          userProfile.userId.toString() === review.owner.toString(),
+      );
+      return {
+        ...review.toObject(),
+        userProfile: profile || null,
+      };
+    });
+
+    userComments = reviewsWithProfiles;
   }
 
   return {
     ...userProfile,
-    // coaches_list: coachesList,
     user_comments: userComments,
   };
 };

@@ -1,6 +1,7 @@
 import createHttpError from 'http-errors';
 import * as reviewService from '../../services/reviews/reviewService.js';
 import { ReviewsCollection } from '../../db/models/Review.js';
+import { UserProfileModel } from '../../db/models/UserProfileModel.js';
 
 // export const addReview = async (req, res) => {
 //     const { club, trainer, ratings, comment, images } = req.body;
@@ -19,12 +20,30 @@ import { ReviewsCollection } from '../../db/models/Review.js';
 export const getOwnerReviews = async (req, res) => {
   const { id } = req.params;
   const owner = id;
+
   const reviews = await ReviewsCollection.find({ owner });
+
+  const userIds = reviews.map((review) => review.userCommentId);
+
+  const userProfiles = await UserProfileModel.find({
+    userId: { $in: userIds },
+  });
+
+  const reviewsWithProfiles = reviews.map((review) => {
+    const profile = userProfiles.find(
+      (userProfile) =>
+        userProfile.userId.toString() === review.userCommentId.toString(),
+    );
+    return {
+      ...review.toObject(),
+      userProfile: profile || null,
+    };
+  });
 
   res.status(200).json({
     status: 200,
     message: 'Successfully retrieved reviews!',
-    data: reviews,
+    data: reviewsWithProfiles,
     total: reviews.length,
   });
 };
@@ -33,12 +52,30 @@ export const getOwnerReviews = async (req, res) => {
 export const getUserReviews = async (req, res) => {
   const { id } = req.params;
   const userCommentId = id;
+
   const reviews = await ReviewsCollection.find({ userCommentId });
+
+  const userIds = reviews.map((review) => review.owner);
+
+  const userProfiles = await UserProfileModel.find({
+    userId: { $in: userIds },
+  });
+
+  const reviewsWithProfiles = reviews.map((review) => {
+    const profile = userProfiles.find(
+      (userProfile) =>
+        userProfile.userId.toString() === review.owner.toString(),
+    );
+    return {
+      ...review.toObject(),
+      userProfile: profile || null,
+    };
+  });
 
   res.status(200).json({
     status: 200,
     message: 'Successfully retrieved reviews!',
-    data: reviews,
+    data: reviewsWithProfiles,
     total: reviews.length,
   });
 };
@@ -52,7 +89,6 @@ export const addReview = async (req, res) => {
     userCommentId,
     ratings,
     comment,
-    
   );
 
   res.status(201).json({
