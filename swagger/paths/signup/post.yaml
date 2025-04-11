@@ -54,7 +54,7 @@ requestBody:
           abilities:
             description: "User abilities"
             type: string
-            example: "Coaching, mentoring"
+            example: "Coaching"
           sport:
             description: 'User sport'
             type: string
