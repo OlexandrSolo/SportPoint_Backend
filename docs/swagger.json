@@ -82,11 +82,6 @@
                     "type": "string",
                     "example": "Кіт"
                   },
-                  "clubName": {
-                    "description": "name user club",
-                    "type": "string",
-                    "example": "Sport Life"
-                  },
                   "phone": {
                     "description": "User phone number",
                     "type": "string",
@@ -2827,11 +2822,6 @@
             "description": "User last name",
             "type": "string",
             "example": "Кіт"
-          },
-          "clubName": {
-            "description": "name user club",
-            "type": "string",
-            "example": "Sport Life"
           },
           "phone": {
             "description": "User phone number",
