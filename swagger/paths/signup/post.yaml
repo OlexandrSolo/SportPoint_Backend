@@ -34,6 +34,7 @@ requestBody:
           lastName:
             description: 'User last name'
             type: string
+            example: 'Кіт'
           phone:
             description: 'User phone number'
             type: string
