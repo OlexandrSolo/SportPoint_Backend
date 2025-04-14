@@ -119,7 +119,7 @@ export const updateUserProfile = async (payload, userId, options = {}) => {
       (item) => typeof item === 'object' && item !== null,
     );
 
-    if (allStrings) {
+    if (allStrings && club.length > 0) {
       const clubString = club.join(',');
 
       updatedClub = JSON.parse(clubString);
@@ -163,7 +163,7 @@ export const updateUserProfile = async (payload, userId, options = {}) => {
       (item) => typeof item === 'object' && item !== null,
     );
 
-    if (allStrings) {
+    if (allStrings && coach.length > 0) {
       const coachString = coach.join(',');
 
       updatedClub = JSON.parse(coachString);
@@ -193,20 +193,6 @@ export const updateUserProfile = async (payload, userId, options = {}) => {
       throw new Error('Invalid format for coach');
     }
   }
-
-  updatedCoach = updatedCoach.map((item) => {
-    if (typeof item === 'object' && item !== null) {
-      return {
-        id: item.id || '',
-        firstName: item.firstName || '',
-        lastName: item.lastName || '',
-        address: item.address || '',
-        city: item.city || '',
-      };
-    }
-    console.error('Invalid coach item:', item);
-    throw new Error('Invalid coach item format');
-  });
 
   let sportArray = [];
   if (Array.isArray(payload.sport)) {
