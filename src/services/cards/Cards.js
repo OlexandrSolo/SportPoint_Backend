@@ -35,19 +35,19 @@ export const getAllCards = async ({
     // Сортування
     if (filter.sort) {
         switch (filter.sort) {
-            case "нові":
+            case "new":
                 sortBy = "createdAt";
                 sortOrder = "asc";
                 break;
-            case "популярні":
+            case "popular":
                 sortBy = "countReview";
                 sortOrder = "asc";
                 break;
-            case "ціна за зростанням":
+            case "price_asc":
                 sortBy = "description.price.amount";
                 sortOrder = "asc";
                 break;
-            case "ціна за спаданням":
+            case "price_dec":
                 sortBy = "description.price.amount";
                 sortOrder = "desc";
                 break;
