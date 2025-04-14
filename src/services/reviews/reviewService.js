@@ -8,12 +8,12 @@ const calculateOverallRatingForReview = async (userCommentId) => {
     const allReviews = await ReviewsCollection.find({ userCommentId });
 
     for (let i = 0; i < allReviews.length; i++) {
-       const ratingValues = Object.values(allReviews[i].ratings);
-       const rating = parseFloat((ratingValues.reduce((acc, val) => acc + val, 0) / ratingValues.length).toFixed(2)); 
-       allRatings.push(rating);
+        const ratingValues = Object.values(allReviews[i].ratings);
+        const rating = parseFloat((ratingValues.reduce((acc, val) => acc + val, 0) / ratingValues.length).toFixed(2));
+        allRatings.push(rating);
     }
 
-    const generalRating =  parseFloat((allRatings.reduce((acc, val) => acc + val, 0) / allRatings.length).toFixed(2));
+    const generalRating = parseFloat((allRatings.reduce((acc, val) => acc + val, 0) / allRatings.length).toFixed(2));
     return generalRating;
 };
 
@@ -22,7 +22,7 @@ const calculateOverallRatingForReview = async (userCommentId) => {
 //     if (!club && !trainer) {
 //         throw createHttpError(400, 'The review must be linked to a club or trainer');
 //     }
-    
+
 //     const review = await ReviewsCollection.create({ user: userId, club, trainer, ratings, comment, images });
 //     if (!review) throw createHttpError(500, 'Server error');
 
@@ -33,29 +33,29 @@ export const addReview = async (userId, userCommentId, ratings, comment) => {
     if (!userCommentId) {
         throw createHttpError(400, 'The review must be linked to a club or trainer');
     }
-     // Обчислюємо середнє значення оцінки 
-  const ratingValues = Object.values(ratings);
-  const average = parseFloat(
-    (ratingValues.reduce((acc, val) => acc + val, 0) / ratingValues.length).toFixed(2)
+    // Обчислюємо середнє значення оцінки 
+    const ratingValues = Object.values(ratings);
+    const average = parseFloat(
+        (ratingValues.reduce((acc, val) => acc + val, 0) / ratingValues.length).toFixed(2)
     );
-    
+
     // Створюємо новий відгук
     const review = await ReviewsCollection.create({ owner: userId, userCommentId, ratings, comment, average });
-    
-     if (!review) throw createHttpError(500, 'Server error');
+
+    if (!review) throw createHttpError(500, 'Server error');
 
     const reviews = await ReviewsCollection.find({ userCommentId }).countDocuments();
     const user = await UserProfileModel.findOne({ userId: userCommentId });
 
     // Розраховуємо загальний середній рейтинг по всім відгукам користувача 
-    
+
     await UserProfileModel.findByIdAndUpdate(user._id, { $set: { countReview: reviews } }, { new: true });
-    
+
     const overallRating = await calculateOverallRatingForReview(userCommentId);
 
     await UserProfileModel.findByIdAndUpdate(user._id, { $set: { rating: overallRating } }, { new: true });
 
-    return { review, overallRating  };
+    return { review, overallRating };
 };
 
 // Редагувати відгук
@@ -72,7 +72,7 @@ export const updateReviewService = async (id, owner, body) => {
     );
 
     await ReviewsCollection.findByIdAndUpdate({ owner, _id: id }, review, { new: true, fields: ['-createdAt', '-updatedAt'] });
-    
+
     const user = await UserProfileModel.findOne({ userId: review.userCommentId });
 
     const overallRating = await calculateOverallRatingForReview(review.userCommentId);
@@ -83,16 +83,16 @@ export const updateReviewService = async (id, owner, body) => {
 // Видалити відгук
 export const deleteReview = async (reviewId, userId) => {
     const review = await ReviewsCollection.findById(reviewId);
-    
+
     if (!review) throw createHttpError(404, 'Review not found');
     if (review.owner.toString() !== userId.toString()) throw createHttpError(403, 'You do not have permission to delete this review');
-    
+
     await review.deleteOne();
 
     const reviews = await ReviewsCollection.find({ userCommentId: review.userCommentId }).countDocuments();
-    const user = await UserProfileModel.findOne({ userId: review.userCommentId })
+    const user = await UserProfileModel.findOne({ userId: review.userCommentId });
 
-    await UserProfileModel.findByIdAndUpdate(user._id, { $set: { countReview: reviews } }, { new: true }); 
+    await UserProfileModel.findByIdAndUpdate(user._id, { $set: { countReview: reviews } }, { new: true });
 
     const overallRating = await calculateOverallRatingForReview(review.userCommentId);
 

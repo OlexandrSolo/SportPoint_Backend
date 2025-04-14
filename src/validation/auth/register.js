@@ -19,7 +19,6 @@ const userRegisterSchema = (req, res, next) => {
       .optional(),
     firstName: Joi.string().optional(),
     lastName: Joi.string().optional(),
-    clubName: Joi.string().optional(),
     phone: Joi.string().pattern(patternLines.PHONE).optional().messages({
       'string.pattern.base': ErrorsApp.NOT_VALID_PHONE,
     }),

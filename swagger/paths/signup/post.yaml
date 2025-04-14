@@ -52,9 +52,9 @@ requestBody:
             type: string
             example: 'Львів'
           abilities:
-            description: "User abilities"
+            description: 'User abilities'
             type: string
-            example: "Coaching, mentoring"
+            example: 'Coaching'
           sport:
             description: 'User sport'
             type: string
@@ -65,14 +65,14 @@ requestBody:
             format: uri
             example: 'https://example.com/avatar.jpg'
           images:
-            description: "Array of image URLs"
+            description: 'Array of image URLs'
             type: array
             items:
               type: string
               format: uri
             example:
-              - "https://example.com/image1.jpg"
-              - "https://example.com/image2.jpg"
+              - 'https://example.com/image1.jpg'
+              - 'https://example.com/image2.jpg'
 responses:
   '201':
     description: Register a user
