@@ -41,7 +41,9 @@
   "paths": {
     "/auth/signup": {
       "post": {
-        "tags": ["Auth"],
+        "tags": [
+          "Auth"
+        ],
         "summary": "Register user",
         "operationId": "createUser",
         "description": "Register user",
@@ -55,7 +57,11 @@
             "application/json": {
               "schema": {
                 "type": "object",
-                "required": ["email", "password", "role"],
+                "required": [
+                  "email",
+                  "password",
+                  "role"
+                ],
                 "properties": {
                   "email": {
                     "description": "User email",
@@ -100,7 +106,7 @@
                   "abilities": {
                     "description": "User abilities",
                     "type": "string",
-                    "example": "Coaching, mentoring"
+                    "example": "Coaching"
                   },
                   "sport": {
                     "description": "User sport",
@@ -137,7 +143,10 @@
               "application/json": {
                 "schema": {
                   "type": "object",
-                  "required": ["status", "data"],
+                  "required": [
+                    "status",
+                    "data"
+                  ],
                   "properties": {
                     "status": {
                       "type": "integer",
@@ -145,7 +154,9 @@
                     },
                     "data": {
                       "type": "object",
-                      "required": ["email"],
+                      "required": [
+                        "email"
+                      ],
                       "properties": {
                         "email": {
                           "type": "string",
@@ -167,7 +178,9 @@
     },
     "/auth/signin": {
       "post": {
-        "tags": ["Auth"],
+        "tags": [
+          "Auth"
+        ],
         "summary": "Login user",
         "operationId": "loginUser",
         "description": "Login user",
@@ -181,7 +194,10 @@
             "application/json": {
               "schema": {
                 "type": "object",
-                "required": ["email", "password"],
+                "required": [
+                  "email",
+                  "password"
+                ],
                 "properties": {
                   "email": {
                     "description": "User email",
@@ -205,7 +221,11 @@
               "application/json": {
                 "schema": {
                   "type": "object",
-                  "required": ["status", "message", "data"],
+                  "required": [
+                    "status",
+                    "message",
+                    "data"
+                  ],
                   "properties": {
                     "status": {
                       "type": "integer",
@@ -232,7 +252,9 @@
     },
     "/auth/logout": {
       "post": {
-        "tags": ["Auth"],
+        "tags": [
+          "Auth"
+        ],
         "summary": "Logout user",
         "operationId": "logoutUser",
         "description": "Logout user",
@@ -257,7 +279,9 @@
               "application/json": {
                 "schema": {
                   "type": "object",
-                  "required": ["status"],
+                  "required": [
+                    "status"
+                  ],
                   "properties": {
                     "status": {
                       "type": "integer",
@@ -276,7 +300,9 @@
     },
     "/auth/refresh/current": {
       "get": {
-        "tags": ["Auth"],
+        "tags": [
+          "Auth"
+        ],
         "summary": "Refresh current",
         "operationId": "refreshCurrent",
         "description": "Refresh",
@@ -290,7 +316,9 @@
             "multipart/form-data": {
               "schema": {
                 "type": "object",
-                "required": ["refreshToken"],
+                "required": [
+                  "refreshToken"
+                ],
                 "properties": {
                   "refreshToken": {
                     "description": "Refresh token",
@@ -308,7 +336,9 @@
               "application/json": {
                 "schema": {
                   "type": "object",
-                  "required": ["status"],
+                  "required": [
+                    "status"
+                  ],
                   "properties": {
                     "status": {
                       "type": "integer",
@@ -337,7 +367,9 @@
     },
     "/auth/verify/:verificationToken": {
       "get": {
-        "tags": ["Auth"],
+        "tags": [
+          "Auth"
+        ],
         "summary": "Verify user email",
         "operationId": "verifyEmail",
         "description": "Verifies user email using a verification token.",
@@ -377,7 +409,9 @@
     },
     "/auth/verify": {
       "post": {
-        "tags": ["Auth"],
+        "tags": [
+          "Auth"
+        ],
         "summary": "Update user password",
         "operationId": "updatePassword",
         "description": "Update user password using a  tokens.",
@@ -391,7 +425,10 @@
             "application/json": {
               "schema": {
                 "type": "object",
-                "required": ["password", "verifyCode"],
+                "required": [
+                  "password",
+                  "verifyCode"
+                ],
                 "properties": {
                   "verifyCode": {
                     "description": "Enter verify code",
@@ -444,7 +481,9 @@
     },
     "/auth/send/verify": {
       "post": {
-        "tags": ["Auth"],
+        "tags": [
+          "Auth"
+        ],
         "summary": "Send message for update user password",
         "operationId": "sendUpdatePasswordMessage",
         "description": "Update user password message send by email.",
@@ -458,7 +497,9 @@
             "application/json": {
               "schema": {
                 "type": "object",
-                "required": ["email"],
+                "required": [
+                  "email"
+                ],
                 "properties": {
                   "email": {
                     "description": "User email",
@@ -496,7 +537,9 @@
     },
     "/auth/delete/account": {
       "delete": {
-        "tags": ["Auth"],
+        "tags": [
+          "Auth"
+        ],
         "summary": "Delete user account",
         "operationId": "deleteUserAccount",
         "description": "Delete  user account",
@@ -530,7 +573,9 @@
     },
     "/auth/change/password": {
       "put": {
-        "tags": ["Auth"],
+        "tags": [
+          "Auth"
+        ],
         "summary": "Update user password",
         "operationId": "updateUserPassword",
         "description": "Update user password",
@@ -544,7 +589,10 @@
             "application/json": {
               "schema": {
                 "type": "object",
-                "required": ["oldPassword", "newPassword"],
+                "required": [
+                  "oldPassword",
+                  "newPassword"
+                ],
                 "properties": {
                   "oldPassword": {
                     "description": "Enter your old password",
@@ -568,7 +616,11 @@
               "application/json": {
                 "schema": {
                   "type": "object",
-                  "required": ["status", "message", "data"],
+                  "required": [
+                    "status",
+                    "message",
+                    "data"
+                  ],
                   "properties": {
                     "status": {
                       "type": "integer",
@@ -591,7 +643,9 @@
     },
     "/profile": {
       "get": {
-        "tags": ["UserProfile"],
+        "tags": [
+          "UserProfile"
+        ],
         "summary": "Get user profile",
         "operationId": "getUserProfile",
         "description": "Get user profile with this endpoint",
@@ -607,7 +661,11 @@
               "application/json": {
                 "schema": {
                   "type": "object",
-                  "required": ["status", "message", "data"],
+                  "required": [
+                    "status",
+                    "message",
+                    "data"
+                  ],
                   "properties": {
                     "status": {
                       "type": "integer",
@@ -690,7 +748,10 @@
                             "abilities": {
                               "type": "array",
                               "description": "User’s abilities.",
-                              "example": ["Coaching", "Mentoring"]
+                              "example": [
+                                "Coaching",
+                                "Mentoring"
+                              ]
                             },
                             "age": {
                               "type": "string",
@@ -703,7 +764,10 @@
                                 "type": "string"
                               },
                               "description": "List of gym equipment.",
-                              "example": ["Pool", "Sauna"]
+                              "example": [
+                                "Pool",
+                                "Sauna"
+                              ]
                             },
                             "experience": {
                               "type": "string",
@@ -956,7 +1020,9 @@
         }
       },
       "patch": {
-        "tags": ["UserProfile"],
+        "tags": [
+          "UserProfile"
+        ],
         "summary": "Patch user profile",
         "operationId": "patchUserProfile",
         "description": "Patch user profile",
@@ -1037,7 +1103,10 @@
                       "abilities": {
                         "type": "array",
                         "description": "Coach abilities.",
-                        "example": ["Coaching", "Mentoring"]
+                        "example": [
+                          "Coaching",
+                          "Mentoring"
+                        ]
                       },
                       "age": {
                         "type": "string",
@@ -1050,7 +1119,10 @@
                           "type": "string"
                         },
                         "description": "List of sport club equipment.",
-                        "example": ["Pool", "Sauna"]
+                        "example": [
+                          "Pool",
+                          "Sauna"
+                        ]
                       },
                       "experience": {
                         "type": "string",
@@ -1276,7 +1348,11 @@
               "application/json": {
                 "schema": {
                   "type": "object",
-                  "required": ["status", "message", "data"],
+                  "required": [
+                    "status",
+                    "message",
+                    "data"
+                  ],
                   "properties": {
                     "status": {
                       "type": "integer",
@@ -1303,7 +1379,9 @@
     },
     "/search/by-name": {
       "get": {
-        "tags": ["SearchUserProfile"],
+        "tags": [
+          "SearchUserProfile"
+        ],
         "summary": "Get user profile by name",
         "operationId": "getSearchedProfile",
         "description": "Get user profile with this endpoint by name",
@@ -1341,7 +1419,12 @@
               "application/json": {
                 "schema": {
                   "type": "object",
-                  "required": ["name", "status", "message", "data"],
+                  "required": [
+                    "name",
+                    "status",
+                    "message",
+                    "data"
+                  ],
                   "properties": {
                     "status": {
                       "type": "integer",
@@ -1367,7 +1450,9 @@
     },
     "/cards": {
       "get": {
-        "tags": ["Cards"],
+        "tags": [
+          "Cards"
+        ],
         "summary": "Get all cards with filters",
         "operationId": "getAllCards",
         "description": "Retrieve a list of coach and clubs with filtering and sorting options",
@@ -1407,7 +1492,7 @@
             "description": "Filter by city"
           },
           {
-            "name": "filter.role",
+            "name": "role",
             "in": "query",
             "required": false,
             "schema": {
@@ -1622,7 +1707,9 @@
     },
     "/cards/{id}": {
       "get": {
-        "tags": ["Cards"],
+        "tags": [
+          "Cards"
+        ],
         "summary": "Get  card by id",
         "operationId": "getCard",
         "description": "Retrieve coach or club card by id !",
@@ -1793,7 +1880,9 @@
     },
     "/favorites": {
       "get": {
-        "tags": ["Favorite"],
+        "tags": [
+          "Favorite"
+        ],
         "summary": "Get all club or coach cards",
         "operationId": "getFavoritesCard",
         "description": "Get club cards",
@@ -1809,7 +1898,11 @@
               "application/json": {
                 "schema": {
                   "type": "object",
-                  "required": ["status", "message", "data"],
+                  "required": [
+                    "status",
+                    "message",
+                    "data"
+                  ],
                   "properties": {
                     "status": {
                       "type": "integer",
@@ -1901,7 +1994,10 @@
                                   "type": "string"
                                 },
                                 "description": "List of gym equipment.",
-                                "example": ["Pool", "Sauna"]
+                                "example": [
+                                  "Pool",
+                                  "Sauna"
+                                ]
                               },
                               "experience": {
                                 "type": "array",
@@ -1910,7 +2006,10 @@
                                   "format": "date"
                                 },
                                 "description": "Experience dates of the coach.",
-                                "example": ["2020-01-01", "2021-01-01"]
+                                "example": [
+                                  "2020-01-01",
+                                  "2021-01-01"
+                                ]
                               },
                               "schedule": {
                                 "type": "array",
@@ -2064,7 +2163,9 @@
     },
     "/favorites/:id": {
       "post": {
-        "tags": ["Favorite"],
+        "tags": [
+          "Favorite"
+        ],
         "summary": "Add a coach or club to favorites",
         "operationId": "addToFavorites",
         "description": "Add a coach or club to the users favorite list",
@@ -2079,7 +2180,10 @@
             "application/json": {
               "schema": {
                 "type": "object",
-                "required": ["itemId", "type"],
+                "required": [
+                  "itemId",
+                  "type"
+                ],
                 "properties": {
                   "itemId": {
                     "type": "string",
@@ -2089,7 +2193,10 @@
                   },
                   "type": {
                     "type": "string",
-                    "enum": ["coach", "adminClub"],
+                    "enum": [
+                      "coach",
+                      "adminClub"
+                    ],
                     "description": "Type of the favorite item",
                     "example": "coach"
                   }
@@ -2144,7 +2251,9 @@
         }
       },
       "delete": {
-        "tags": ["Favorite"],
+        "tags": [
+          "Favorite"
+        ],
         "summary": "Delete fav card by id",
         "operationId": "deleteFavCard",
         "description": "Delete favorite card by id",
@@ -2179,7 +2288,9 @@
     },
     "/reviews": {
       "post": {
-        "tags": ["Reviews"],
+        "tags": [
+          "Reviews"
+        ],
         "summary": "Create a new review",
         "operationId": "addReview",
         "description": "Allows a user to submit a review for a club or trainer.",
@@ -2237,7 +2348,9 @@
     },
     "/reviews/owner/{id}": {
       "get": {
-        "tags": ["Reviews"],
+        "tags": [
+          "Reviews"
+        ],
         "summary": "Get all reviews created by a user",
         "operationId": "getOwnerReviews",
         "description": "Returns all reviews written by a user.",
@@ -2299,7 +2412,9 @@
     },
     "/reviews/user/{id}": {
       "get": {
-        "tags": ["Reviews"],
+        "tags": [
+          "Reviews"
+        ],
         "summary": "Get all reviews about a specific user.",
         "operationId": "getUserReviews",
         "description": "Returns all reviews where a specific user was mentioned.",
@@ -2361,7 +2476,9 @@
     },
     "/reviews/{id}": {
       "patch": {
-        "tags": ["Reviews"],
+        "tags": [
+          "Reviews"
+        ],
         "summary": "Update an existing review",
         "operationId": "updateReview",
         "description": "Allows the owner of a review to edit their comment, rating.",
@@ -2467,7 +2584,9 @@
         }
       },
       "delete": {
-        "tags": ["Reviews"],
+        "tags": [
+          "Reviews"
+        ],
         "summary": "Delete a review",
         "operationId": "deleteReview",
         "description": "Allows the owner of a review to delete it.",
@@ -2519,7 +2638,9 @@
     },
     "/reviews/{id}/reply": {
       "patch": {
-        "tags": ["Reviews"],
+        "tags": [
+          "Reviews"
+        ],
         "summary": "Reply to a review",
         "operationId": "replyToReview",
         "description": "Allows an admin to reply to a review.",
@@ -2590,7 +2711,9 @@
     },
     "/reviews/{id}/report": {
       "post": {
-        "tags": ["Reviews"],
+        "tags": [
+          "Reviews"
+        ],
         "summary": "Report a review",
         "operationId": "reportReview",
         "description": "Allows users to report an inappropriate review.",
@@ -2674,7 +2797,11 @@
           "application/json": {
             "schema": {
               "type": "object",
-              "required": ["status", "message", "data"],
+              "required": [
+                "status",
+                "message",
+                "data"
+              ],
               "properties": {
                 "status": {
                   "type": "integer",
@@ -2686,7 +2813,9 @@
                 },
                 "data": {
                   "type": "object",
-                  "required": ["message"],
+                  "required": [
+                    "message"
+                  ],
                   "properties": {
                     "message": {
                       "type": "string",
@@ -2705,7 +2834,11 @@
           "application/json": {
             "schema": {
               "type": "object",
-              "required": ["status", "message", "data"],
+              "required": [
+                "status",
+                "message",
+                "data"
+              ],
               "properties": {
                 "status": {
                   "type": "integer",
@@ -2717,7 +2850,9 @@
                 },
                 "data": {
                   "type": "object",
-                  "required": ["message"],
+                  "required": [
+                    "message"
+                  ],
                   "properties": {
                     "message": {
                       "type": "string",
@@ -2736,7 +2871,11 @@
           "application/json": {
             "schema": {
               "type": "object",
-              "required": ["status", "message", "data"],
+              "required": [
+                "status",
+                "message",
+                "data"
+              ],
               "properties": {
                 "status": {
                   "type": "integer",
@@ -2748,7 +2887,9 @@
                 },
                 "data": {
                   "type": "object",
-                  "required": ["message"],
+                  "required": [
+                    "message"
+                  ],
                   "properties": {
                     "message": {
                       "type": "string",
@@ -2767,7 +2908,11 @@
           "application/json": {
             "schema": {
               "type": "object",
-              "required": ["status", "message", "data"],
+              "required": [
+                "status",
+                "message",
+                "data"
+              ],
               "properties": {
                 "status": {
                   "type": "integer",
@@ -2779,7 +2924,9 @@
                 },
                 "data": {
                   "type": "object",
-                  "required": ["message"],
+                  "required": [
+                    "message"
+                  ],
                   "properties": {
                     "message": {
                       "type": "string",
@@ -2796,7 +2943,10 @@
     "schemas": {
       "auth": {
         "type": "object",
-        "required": ["email", "password"],
+        "required": [
+          "email",
+          "password"
+        ],
         "properties": {
           "email": {
             "description": "Email for registration and login",
@@ -2823,6 +2973,11 @@
             "type": "string",
             "example": "Кіт"
           },
+          "clubName": {
+            "description": "name user club",
+            "type": "string",
+            "example": "Sport Life"
+          },
           "phone": {
             "description": "User phone number",
             "type": "string",
@@ -2841,7 +2996,7 @@
           "abilities": {
             "description": "User abilities",
             "type": "string",
-            "example": "Coaching"
+            "example": "Coaching, mentoring"
           },
           "sport": {
             "description": "User sport",
@@ -2931,7 +3086,10 @@
               "format": "binary"
             },
             "description": "Array of image  for the user.",
-            "example": ["image1.jpg", "image2.jpg"]
+            "example": [
+              "image1.jpg",
+              "image2.jpg"
+            ]
           },
           "certificates": {
             "type": "array",
@@ -2940,7 +3098,10 @@
               "format": "binary"
             },
             "description": "Array of  for the user’s certificates.",
-            "example": ["certificate1.pdf", "certificate2.pdf"]
+            "example": [
+              "certificate1.pdf",
+              "certificate2.pdf"
+            ]
           },
           "description": {
             "type": "object",
@@ -2963,7 +3124,10 @@
               "abilities": {
                 "type": "array",
                 "description": "Coach abilities.",
-                "example": ["Coaching", "Mentoring"]
+                "example": [
+                  "Coaching",
+                  "Mentoring"
+                ]
               },
               "age": {
                 "type": "string",
@@ -2976,7 +3140,10 @@
                   "type": "string"
                 },
                 "description": "List of sport club equipment.",
-                "example": ["Pool", "Sauna"]
+                "example": [
+                  "Pool",
+                  "Sauna"
+                ]
               },
               "experience": {
                 "type": "string",
@@ -3186,7 +3353,13 @@
             "items": {
               "type": "string",
               "description": "What is the name of the sport?",
-              "example": ["Football", "Basketball", "Hockey", "Tennis", "Golf"]
+              "example": [
+                "Football",
+                "Basketball",
+                "Hockey",
+                "Tennis",
+                "Golf"
+              ]
             }
           },
           "role": {
@@ -3198,7 +3371,10 @@
       },
       "reviews": {
         "type": "object",
-        "required": ["ratings", "comment"],
+        "required": [
+          "ratings",
+          "comment"
+        ],
         "properties": {
           "_id": {
             "type": "string",
