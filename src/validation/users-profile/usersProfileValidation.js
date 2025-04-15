@@ -1,7 +1,14 @@
 import Joi from 'joi';
 import { patternLines } from '../../constants/patternLines.js';
 
-export const descriptionSchemaJoi = Joi.object({
+const workSchema = Joi.object({
+  firstName: Joi.string(),
+  lastName: Joi.string(),
+  address: Joi.string(),
+  city: Joi.string(),
+});
+
+const descriptionSchemaJoi = Joi.object({
   address: Joi.string(),
   city: Joi.string(),
   short_desc: Joi.string(),
@@ -42,16 +49,16 @@ export const userProfileSchemaJoi = Joi.object({
   images: Joi.array().items(Joi.string().uri()),
   certificates: Joi.array().items(Joi.string().uri()),
   description: descriptionSchemaJoi.optional(),
-  club: Joi.array().items(Joi.string()).optional(),
-  coach: Joi.array().items(Joi.string()).optional(),
-
+  club: workSchema,
+  coach: workSchema,
   //TODO change if you need
   favorite: Joi.array().items(Joi.object({ type: Joi.string() })),
   sport: Joi.string(),
 });
 
 export const userProfileUpdateSchemaJoi = Joi.object({
-  name: Joi.string().min(2).max(50),
+  firstName: Joi.string().min(2).max(50),
+  lastName: Joi.string().min(2).max(50),
   avatar: Joi.string().uri().allow(null, ''),
   images: Joi.array().items(Joi.string().uri()),
   club: Joi.array()

@@ -22,7 +22,7 @@ profileRouter.get(
 profileRouter.patch(
   '/',
   uploadFields,
-  // parseJsonFields(['description']),
+  // parseJsonFields,
   // validateBody(userProfileSchemaJoi),
   ctrlWrapper(updatedUserProfileController),
 );
