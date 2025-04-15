@@ -21,7 +21,7 @@ profileRouter.get(
 profileRouter.patch(
   '/',
   uploadFields,
-  // validateBody(userProfileUpdateSchemaJoi),
+  validateBody(userProfileSchemaJoi),
   ctrlWrapper(updatedUserProfileController),
 );
 
