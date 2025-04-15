@@ -98,7 +98,6 @@ export const createUserProfile = async (payload) => {
     club: payload.club || [],
     userId: payload.userId,
   });
-
   await newUserProfile.save();
   return newUserProfile;
 };
@@ -109,67 +108,78 @@ export const updateUserProfile = async (payload, userId, options = {}) => {
   if (!existingProfile) {
     throw new Error('User profile not found');
   }
+  console.log('payload', payload);
 
   let updatedClub = [];
   if (Array.isArray(payload.club)) {
-    try {
-      const combinedString = payload.club.join(',');
-      updatedClub = JSON.parse(combinedString);
-    } catch (error) {
-      console.error(
-        'Error parsing combined club JSON:',
-        error.message,
-        'Input:',
-        payload.club,
-      );
-      throw new Error('Invalid format for club');
-    }
-  } else if (typeof payload.club === 'string') {
-    try {
-      updatedClub = JSON.parse(payload.club);
-    } catch (error) {
-      console.error(
-        'Error parsing club:',
-        error.message,
-        'Input:',
-        payload.club,
-      );
-      throw new Error('Invalid format for club');
-    }
-  }
+    const club = payload.club;
 
-  updatedClub = updatedClub.map((item) => {
-    if (typeof item === 'object' && item !== null) {
-      return {
+    const allStrings = club.every((item) => typeof item === 'string');
+    const allObjects = club.every(
+      (item) => typeof item === 'object' && item !== null,
+    );
+
+    if (allStrings && club.length > 0) {
+      const clubString = club.join(',');
+
+      updatedClub = JSON.parse(clubString);
+    } else if (allObjects) {
+      updatedClub = club.map((item) => ({
         id: item.id || '',
         firstName: item.firstName || '',
         lastName: item.lastName || '',
         address: item.address || '',
         city: item.city || '',
-      };
+      }));
+    } else {
+      throw new Error(
+        'Invalid club array format — only strings or only objects allowed',
+      );
     }
-    console.error('Invalid club item:', item);
-    throw new Error('Invalid club item format');
-  });
+  } else if (typeof payload.club === 'string') {
+    try {
+      const parsed = JSON.parse(payload.club);
+
+      if (!Array.isArray(parsed)) {
+        throw new Error('Parsed club is not an array');
+      }
+
+      payload.club = parsed;
+    } catch (err) {
+      console.error('Помилка при парсингу рядка club:', err.message);
+      throw new Error('Invalid format for club');
+    }
+  } else {
+    throw new Error('Invalid format for club — expected array or string');
+  }
 
   let updatedCoach = [];
+
   if (Array.isArray(payload.coach)) {
-    updatedCoach = payload.coach.flatMap((item) => {
-      if (typeof item === 'string') {
-        try {
-          return JSON.parse(item);
-        } catch (error) {
-          console.error(
-            'Error parsing coach item:',
-            error.message,
-            'Input:',
-            item,
-          );
-          throw new Error('Invalid format for coach item');
-        }
-      }
-      return item;
-    });
+    const coach = payload.coach;
+
+    const allStrings = coach.every((item) => typeof item === 'string');
+    const allObjects = coach.every(
+      (item) => typeof item === 'object' && item !== null,
+    );
+
+    if (allStrings && coach.length > 0) {
+      const coachString = coach.join(',');
+
+      updatedClub = JSON.parse(coachString);
+    } else if (allObjects) {
+      updatedCoach = coach.map((item) => ({
+        id: item.id || '',
+        firstName: item.firstName || '',
+        lastName: item.lastName || '',
+        address: item.address || '',
+        city: item.city || '',
+      }));
+    } else {
+      throw new Error(
+        'Invalid club array format — only strings or only objects allowed',
+      );
+    }
   } else if (typeof payload.coach === 'string') {
     try {
       updatedCoach = JSON.parse(payload.coach);
@@ -183,20 +193,6 @@ export const updateUserProfile = async (payload, userId, options = {}) => {
       throw new Error('Invalid format for coach');
     }
   }
-
-  updatedCoach = updatedCoach.map((item) => {
-    if (typeof item === 'object' && item !== null) {
-      return {
-        id: item.id || '',
-        firstName: item.firstName || '',
-        lastName: item.lastName || '',
-        address: item.address || '',
-        city: item.city || '',
-      };
-    }
-    console.error('Invalid coach item:', item);
-    throw new Error('Invalid coach item format');
-  });
 
   let sportArray = [];
   if (Array.isArray(payload.sport)) {
@@ -254,7 +250,6 @@ export const updateUserProfile = async (payload, userId, options = {}) => {
     isNew: Boolean(updatedUserProfile?.lastErrorObject?.upserted),
   };
 };
-
 //delete user profile for logged in users
 export const deleteUserProfile = async (userId) => {
   const profile = await UserProfileModel.findOneAndDelete({ userId: userId });
