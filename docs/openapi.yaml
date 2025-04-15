@@ -65,7 +65,7 @@ paths:
   /favorites:
     get:
       $ref: '../swagger/paths/favorites/get.yaml'
-  /favorites/:id:
+  /favorites/{id}:
     post:
       $ref: '../swagger/paths/favorites/{id}/post.yaml'
     delete:
