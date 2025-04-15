@@ -2,7 +2,7 @@
 const parseType = (type) => {
     if (typeof type !== "string") return;
 
-    const isType = (type) => ["user", "trainer", "club"].includes(type);
+    const isType = (type) => ["costumer", "coach", "adminClub"].includes(type);
 
     return isType ? type : undefined;
 };

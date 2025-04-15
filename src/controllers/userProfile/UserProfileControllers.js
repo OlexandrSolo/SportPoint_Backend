@@ -29,6 +29,7 @@ export const getUserProfileController = async (req, res) => {
 export const updatedUserProfileController = async (req, res) => {
   const { user } = req;
   console.log('FILES:', req.files);
+  console.log(user);
 
   try {
     const userProfile = await getUserProfile(user._id);
