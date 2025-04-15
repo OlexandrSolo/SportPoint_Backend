@@ -6,8 +6,9 @@ export const descriptionSchemaJoi = Joi.object({
   city: Joi.string(),
   short_desc: Joi.string(),
   // abilities: Joi.string(),
-  abilities: Joi.array(),
+  abilities: Joi.array().items(Joi.string()),
   equipment: Joi.array().items(Joi.string()),
+  age: Joi.string(),
   // experience: Joi.array().items(Joi.date().iso()),
   experience: Joi.number(),
   schedule: Joi.array().items(
@@ -26,6 +27,7 @@ export const descriptionSchemaJoi = Joi.object({
   price: Joi.array().items(
     Joi.object({
       name: Joi.string(),
+      description: Joi.string(),
       amount: Joi.string().required(),
     }),
   ),

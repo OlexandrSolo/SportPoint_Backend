@@ -1,17 +1,20 @@
 import mongoose from 'mongoose';
 import { handleSaveError, setupUpdateValidator } from './hooks.js';
 
+// ✅
 const socialLinkSchema = new mongoose.Schema({
   name: { type: String, required: true },
   url: { type: String, required: true },
 });
 
+// ✅
 const pricesSchema = new mongoose.Schema({
   name: { type: String },
   description: { type: String },
   amount: { type: String, required: true },
 });
 
+// ✅
 const schedulesSchema = new mongoose.Schema({
   days: { type: String },
   hours: {
@@ -33,6 +36,7 @@ const workSchema = new mongoose.Schema({
   city: { type: String },
 });
 
+// ✅
 const descriptionSchema = new mongoose.Schema({
   address: { type: String },
   city: { type: String },
@@ -41,7 +45,7 @@ const descriptionSchema = new mongoose.Schema({
   age: { type: String },
   schedule: { type: [schedulesSchema] },
   equipment: { type: [String] },
-  experience: { type: String },
+  experience: { type: Number },
   price: { type: [pricesSchema] },
   social_links: { type: [socialLinkSchema] },
   phone: { type: String },
