@@ -23,8 +23,8 @@ profileRouter.patch(
   '/',
   uploadFields,
   // parseJsonFields(['description']),
-  validateBody(userProfileSchemaJoi),
-  // ctrlWrapper(updatedUserProfileController),
+  // validateBody(userProfileSchemaJoi),
+  ctrlWrapper(updatedUserProfileController),
 );
 
 export default profileRouter;
