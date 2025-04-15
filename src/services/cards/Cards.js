@@ -41,7 +41,7 @@ export const getAllCards = async ({
                 break;
             case "popular":
                 sortBy = "countReview";
-                sortOrder = "asc";
+                sortOrder = "desc";
                 break;
             case "price_asc":
                 sortBy = "description.price.amount";
