@@ -7,7 +7,8 @@ export const descriptionSchemaJoi = Joi.object({
   short_desc: Joi.string(),
   abilities: Joi.string(),
   equipment: Joi.array().items(Joi.string()),
-  experience: Joi.array().items(Joi.date().iso()),
+  // experience: Joi.array().items(Joi.date().iso()),
+  experience: Joi.number(),
   schedule: Joi.array().items(
     Joi.object({
       days: Joi.string(),
