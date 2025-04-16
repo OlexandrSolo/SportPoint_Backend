@@ -10,6 +10,7 @@ const pricesSchema = new mongoose.Schema({
   name: { type: String },
   description: { type: String },
   amount: { type: String, required: true },
+  image: { type: String }
 });
 
 const schedulesSchema = new mongoose.Schema({
