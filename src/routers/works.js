@@ -3,10 +3,12 @@ import { ctrlWrapper } from '../utils/ctrlWrapper.js';
 import auth from '../middlewares/auth.js';
 import worksAdd from '../controllers/works/addWorks.js';
 import worksUpdate from '../controllers/works/updateWork.js';
+import worksDelete from '../controllers/works/deleteWork.js';
 
 const router = express.Router();
 
 router.post('/', auth, ctrlWrapper(worksAdd));
 router.patch('/:id', auth, ctrlWrapper(worksUpdate));
+router.delete('/:id', auth, ctrlWrapper(worksDelete));
 
 export default router;

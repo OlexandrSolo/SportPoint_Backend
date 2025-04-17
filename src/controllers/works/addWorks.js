@@ -11,7 +11,7 @@ const worksAdd = async (req, res) => {
     res.status(201).json({
     status: 201,
     message: 'Тренування успішно додано!',
-    data 
+    data: data 
   });
  }
 

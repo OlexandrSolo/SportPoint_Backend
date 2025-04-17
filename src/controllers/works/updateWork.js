@@ -4,7 +4,7 @@ import updateWorkServer from '../../services/works/updateWorkService.js';
 const worksUpdate = async (req, res) => {
     const user = req.user;
     const { id } = req.params;
-    console.log(req.body);
+   
     if (user.role !== 'couch') {
         return res.status(401).json({ message: ErrorsApp.FORBIDDEN });
     }
