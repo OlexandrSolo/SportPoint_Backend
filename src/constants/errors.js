@@ -9,6 +9,7 @@ export const ErrorsApp = {
   NOT_VALID_EMAIL:
     'Ви ввели не валідний формат email адреси. Ввведіть email адресу в форматі user@example.com!',
   BAD_CODE: 'Ви ввели невірни код підтвердження!',
+  FORBIDDEN: 'У вас немає дозволу для здійснення цієї операції!',
 
   NOT_USER(email) {
     return `Юзера з email ${email} не існує!`;
