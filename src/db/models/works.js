@@ -1,25 +1,36 @@
-import mongoose, { Types } from 'mongoose';
+import mongoose from 'mongoose';
 
 const { Schema, model } = mongoose;
 
 const dateSchema = Schema({
-    day: {
-        type: String,
-        required: [true, 'day is required'],
+    dayStart: {
+        type: Date,
+        required: [true, 'Must provide start date and time'],
     },
-    date: {
-        type: String,
-        required: [true, 'date is required'],
+    dayEnd: {
+        type: Date,
+        required: [true, 'Must provide end date and time'],
     },
-    hourStart: {
-        type: String,
-        required: [true, 'hour start is required'],
-    },
-    hourEnd: {
-        type: String,
-        required: [true, 'hour end is required'],
-    }
 });
+
+// const dateSchema = Schema({
+//     day: {
+//         type: String,
+//         required: [true, 'day is required'],
+//     },
+//     date: {
+//         type: String,
+//         required: [true, 'date is required'],
+//     },
+//     hourStart: {
+//         type: String,
+//         required: [true, 'hour start is required'],
+//     },
+//     hourEnd: {
+//         type: String,
+//         required: [true, 'hour end is required'],
+//     }
+// });
 
 const clubSchema = Schema({
     id: {
@@ -49,8 +60,10 @@ const workSchema = Schema({
         type: String,
         required: [true, 'gym is required'],
     }
-}, { timestamps: true, timestamps: true,
-  versionKey: false });
+}, {
+    timestamps: true,
+    versionKey: false
+});
 
 const Works = model('works', workSchema);
 
