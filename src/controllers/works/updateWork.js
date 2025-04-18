@@ -5,7 +5,7 @@ const worksUpdate = async (req, res) => {
   const user = req.user;
   const { id } = req.params;
 
-  if (user.role !== 'couch') {
+  if (user.role !== 'coach') {
     return res.status(401).json({ message: ErrorsApp.FORBIDDEN });
   }
   const data = await updateWorkServer(id, user._id, req);

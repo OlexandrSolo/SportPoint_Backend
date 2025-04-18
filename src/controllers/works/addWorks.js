@@ -2,7 +2,7 @@ import { ErrorsApp } from '../../constants/errors.js';
 import addWorkServer from '../../services/works/addWorksServer.js';
 const worksAdd = async (req, res) => {
   const user = req.user;
-  if (user.role !== 'couch') {
+  if (user.role !== 'coach') {
     return res.status(401).json({ message: ErrorsApp.FORBIDDEN });
   }
 

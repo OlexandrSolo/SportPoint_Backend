@@ -4,7 +4,7 @@ import Works from '../../db/models/works.js';
 const worksGetAll = async (req, res) => {
   const user = req.user;
 
-  if (user.role !== 'couch') {
+  if (user.role !== 'coach') {
     return res.status(401).json({ message: ErrorsApp.FORBIDDEN });
   }
 

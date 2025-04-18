@@ -5,7 +5,7 @@ const worksDelete = async (req, res) => {
   const user = req.user;
   const { id } = req.params;
 
-  if (user.role !== 'couch') {
+  if (user.role !== 'coach') {
     return res.status(401).json({ message: ErrorsApp.FORBIDDEN });
   }
 
