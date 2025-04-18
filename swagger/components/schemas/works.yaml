@@ -1,0 +1,14 @@
+type: object
+required: _id
+  day
+  date
+  hourState
+  hourEnd
+properties:
+  _id:
+    type: string
+    example: '65f2dcd8e3b5a3a1b8a7e8e3'
+    description: "id todo's"
+  date:
+    type: string
+    example: ''
