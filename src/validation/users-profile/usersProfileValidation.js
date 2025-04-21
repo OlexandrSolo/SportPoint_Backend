@@ -12,7 +12,6 @@ const descriptionSchemaJoi = Joi.object({
   address: Joi.string(),
   city: Joi.string(),
   short_desc: Joi.string(),
-  // abilities: Joi.string(),
   abilities: Joi.array().items(Joi.string()),
   equipment: Joi.array().items(Joi.string()),
   age: Joi.string(),

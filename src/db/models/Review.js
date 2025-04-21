@@ -3,11 +3,11 @@ import { handleSaveError, setupUpdateValidator } from './hooks.js';
 
 const reportsSchema = new Schema({
     user: { type: Schema.Types.ObjectId, ref: 'auth' },
-    reason: { type: String, default: '' }, 
-    
-}, { 
+    reason: { type: String, default: '' },
+
+}, {
     timestamps: true,
-    versionKey: false 
+    versionKey: false
 });
 
 
@@ -15,7 +15,7 @@ const reviewSchema = new Schema({
 
     // user: { type: Schema.Types.ObjectId, ref: 'auth', require: true },
     owner: { type: Schema.Types.ObjectId, ref: 'auth', require: true },
-    userCommentId: { type: Schema.Types.ObjectId, ref: 'auth' }, 
+    userCommentId: { type: Schema.Types.ObjectId, ref: 'auth' },
     // club: { type: Schema.Types.ObjectId, ref: 'auth' }, 
     // trainer: { type: Schema.Types.ObjectId,  ref: 'auth'}, 
     ratings: {
@@ -26,13 +26,13 @@ const reviewSchema = new Schema({
         cleanliness: { type: Number, required: true, min: 1, max: 5 }
     },
     average: { type: Number, min: 0, max: 5, default: 0 },
-    comment: { type: String, required: true, minlength: 20, maxlength: 500 },
+    comment: { type: String, required: true, minlength: 10, maxlength: 500 },
     // images: { type: String }, 
-    adminReply: { type: String, default: '' }, 
+    adminReply: { type: String, default: '' },
     reports: [reportsSchema],
-}, { 
+}, {
     timestamps: true,
-    versionKey: false 
+    versionKey: false
 });
 
 reviewSchema.post('save', handleSaveError);
