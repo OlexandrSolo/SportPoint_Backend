@@ -8,6 +8,7 @@ export const addToFavorites = async (_id, cardId) => {
   if (!user) throw new createHttpError(404, `User ${_id} not found`);
 
   const cardExists = await UserProfileModel.exists({ _id: cardId });
+
   if (!cardExists) throw new createHttpError(404, `Card ${cardId} not found`);
 
   const currentCard = await UserProfileModel.findOne({ _id: cardId });
@@ -24,7 +25,7 @@ export const addToFavorites = async (_id, cardId) => {
 
   const favorite = {
     userId: user.userId,
-    role: user.role,
+    role: currentCard.role,
   };
 
   await UserProfileModel.findByIdAndUpdate(
@@ -55,13 +56,16 @@ export const deleteFavoriteCard = async (_id, cardId) => {
 export const getFavoriteCards = async (userId, role) => {
   const favoriteArray = [];
   const users = await UserProfileModel.find();
+
   for (let i = 0; i < users.length; i++) {
-    const isExistId = users[i].favorite.find(
-      (item) => item.userId.toString() === userId.toString(),
+    const favorites = Array.isArray(users[i].favorite) ? users[i].favorite : [];
+
+    const isExistId = favorites.find(
+      (item) => item.userId?.toString() === userId.toString(),
     );
 
-    if (isExistId) {
-      if (users[i].role === role) favoriteArray.push(users[i]);
+    if (isExistId && users[i].role === role) {
+      favoriteArray.push(users[i]);
     }
   }
 
