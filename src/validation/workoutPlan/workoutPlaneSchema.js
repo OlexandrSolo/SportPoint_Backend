@@ -33,16 +33,16 @@ const WorkoutPlanSchema = Joi.array().items(
   Joi.object({
     date: dateSchema.required(),
     selection: selectionSchema.required(),
-    selectedGym: Joi.string().required()
-  })
+    selectedGym: Joi.string(),
+  }),
 );
 
 export const updateWorkoutPlanSchema = Joi.array().items(
   Joi.object({
     date: dateSchema.optional(),
     selection: selectionSchema.optional(),
-    selectedGym: Joi.string()
-  })
+    selectedGym: Joi.string(),
+  }),
 );
 
 export const updateWorkoutPlan = updateWorkoutPlanSchema;

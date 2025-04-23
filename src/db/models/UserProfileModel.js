@@ -10,15 +10,7 @@ const pricesSchema = new mongoose.Schema({
   name: { type: String },
   description: { type: String },
   amount: { type: String, required: true },
-  image: { type: String }
-});
-
-const schedulesSchema = new mongoose.Schema({
-  days: { type: String },
-  hours: {
-    type: String,
-  },
-  date: { type: Date },
+  image: { type: String },
 });
 
 const favoriteSchema = new mongoose.Schema({
@@ -40,7 +32,7 @@ const descriptionSchema = new mongoose.Schema({
   short_desc: { type: String },
   abilities: { type: [String] },
   age: { type: String },
-  schedule: { type: [schedulesSchema] },
+  schedule: {},
   equipment: { type: [String] },
   experience: { type: Number },
   price: { type: [pricesSchema] },

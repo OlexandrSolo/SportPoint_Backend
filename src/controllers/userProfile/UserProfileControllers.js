@@ -35,13 +35,17 @@ export const updatedUserProfileController = async (req, res) => {
   // -----------------  Код Олександра
   const userProfile = await getUserProfile(user._id);
 
-  if (!userProfile) throw createHttpError(404, "User profile not found");
+  if (!userProfile) throw createHttpError(404, 'User profile not found');
 
   const descriptionObject = safeParseDescription(req.body.description);
 
-  const favoriteArray = req.body.favorite ? safeParseJSON(req.body.favorite) : userProfile.favorite;
+  const favoriteArray = req.body.favorite
+    ? safeParseJSON(req.body.favorite)
+    : userProfile.favorite;
   const clubArray = req.body.club ? req.body.club.split(',') : userProfile.club;
-  const coachArray = req.body.coach ? req.body.coach.split(',') : userProfile.coach;
+  const coachArray = req.body.coach
+    ? req.body.coach.split(',')
+    : userProfile.coach;
 
   const avatarUrl = req.files?.avatar?.[0]
     ? await handleFileUpload(req.files.avatar[0])
@@ -56,7 +60,6 @@ export const updatedUserProfileController = async (req, res) => {
     ? await handleMultipleFileUploads(req.files.certificates)
     : [];
   const updatedCertificates = [...userProfile.certificates, ...newCertificates];
-
   const updatedData = {
     ...req.body,
     userId: user._id,
@@ -73,7 +76,9 @@ export const updatedUserProfileController = async (req, res) => {
     favorite: favoriteArray,
   };
 
-  const updatedProfile = await updateUserProfile(updatedData, user._id, { new: true });
+  const updatedProfile = await updateUserProfile(updatedData, user._id, {
+    new: true,
+  });
 
   res.status(200).json({
     status: 200,

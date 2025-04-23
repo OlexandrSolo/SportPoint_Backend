@@ -2,6 +2,7 @@ import mongoose from 'mongoose';
 import { ReviewsCollection } from '../db/models/Review.js';
 import { UserProfileModel } from '../db/models/UserProfileModel.js';
 import createHttpError from 'http-errors';
+import WorkoutPlanCollection from '../db/models/workoutPlan.js';
 
 // get user profile for logged in user
 export const getUserProfile = async (userId) => {
@@ -9,6 +10,9 @@ export const getUserProfile = async (userId) => {
   if (!userProfile) {
     throw createHttpError(404, 'Profile not found');
   }
+
+  const schedule = await WorkoutPlanCollection.find({ userId: userId });
+
   let userComments = [];
   if (userProfile.role === 'customer') {
     const reviews = await ReviewsCollection.find({ owner: userId });
@@ -17,7 +21,6 @@ export const getUserProfile = async (userId) => {
     const userProfiles = await UserProfileModel.find({
       userId: { $in: userIds },
     });
-
     const reviewsWithProfiles = reviews.map((review) => {
       const profile = userProfiles.find(
         (userProfile) =>
@@ -77,8 +80,17 @@ export const getUserProfile = async (userId) => {
     userComments = reviewsWithProfiles;
   }
 
+  userProfile.description.schedule = [
+    ...(userProfile.description.schedule || []),
+    ...schedule,
+  ];
+
   return {
     ...userProfile,
+    description: {
+      ...userProfile.description,
+      schedule: userProfile.description.schedule,
+    },
     user_comments: userComments,
   };
 };
