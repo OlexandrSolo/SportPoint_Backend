@@ -8,7 +8,7 @@ import { uploadFields } from '../middlewares/multer.js';
 import auth from '../middlewares/auth.js';
 import { userProfileSchemaJoi } from '../validation/users-profile/usersProfileValidation.js';
 import { validateBody } from '../middlewares/validateBody.js';
-import { parseJsonFields } from '../middlewares/parseJsonFields.js';
+// import { parseJsonFields } from '../middlewares/parseJsonFields.js';
 
 const profileRouter = Router();
 
