@@ -83,7 +83,6 @@ export const getUserReviews = async (req, res) => {
 export const addReview = async (req, res) => {
   const { userCommentId, ratings, comment } = req.body;
   const userId = req.user._id;
-
   const { review, overallRating } = await reviewService.addReview(
     userId,
     userCommentId,
@@ -99,22 +98,23 @@ export const addReview = async (req, res) => {
   });
 };
 
-// export const getReviews = async (req, res) => {
-//     const { clubId, trainerId, sortBy } = req.query;
-//     const filter = {};
-//     if (clubId) filter.club = clubId;
-//     if (trainerId) filter.trainer = trainerId;
+export const getReviews = async (req, res) => {
+    const { clubId, trainerId, sortBy } = req.query;
+    const filter = {};
+    if (clubId) filter.club = clubId;
+    if (trainerId) filter.trainer = trainerId;
 
-//     const reviews = await reviewService.getReviews(filter, sortBy);
+    const reviews = await reviewService.getReviews(filter, sortBy);
 
-//     res.status(200).json({
-//         status: 200,
-//         message: 'Successfully retrieved reviews!',
-//         data: reviews,
-//     });
-// };
+    res.status(200).json({
+        status: 200,
+        message: 'Successfully retrieved reviews!',
+        data: reviews,
+    });
+};
 
-// редагування коментаря
+//редагування коментаря
+
 export const updateReview = async (req, res) => {
   const { id } = req.params;
   const { _id } = req.user;
@@ -149,12 +149,27 @@ export const replyToReview = async (req, res) => {
     req.user._id,
   );
 
+  
   res.status(200).json({
     status: 200,
     message: 'Reply added successfully!',
     data: review,
   });
 };
+
+// Редагування відповіді
+export const updateReplyToReview = async (req, res) => {
+  const { id } = req.params;
+  const { _id } = req.user;
+  const { adminReply } = req.body;
+  const newReply = await reviewService.updateReply(id, _id, adminReply);
+  
+  res.status(200).json({
+    status: 200,
+    message: 'Reply updated successfully!',
+    data: newReply
+  });
+}
 
 // поскаржитись на коментар
 export const reportReview = async (req, res) => {

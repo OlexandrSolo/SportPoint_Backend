@@ -112,6 +112,20 @@ export const replyToReview = async (reviewId, reply, userId) => {
     return review;
 };
 
+// редагувати відповідь на відгук
+
+export const updateReply = async (id, userId, adminReply) => {
+      const review = await ReviewsCollection.findById(id);
+    if (!review) throw createHttpError(404, 'Review not found');
+
+    if (userId.toString() !== review.userCommentId.toString())
+        throw createHttpError(404, 'You are not the user being commented on.');
+   
+    const newReply = await ReviewsCollection.findByIdAndUpdate({ _id: id },
+        adminReply, { new: true, fields: ['-createdAt', '-updatedAt'] })
+    return newReply;
+}
+
 // Поскаржитись на відгук
 export const reportReview = async (reviewId, userId, reason) => {
     const review = await ReviewsCollection.findById(reviewId);
