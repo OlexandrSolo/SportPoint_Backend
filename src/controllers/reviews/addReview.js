@@ -171,6 +171,18 @@ export const updateReplyToReview = async (req, res) => {
   });
 }
 
+export const deleteReplyToReview = async (req, res) => {
+  const { id } = req.params;
+  const { _id } = req.user;
+
+  await reviewService.deleteReply(id, _id);
+
+  res.status(200).json({
+    status: 200,
+    message: 'Reply deleted successfully!',
+  });
+}
+
 // поскаржитись на коментар
 export const reportReview = async (req, res) => {
   await reviewService.reportReview(
