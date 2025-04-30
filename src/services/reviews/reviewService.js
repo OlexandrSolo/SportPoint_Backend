@@ -29,7 +29,8 @@ const calculateOverallRatingForReview = async (userCommentId) => {
 //     return { review, overallRating: calculateOverallRatingForReview(review.ratings) };
 // };
 
-export const addReview = async (userId, userCommentId, ratings, comment) => {
+export const addReview = async (userId, userCommentId, ratings, comment, recommend) => {
+    
     if (!userCommentId) {
         throw createHttpError(400, 'The review must be linked to a club or trainer');
     }
@@ -40,7 +41,7 @@ export const addReview = async (userId, userCommentId, ratings, comment) => {
     );
 
     // Створюємо новий відгук
-    const review = await ReviewsCollection.create({ owner: userId, userCommentId, ratings, comment, average });
+    const review = await ReviewsCollection.create({ owner: userId, userCommentId, ratings, comment, average, recommend });
 
     if (!review) throw createHttpError(500, 'Server error');
 
@@ -63,7 +64,7 @@ export const updateReviewService = async (id, owner, body) => {
     const review = await ReviewsCollection.findById(id);
     review.ratings = body.ratings;
     review.comment = body.comment;
-    // review.images = body.images;
+    review.recommend = body.recommend;
 
     // Обчислюємо average
     const ratingValues = Object.values(body.ratings);
@@ -111,6 +112,32 @@ export const replyToReview = async (reviewId, reply, userId) => {
     await review.save();
     return review;
 };
+
+// редагувати відповідь на відгук
+
+export const updateReply = async (id, userId, adminReply) => {
+      const review = await ReviewsCollection.findById(id);
+    if (!review) throw createHttpError(404, 'Review not found');
+
+    if (userId.toString() !== review.userCommentId.toString())
+        throw createHttpError(404, 'You are not the user being commented on.');
+   
+    const newReply = await ReviewsCollection.findByIdAndUpdate({ _id: id },
+        adminReply, { new: true, fields: ['-createdAt', '-updatedAt'] })
+    return newReply;
+}
+
+// видалити відповідь на відгук
+export const deleteReply = async (id, userId) => {
+    const review = await ReviewsCollection.findById(id);
+    if (!review) throw createHttpError(404, 'Review not found');
+
+    if (userId.toString() !== review.userCommentId.toString())
+        throw createHttpError(404, 'You are not the user being commented on.');
+      const newReply = await ReviewsCollection.findByIdAndUpdate({ _id: id },
+       {adminReply: ''} , { new: true, fields: ['-createdAt', '-updatedAt'] })
+    return newReply;
+}
 
 // Поскаржитись на відгук
 export const reportReview = async (reviewId, userId, reason) => {
