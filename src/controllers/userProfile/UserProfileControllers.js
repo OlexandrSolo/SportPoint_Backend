@@ -30,7 +30,6 @@ export const getUserProfileController = async (req, res) => {
 //update user profile for logged users
 export const updatedUserProfileController = async (req, res) => {
   const { user } = req;
-  // console.log('FILES:', req.files);
 
   // -----------------  Код Олександра
   const userProfile = await getUserProfile(user._id);

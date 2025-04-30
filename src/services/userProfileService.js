@@ -120,7 +120,6 @@ export const updateUserProfile = async (payload, userId, options = {}) => {
   if (!existingProfile) {
     throw new Error('User profile not found');
   }
-  console.log('payload', payload);
 
   let updatedClub = [];
   if (Array.isArray(payload.club)) {
@@ -223,7 +222,6 @@ export const updateUserProfile = async (payload, userId, options = {}) => {
 
   const updatedSport = [
     ...new Set([
-      ...(existingProfile.sport || []),
       ...sportArray.flatMap((item) => {
         try {
           if (typeof item === 'string' && item.startsWith('[')) {
