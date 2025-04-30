@@ -81,13 +81,15 @@ export const getUserReviews = async (req, res) => {
 };
 
 export const addReview = async (req, res) => {
-  const { userCommentId, ratings, comment } = req.body;
+  const { userCommentId, ratings, comment, recommend } = req.body;
+
   const userId = req.user._id;
   const { review, overallRating } = await reviewService.addReview(
     userId,
     userCommentId,
     ratings,
     comment,
+    recommend
   );
 
   res.status(201).json({
