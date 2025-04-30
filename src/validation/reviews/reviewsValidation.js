@@ -13,7 +13,7 @@ const reviewsSchema = (req, res, next) => {
         location: Joi.number().min(1).max(5).required(),
         cleanliness: Joi.number().min(1).max(5).required(),
     }).required(),
-    comment: Joi.string().min(5).max(500).required(),
+    comment: Joi.string().min(5).max(500).optional(),
     recommend: Joi.string().valid('yes', 'no').optional()
   });
 

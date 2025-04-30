@@ -23,7 +23,7 @@ const reviewSchema = new Schema({
         cleanliness: { type: Number, required: true, min: 1, max: 5 }
     },
     average: { type: Number, min: 0, max: 5, default: 0 },
-    comment: { type: String, required: true, minlength: 10, maxlength: 500 },
+    comment: { type: String, required: false, minlength: 10, maxlength: 500 },
     adminReply: { type: String, default: '' },
     recommend: {type: String, enum: ['yes', 'no' ],},
     reports: [reportsSchema],
