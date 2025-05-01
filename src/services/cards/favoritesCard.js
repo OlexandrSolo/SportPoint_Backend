@@ -25,7 +25,7 @@ export const addToFavorites = async (_id, cardId) => {
 
   const favorite = {
     userId: user.userId,
-    role: currentCard.role,
+    role: user.role,
   };
 
   await UserProfileModel.findByIdAndUpdate(
@@ -63,8 +63,11 @@ export const getFavoriteCards = async (userId, role) => {
     const isExistId = favorites.find(
       (item) => item.userId?.toString() === userId.toString(),
     );
+    const isExistRole = favorites.find(
+      (item) => item.role?.toString() === role.toString(),
+    );
 
-    if (isExistId && users[i].role === role) {
+    if (isExistId && isExistRole) {
       favoriteArray.push(users[i]);
     }
   }
