@@ -25,7 +25,7 @@ export const addToFavorites = async (_id, cardId) => {
 
   const favorite = {
     userId: user.userId,
-    role: currentCard.role,
+    role: user.role,
   };
 
   await UserProfileModel.findByIdAndUpdate(
