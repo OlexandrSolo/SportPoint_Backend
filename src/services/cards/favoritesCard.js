@@ -1,6 +1,7 @@
 import createHttpError from 'http-errors';
 import { UserProfileModel } from '../../db/models/UserProfileModel.js';
 
+/*
 // Додавання в обрані
 export const addToFavorites = async (_id, cardId) => {
   const user = await UserProfileModel.findOne({ userId: _id });
@@ -71,3 +72,32 @@ export const getFavoriteCards = async (userId, role) => {
 
   return favoriteArray;
 };
+*/
+// 67ff90a4fc98171e021d39e1
+export const addToFavorites = async (userId, favCardId) => {
+  const user = await UserProfileModel.findOne({ userId });
+
+  if (!user) throw createHttpError(404, "User not found");
+
+  const isCardinFav = user.favorite.find(card => card.userId.toString() === favCardId.cardId);
+
+  if (isCardinFav) {
+    throw createHttpError(409, `This card in his favorites list`);
+  }
+
+  const favCard = await UserProfileModel.findById(favCardId.cardId);
+
+  const updateUserFavorites = await UserProfileModel.findByIdAndUpdate(user._id,
+    {
+      $addToSet: {
+        favorite: { userId: favCard._id, role: favCard.role }
+      }
+    },
+    { new: true }
+  );
+
+};
+
+export const deleteFavoriteCard = async (_id, cardId) => { };
+
+export const getFavoriteCards = async (userId, role) => { };
