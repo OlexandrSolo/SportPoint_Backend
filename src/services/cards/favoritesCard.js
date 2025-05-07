@@ -73,7 +73,21 @@ export const getFavoriteCards = async (userId, role) => {
   return favoriteArray;
 };
 */
-// 67ff90a4fc98171e021d39e1
+export const getFavoriteCards = async (userId, role) => {
+  const user = await UserProfileModel.findOne({ userId });
+
+  const favoriteList = user.favorite.filter(favCard => favCard.role === role).map(favCard => favCard.userId);
+
+  const arrayList = await UserProfileModel.find({
+    _id: { $in: favoriteList }, role
+  });
+  if (!arrayList.length) {
+    throw createHttpError(404, "Your list is empty");
+  }
+
+  return arrayList;
+};
+
 export const addToFavorites = async (userId, favCardId) => {
   const user = await UserProfileModel.findOne({ userId });
 
@@ -96,8 +110,7 @@ export const addToFavorites = async (userId, favCardId) => {
     { new: true }
   );
 
+  return updateUserFavorites;
 };
 
 export const deleteFavoriteCard = async (_id, cardId) => { };
-
-export const getFavoriteCards = async (userId, role) => { };

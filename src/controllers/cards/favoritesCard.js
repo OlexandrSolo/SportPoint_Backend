@@ -78,6 +78,19 @@ export const getFavoritesCardController = async (req, res) => {
 */
 
 //New My Methods
+export const getFavoritesCardController = async (req, res) => {
+    const user = req.user;
+    const { role } = req.query;
+
+    const data = await getFavoriteCards(user._id, role);
+
+    res.status(200).json({
+        status: 200,
+        message: "Successfully search your favorite list",
+        data
+    });
+};
+
 /*
 Add to Fav
 1. Витягнти id користувача
@@ -99,5 +112,3 @@ export const addToFavoritesCardController = async (req, res) => {
 };
 
 export const deleteFavoritesCardController = async (req, res) => { };
-
-export const getFavoritesCardController = async (req, res) => { };
