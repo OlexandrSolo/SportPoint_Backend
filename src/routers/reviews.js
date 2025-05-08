@@ -6,6 +6,8 @@ import {
   updateReview,
   deleteReview,
   replyToReview,
+  updateReplyToReview,
+  deleteReplyToReview,
   reportReview,
 } from '../controllers/reviews/addReview.js';
 
@@ -28,6 +30,8 @@ router.post('/', auth, reviewsSchema, ctrlWrapper(addReview));
 router.patch('/:id', auth, reviewsSchema, ctrlWrapper(updateReview));
 router.delete('/:id', auth, ctrlWrapper(deleteReview));
 router.patch('/:id/reply', auth, replySchema, ctrlWrapper(replyToReview));
+router.patch('/:id/reply/update', auth, replySchema, ctrlWrapper(updateReplyToReview));
+router.delete('/:id/reply/delete', auth, ctrlWrapper(deleteReplyToReview));
 router.post('/:id/report', auth, reportsSchema, ctrlWrapper(reportReview));
 
 export default router;
