@@ -56,13 +56,13 @@ export const updateCoachServices = async (req, res) => {
   if (!updatedWorkout) {
     throw createHttpError(
       404,
-      "Workout plan not found or you don't have access",
+      "Coach services not found or you don't have access",
     );
   }
 
   res.status(200).json({
     status: 200,
-    message: 'Workout plan updated successfully!',
+    message: 'Coach services updated successfully!',
     data: updatedWorkout,
   });
 };
@@ -101,7 +101,7 @@ export const getAllCoachServicesController = async (req, res) => {
 
   res.json({
     status: 200,
-    message: 'Successfully find workout plans',
+    message: 'Successfully find coach services',
     data: allPlans,
   });
 };
