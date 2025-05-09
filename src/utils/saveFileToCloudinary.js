@@ -11,6 +11,7 @@ cloudinary.v2.config({
 });
 
 export const saveFileToCloudinary = async (file) => {
+  console.log(file);
   if (!file || !file.path) {
     throw new Error('File object is missing or has no path');
   }

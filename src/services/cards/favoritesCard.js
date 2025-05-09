@@ -63,8 +63,11 @@ export const getFavoriteCards = async (userId, role) => {
     const isExistId = favorites.find(
       (item) => item.userId?.toString() === userId.toString(),
     );
+    const isExistRole = favorites.find(
+      (item) => item.role?.toString() === role.toString(),
+    );
 
-    if (isExistId && users[i].role === role) {
+    if (isExistId && isExistRole) {
       favoriteArray.push(users[i]);
     }
   }

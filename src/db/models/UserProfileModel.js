@@ -9,7 +9,7 @@ const socialLinkSchema = new mongoose.Schema({
 const pricesSchema = new mongoose.Schema({
   name: { type: String },
   description: { type: String },
-  amount: { type: String, required: true },
+  amount: { type: Number, required: true },
   image: { type: String },
 });
 
@@ -35,7 +35,7 @@ const descriptionSchema = new mongoose.Schema({
   schedule: {},
   equipment: { type: [String] },
   experience: { type: Number },
-  price: { type: [pricesSchema] },
+  subscriptions: { type: [pricesSchema] },
   social_links: { type: [socialLinkSchema] },
   phone: { type: String },
   email: { type: mongoose.Schema.Types.String, ref: 'auth' },
