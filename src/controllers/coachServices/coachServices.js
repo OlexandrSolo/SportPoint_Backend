@@ -80,12 +80,12 @@ export const deleteCoachServices = async (req, res) => {
   const deletedWorkoutPlane = await deleteCoachServicesService(id, user._id);
 
   if (!deletedWorkoutPlane) {
-    throw createHttpError(404, 'Workout plane not found');
+    throw createHttpError(404, 'Coach services not found');
   }
 
   res.status(200).json({
     status: 200,
-    message: 'Workout plan deleted successfully!',
+    message: 'Coach services deleted successfully!',
     data: deletedWorkoutPlane,
   });
 };
