@@ -6,16 +6,17 @@ import reviewRoutes from './reviews.js';
 import CardsRouter from './cardsRoutes.js';
 import FavoritesCardsRouter from './favoriteRoutes.js';
 import workoutPlanRoutes from './workoutPlan.js';
+import coachServices from './coachServices.js';
 
 const router = Router();
 
-router.use("/auth", authRouter);
+router.use('/auth', authRouter);
 router.use('/cards', CardsRouter);
 router.use('/profile', profileRouter);
-router.use("/favorites", FavoritesCardsRouter);
+router.use('/favorites', FavoritesCardsRouter);
 router.use('/search', searchRouter);
 router.use('/reviews', reviewRoutes);
 router.use('/workoutPlan', workoutPlanRoutes);
-
+router.use('/services', coachServices);
 
 export default router;
