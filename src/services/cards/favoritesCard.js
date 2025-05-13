@@ -73,6 +73,7 @@ export const getFavoriteCards = async (userId, role) => {
   return favoriteArray;
 };
 */
+
 export const getFavoriteCards = async (userId, role) => {
   const user = await UserProfileModel.findOne({ userId });
 
@@ -82,7 +83,7 @@ export const getFavoriteCards = async (userId, role) => {
     _id: { $in: favoriteList }, role
   });
   if (!arrayList.length) {
-    throw createHttpError(404, "Your list is empty");
+    throw createHttpError(404, "No matching cards found");
   }
 
   return arrayList;
