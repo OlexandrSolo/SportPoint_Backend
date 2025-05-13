@@ -1,76 +1,43 @@
+import createHttpError from "http-errors";
 import { addToFavorites, deleteFavoriteCard, getFavoriteCards } from "../../services/cards/favoritesCard.js";
 
-// Додати в обране
-// export const addToFavoritesCardController = async (req, res) => {
-//     const { _id } = req.user;
-//     const { cardId } = req.query;
+export const getFavoritesCardController = async (req, res) => {
+    const user = req.user;
+    const { role } = req.query;
 
-//     const updateFavorites = await addToFavorites(_id, cardId);
-
-//     res.status(200).json({
-//         status: 200,
-//         message: "Added to favorites",
-//         favorites: updateFavorites
-//     });
-// };
-
-export const addToFavoritesCardController = async (req, res) => {
-    const { _id } = req.user;
-    const { cardId } = req.params;
-
-    const updateFavorites = await addToFavorites(_id, cardId);
+    const data = await getFavoriteCards(user._id, role);
 
     res.status(200).json({
         status: 200,
-        message: "Added to favorites",
-        favorites: updateFavorites
+        message: "Successfully search your favorite list",
+        data
     });
 };
 
-// Видалити з обраного
-// export const deleteFavoritesCardController = async (req, res) => {
-//     const { _id } = req.user;
-//     const { cardId } = req.query;
 
-//     await deleteFavoriteCard(_id, cardId);
+export const addToFavoritesCardController = async (req, res) => {
+    const { _id: userId } = req.user;
+    const favCardId = req.params;
 
-//     res.status(200).json({
-//         status: 200,
-//         message: "Successfully remove a card from favorites",
-//     });
-// };
+    const data = await addToFavorites(userId, favCardId);
+
+    res.status(200).json({
+        status: 200,
+        message: "Successfully addition card on your favorite list",
+        data
+    });
+};
+
 
 export const deleteFavoritesCardController = async (req, res) => {
     const { _id } = req.user;
     const { cardId } = req.params;
+    const data = deleteFavoriteCard({ _id }, cardId);
 
-    await deleteFavoriteCard(_id, cardId);
+    if (!data) { throw createHttpError(404, "User not found or card not in favorites"); }
 
     res.status(200).json({
         status: 200,
-        message: "Successfully remove a card from favorites",
-    });
-};
-
-// Отримати список обраного
-// export const getFavoritesCardController = async (req, res) => {
-//     const { _id: userId } = req.user;
-
-//     const favorites = await getFavoriteCards(userId);
-
-//     res.status(200).json({
-//         data: favorites
-//     });
-// };
-
-export const getFavoritesCardController = async (req, res) => {
-    const { _id: userId } = req.user;
-    const { role } = req.query;
-
-    const favorites = await getFavoriteCards(userId, role);
-
-    res.status(200).json({
-        data: favorites,
-        total: favorites.length
+        message: "Successfully deleted card from favorite list"
     });
 };
