@@ -14,12 +14,17 @@ const login = async (req, res) => {
   const normalizeEmail = email.toLowerCase();
 
   const user = await Auth.findOne({ email: normalizeEmail });
-
+ 
   if (!user) {
     return res
       .status(401)
       .json({ message: ErrorsApp.NOT_USER(normalizeEmail) });
   }
+
+  
+    if (!user.verify) {
+      return res.status(401).json({ message: ErrorsApp.NOT_VERIFICATION(normalizeEmail) });
+    }
 
   const passwordCompare = await bcrypt.compare(password, user.password);
 
