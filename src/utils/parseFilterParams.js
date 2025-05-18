@@ -28,7 +28,7 @@ const parseString = value => typeof value === "string" && value.trim().length > 
 
 //головна ф-ія обробки всіх інших
 export const parseFilterParams = query => {
-    const { role, rating, countReview, minPrice, maxPrice, address, sort, abilities } = query;
+    const { role, rating, countReview, minPrice, maxPrice, address, sort, abilities, city } = query;
 
     return {
         role: parseType(role),
@@ -38,6 +38,7 @@ export const parseFilterParams = query => {
         maxPrice: parseNumber(maxPrice),
         address: parseString(address),
         abilities: parseServices(abilities),
-        sort: sort
+        sort: sort,
+        city: parseString(city)
     };
 };
