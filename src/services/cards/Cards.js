@@ -13,16 +13,19 @@ export const getAllCards = async ({
     const matchStage = {};
     const pipeline = [];
 
-    pipeline.push({ $unwind: { path: "$description.price", preserveNullAndEmptyArrays: true } });
+    // pipeline.push({ $unwind: { path: "$description.subscriptions", prxeserveNullAndEmptyArrays: true } });
 
     pipeline.push({
         $addFields: {
-            convertedPrice: {
-                $convert: {
-                    input: "$description.price.amount",
-                    to: "double",
-                    onError: 0,
-                    onNull: 0
+            minSubscriptionPrice: {
+                $min: {
+                    $map: {
+                        input: "$description.subscriptions",
+                        as: "sub",
+                        in: {
+                            $toDouble: "$$sub.amount"
+                        }
+                    }
                 }
             }
         }
@@ -72,8 +75,10 @@ export const getAllCards = async ({
             sortField = 'countReview';
             break;
         case "price_asc":
+            sortField = "minSubscriptionPrice";
+            break;
         case "price_dsc":
-            sortField = 'convertedPrice';
+            sortField = "minSubscriptionPrice";
             break;
         default:
             sortField = 'createdAt';
