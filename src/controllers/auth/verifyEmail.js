@@ -1,8 +1,13 @@
+import dotenv from 'dotenv';
 import Auth from '../../db/models/auth.js';
 
 import { ErrorsApp } from '../../constants/errors.js';
 
 import verifyEmailService from '../../services/auth/verifyEmailService.js';
+
+dotenv.config();
+
+const { FRONT_END_LINK } = process.env;
 
 const verifyEmail = async (req, res) => {
   const { verificationToken } = req.params;
@@ -12,9 +17,13 @@ const verifyEmail = async (req, res) => {
     return res.status(401).json({ message: ErrorsApp.EMPTY_USER });
   }
 
-  const tokens = await verifyEmailService(user);
+  await verifyEmailService(user);
 
-  res.status(200).json(tokens);
+  res.writeHead(302, {
+    'Location': `${FRONT_END_LINK}/login`
+  });
+  res.end();
+
 };
 
 export default verifyEmail;
