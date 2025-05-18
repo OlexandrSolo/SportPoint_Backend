@@ -109,7 +109,7 @@ export const getAllCards = async ({
 
 export const getCardById = async (id) => {
     const card = await UserProfileModel.findOne({ _id: id });
-    const userComments = await ReviewsCollection.findOne({ owner: card.userId });
+    const userComments = await ReviewsCollection.find({ owner: card.userId });
 
     return {
         data: card,
