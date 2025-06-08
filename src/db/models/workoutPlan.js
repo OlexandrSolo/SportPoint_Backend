@@ -18,6 +18,10 @@ const SelectionSchema = Schema({
     type: String,
     required: [true, 'Name is required'],
   },
+  serviceName: {
+    type: String,
+    required: [true, 'Service name is required'],
+  },
   city: {
     type: String,
     required: [true, 'City is required'],

@@ -24,6 +24,7 @@ const userRegisterSchema = (req, res, next) => {
     }),
     address: Joi.string().optional(),
     city: Joi.string().optional(),
+    club: Joi.string(),
     // abilities: Joi.string().optional(),
     abilities: Joi.array().items(Joi.string()).optional(),
     sport: Joi.string().optional(),

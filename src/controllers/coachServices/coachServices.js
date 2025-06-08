@@ -16,8 +16,9 @@ export const addCoachServices = async (req, res) => {
     return res.status(403).json({ message: ErrorsApp.FORBIDDEN });
   }
 
-  const newPhotoUrls =
-    req.file?.image ?? (await handleFileUpload(req.files.image[0]));
+  const newPhotoUrls = req.file?.image
+    ? await handleFileUpload(req.files.image[0])
+    : '';
 
   const data = await addCoachServicesService(user._id, body, newPhotoUrls);
 
