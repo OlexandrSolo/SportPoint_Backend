@@ -80,16 +80,13 @@ export const getUserProfile = async (userId) => {
     userComments = reviewsWithProfiles;
   }
 
-  userProfile.description.schedule = [
-    ...(userProfile.description.schedule || []),
-    ...schedule,
-  ];
+  const schedules = [...(userProfile.description.schedule || []), ...schedule];
 
   return {
     ...userProfile,
     description: {
       ...userProfile.description,
-      schedule: userProfile.description.schedule,
+      schedule: schedules,
     },
     user_comments: userComments,
   };

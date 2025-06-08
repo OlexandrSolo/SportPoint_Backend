@@ -22,18 +22,16 @@ const register = async (req, res) => {
   const descriptionObject = req.body.description
     ? JSON.parse(req.body.description)
     : {};
-  const clubArray = [{
-    firstName: req.body.firstName ? req.body.firstName : '',
-    lastName: req.body.lastName ? req.body.lastName : '',
-    address: req.body.address ? req.body.address : '',
-    city: req.body.city ? req.body.city : '',
-  }];
-  const coachArray = [{
-    firstName: req.body.firstName ? req.body.firstName : '',
-    lastName: req.body.lastName ? req.body.lastName : '',
-    address: req.body.address ? req.body.address : '',
-    city: req.body.city ? req.body.city : '',
-  }];
+  const clubArray = JSON.parse(req.body.club);
+
+  const coachArray = [
+    {
+      firstName: req.body.firstName ? req.body.firstName : '',
+      lastName: req.body.lastName ? req.body.lastName : '',
+      address: req.body.address ? req.body.address : '',
+      city: req.body.city ? req.body.city : '',
+    },
+  ];
 
   const favoriteArray = req.body.favorite ? JSON.parse(req.body.favorite) : [];
 
@@ -45,7 +43,7 @@ const register = async (req, res) => {
     req.files?.certificates || [],
   );
 
-  const sport = req.body.sport ? [req.body.sport] : [];
+  const sport = req.body.sport ? JSON.parse(req.body.sport) : [];
 
   const user = await Auth.findOne({ email: normalizeEmail });
 

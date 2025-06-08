@@ -16,6 +16,10 @@ const selectionSchema = Joi.object({
     'string.base': 'Name must be a string',
     'any.required': 'Name is required',
   }),
+  serviceName: Joi.string().messages({
+    'string.base': 'Service name must be a string',
+    'any.required': 'Service name is required',
+  }),
   city: Joi.string().messages({
     'string.base': 'City must be a string',
     'any.required': 'City is required',
