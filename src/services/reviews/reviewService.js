@@ -155,7 +155,7 @@ export const addUsefulnessService = async (useful, user, id) => {
 
     if (!review) throw createHttpError(404, 'Review not found!');
 
-    if (review.userId === user) {
+    if (review.userId.toString() === user.toString()) {
         throw createHttpError(404, 'You cannot rate your comment!');
     }
     
