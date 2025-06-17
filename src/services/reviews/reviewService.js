@@ -150,6 +150,50 @@ export const reportReview = async (reviewId, userId, reason) => {
     await review.save();
 };
 
+export const addUsefulnessService = async (useful, user, id) => {
+    const review = await ReviewsCollection.findById(id);
+
+    if (!review) throw createHttpError(404, 'Review not found!');
+
+    if (review.userId === user) {
+        throw createHttpError(404, 'You cannot rate your comment!');
+    }
+    
+    const usefulness = review.usefulness;
+
+    if (usefulness && usefulness.length !== 0) {
+        const usefulArr = usefulness.filter(item => item.user.toString() === user.toString());
+        
+        if (usefulArr.length === 0) {
+            await ReviewsCollection.findByIdAndUpdate(
+                id,
+                { $push: { usefulness: {user, useful} } },
+                { new: true },
+              );
+        } else {
+            for (let i = 0; i < usefulness.length; i++) {
+                if (usefulness[i].user.toString() === user.toString()) {
+                    usefulness[i].useful = useful;
+                }
+            }
+           
+            await ReviewsCollection.findByIdAndUpdate(
+                id,
+                { $set: { usefulness: usefulness } },
+                { new: true },
+              );
+        }
+    } else {
+        await ReviewsCollection.findByIdAndUpdate(
+            id,
+            { $set: { usefulness: {user, useful} } },
+            { new: true },
+          ); 
+    }
+
+    return usefulness;
+}
+
 // Фільтр та сортування відгуків
 // export const getReviews = async (filter, sortBy) => {
 //     let reviews = await ReviewsCollection.find(filter).populate('user', 'email').exec();

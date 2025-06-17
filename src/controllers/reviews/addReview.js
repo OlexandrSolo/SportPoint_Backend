@@ -198,3 +198,17 @@ export const reportReview = async (req, res) => {
     message: 'Report submitted successfully!',
   });
 };
+
+// додати usefulness
+export const addUsefulness = async (req, res) => {
+  const { useful } = req.body;
+  const id = req.params.id;
+  const user = req.user._id;
+ const usefulness = await reviewService.addUsefulnessService(useful, user, id);
+
+  res.status(200).json({
+    status: 200,
+    usefulness,
+    message: 'add usefulness submitted successfully!',
+  });
+}

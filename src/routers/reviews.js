@@ -9,6 +9,7 @@ import {
   updateReplyToReview,
   deleteReplyToReview,
   reportReview,
+  addUsefulness
 } from '../controllers/reviews/addReview.js';
 
 import auth from '../middlewares/auth.js';
@@ -28,6 +29,7 @@ router.get('/owner/:id', ctrlWrapper(getOwnerReviews));
 router.get('/user/:id', ctrlWrapper(getUserReviews));
 router.post('/', auth, reviewsSchema, ctrlWrapper(addReview)); 
 router.patch('/:id', auth, reviewsSchema, ctrlWrapper(updateReview));
+router.patch('/:id/usefulness', auth, ctrlWrapper(addUsefulness))
 router.delete('/:id', auth, ctrlWrapper(deleteReview));
 router.patch('/:id/reply', auth, replySchema, ctrlWrapper(replyToReview));
 router.patch('/:id/reply/update', auth, replySchema, ctrlWrapper(updateReplyToReview));
