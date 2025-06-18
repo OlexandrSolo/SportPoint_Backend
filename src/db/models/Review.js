@@ -10,6 +10,11 @@ const reportsSchema = new Schema({
     versionKey: false
 });
 
+const usefulnessSchema = new Schema({
+    user: { type: Schema.Types.ObjectId, ref: 'auth' },
+    useful: {type: String, enum: ['yes', 'no' ]},
+})
+
 
 const reviewSchema = new Schema({
 
@@ -25,8 +30,9 @@ const reviewSchema = new Schema({
     average: { type: Number, min: 0, max: 5, default: 0 },
     comment: { type: String, required: false, minlength: 10, maxlength: 500 },
     adminReply: { type: String, default: '' },
-    recommend: {type: String, enum: ['yes', 'no' ],},
+    recommend: {type: String, enum: ['yes', 'no' ]},
     reports: [reportsSchema],
+    usefulness: [usefulnessSchema],
 }, {
     timestamps: true,
     versionKey: false
