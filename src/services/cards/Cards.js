@@ -116,6 +116,15 @@ export const getCardById = async (id) => {
     const card = await UserProfileModel.findOne({ _id: id });
     const userComments = await ReviewsCollection.find({ userCommentId: card.userId });
 
+    for (let i = 0; i < userComments.length; i++) {
+        if (userComments[i].usefulness) {
+            const yes = userComments[i].usefulness.filter(({useful}) => useful === 'yes');
+            const no = userComments[i].usefulness.filter(({ useful }) => useful === 'no');
+            const plainComment = userComments[i].toObject();
+            userComments[i] = { ...plainComment, yes: yes.length, no: no.length };
+     }
+    }
+
     return {
         data: card,
         userComments
