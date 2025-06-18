@@ -154,8 +154,8 @@ export const addUsefulnessService = async (useful, user, id) => {
     const review = await ReviewsCollection.findById(id);
 
     if (!review) throw createHttpError(404, 'Review not found!');
-
-    if (review.userId.toString() === user.toString()) {
+ 
+    if (review.owner.toString() === user.toString()) {
         throw createHttpError(404, 'You cannot rate your comment!');
     }
     
