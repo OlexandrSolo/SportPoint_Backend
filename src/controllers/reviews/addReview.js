@@ -2,6 +2,7 @@ import createHttpError from 'http-errors';
 import * as reviewService from '../../services/reviews/reviewService.js';
 import { ReviewsCollection } from '../../db/models/Review.js';
 import { UserProfileModel } from '../../db/models/UserProfileModel.js';
+import { usefulnessCounter } from "../../helpers/reviewsUsefulnessCounter.js";
 
 // export const addReview = async (req, res) => {
 //     const { club, trainer, ratings, comment, images } = req.body;
@@ -40,10 +41,14 @@ export const getOwnerReviews = async (req, res) => {
     };
   });
 
+  
+  const comments = usefulnessCounter(reviewsWithProfiles);
+
+
   res.status(200).json({
     status: 200,
     message: 'Successfully retrieved reviews!',
-    data: reviewsWithProfiles,
+    data: comments,
     total: reviews.length,
   });
 };
@@ -72,10 +77,12 @@ export const getUserReviews = async (req, res) => {
     };
   });
 
+  const comments = usefulnessCounter(reviewsWithProfiles);
+
   res.status(200).json({
     status: 200,
     message: 'Successfully retrieved reviews!',
-    data: reviewsWithProfiles,
+    data: comments,
     total: reviews.length,
   });
 };
