@@ -2,6 +2,7 @@ import { SORT_ORDER } from "../../constants/sortOrder.js";
 import { ReviewsCollection } from "../../db/models/Review.js";
 import { UserProfileModel } from "../../db/models/UserProfileModel.js";
 import { calculatePaginationData } from "../../utils/calculatePaginationData.js";
+import { usefulnessCounter } from "../../helpers/reviewsUsefulnessCounter.js";
 
 export const getAllCards = async ({
     page = 1,
@@ -116,17 +117,19 @@ export const getCardById = async (id) => {
     const card = await UserProfileModel.findOne({ _id: id });
     const userComments = await ReviewsCollection.find({ userCommentId: card.userId });
 
-    for (let i = 0; i < userComments.length; i++) {
-        if (userComments[i].usefulness) {
-            const yes = userComments[i].usefulness.filter(({useful}) => useful === 'yes');
-            const no = userComments[i].usefulness.filter(({ useful }) => useful === 'no');
-            const plainComment = userComments[i].toObject();
-            userComments[i] = { ...plainComment, yes: yes.length, no: no.length };
-     }
-    }
+    // for (let i = 0; i < userComments.length; i++) {
+    //     if (userComments[i].usefulness) {
+    //         const yes = userComments[i].usefulness.filter(({useful}) => useful === 'yes');
+    //         const no = userComments[i].usefulness.filter(({ useful }) => useful === 'no');
+    //         const plainComment = userComments[i].toObject();
+    //         userComments[i] = { ...plainComment, yes: yes.length, no: no.length };
+    //  }
+    // }
+
+    const comments = usefulnessCounter(userComments);
 
     return {
         data: card,
-        userComments
+        comments
     };
 };
